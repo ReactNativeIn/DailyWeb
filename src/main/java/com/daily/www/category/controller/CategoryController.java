@@ -26,7 +26,7 @@ public class CategoryController {
 	}
 	
 	// 상품 등록 화면 세부 카테고리 Ajax
-	@RequestMapping(value ="/detail", method = RequestMethod.POST)
+	@RequestMapping(value ="/c_detail", method = RequestMethod.POST)
 	@ResponseBody
 	public List<CategoryVO> detailList(String c_name) { 
 		System.out.println(categoryService.detailList(c_name));

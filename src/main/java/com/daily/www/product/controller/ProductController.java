@@ -47,13 +47,13 @@ public class ProductController {
 		}else {
 			model.addAttribute("message", "상품 등록 실패");
 		}
-		return "/product/productList"; // 성공시 상품 리스트 화면 이동
+		return "admin/productList"; // ajax로 변경 이유 : SPA(single page application)로 해서 뒤로가기를 못하게 하기 위해 location.replace()
 		
 	}
 	
 	// 상품 리스트 화면 이동 - 관리자
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
-	public String productListForm() {
+	public String productListForm(Model model) {
 		
 		return "admin/productList";
 	}

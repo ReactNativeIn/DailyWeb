@@ -70,7 +70,7 @@ function categoryCall(){
  	 
  	 $.ajax({
 		type:			"post",
-		url:			"/category/detail",
+		url:			"/category/c_detail",
 		data:			{c_name:that},
 		dataType:		"text",
 		success:		function(data) {
@@ -80,7 +80,7 @@ function categoryCall(){
 				var dataN = JSON.parse(data);	
 			
 				// 기존 select 클린(자식 삭제)
-				$("#detail").empty();
+				$("#c_detail").empty();
 
 				for(var i = 0; i < dataN.length; i++){
 					var newOption = document.createElement("option");
@@ -90,14 +90,14 @@ function categoryCall(){
 					newOption.setAttribute("value", dataN[i].c_detail);
 					
 					// select 붙이기
-					$("#detail").append(newOption);	
+					$("#c_detail").append(newOption);	
 				}	
 
 				// 보이기
-				$("#detail").show();
+				$("#c_detail").show();
 			} else{
-				$("#detail").empty();
-				$("#detail").hide();
+				$("#c_detail").empty();
+				$("#c_detail").hide();
 			}// End - if
 		}
 	}); // End - ajax

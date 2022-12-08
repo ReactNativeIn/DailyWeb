@@ -70,8 +70,8 @@
 						
 					</select>
 				</div>
-				<div id = "detailDiv">
-					<select id="detail" name="detail" class="w-100">
+				<div id = "c_detailDiv">
+					<select id="c_detail" name="c_detail" class="w-100">
 						
 					</select>
 				</div>				
@@ -142,7 +142,7 @@
 		createColorId();
 		
 		// 처음 카테고리 + 세부 카테고리 숨기기
-		$("#detail").hide();
+		$("#c_detail").hide();
 		$("#c_name").hide();
 		
 		// 카테고리 불러오기
