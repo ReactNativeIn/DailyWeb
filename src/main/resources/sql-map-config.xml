@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+      PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+   
+<configuration>
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<typeAlias alias="board" type="com.daily.www.board.vo.BoardVO"/>
+		<typeAlias alias="cart" type="com.daily.www.cart.vo.CartVO"/>
+		<typeAlias alias="cartItem" type="com.daily.www.cartitem.vo.CartItemVO"/>
+		<typeAlias alias="category" type="com.daily.www.category.vo.CategoryVO"/>
+		<typeAlias alias="color" type="com.daily.www.color.vo.ColorVO"/>
+		<typeAlias alias="file" type="com.daily.www.file.vo.FileVO"/>
+		<typeAlias alias="member" type="com.daily.www.member.vo.MemberVO"/>
+		<typeAlias alias="orders" type="com.daily.www.orders.vo.OrdersVO"/>
+		<typeAlias alias="ordersItem" type="com.daily.www.ordersitem.vo.OrdersItemVO"/>
+		<typeAlias alias="payment" type="com.daily.www.payment.vo.PaymentVO"/>
+		<typeAlias alias="product" type="com.daily.www.product.vo.ProductVO"/>
+		<typeAlias alias="review" type="com.daily.www.review.vo.ReviewVO"/>
+		<typeAlias alias="size" type="com.daily.www.size.vo.SizeVO"/>
+	</typeAliases>
+	
+</configuration>

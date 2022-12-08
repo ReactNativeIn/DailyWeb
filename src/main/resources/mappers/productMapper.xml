@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="ProductDAO">
+	<!-- 상품 아이디 생성 -->
+	<select id="createId" resultType="int">
+		<![CDATA[
+			select ifnull(max(product_id), 0) + 1
+			from product
+		]]>
+	</select>
+	<!-- 상품 등록 -->
+	<insert id="insertProduct" parameterType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			insert into product (product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id)
+			values (#{product_id}, #{p_name}, #{p_explanation}, #{p_price}, now(), 0, 
+			(
+				select coalesce(c_id) 
+				from category 
+				where c_name = #{c_name} 
+		]]>
+			<include refid="category_id"/>
+		<![CDATA[
+			));
+		]]>
+
+	</insert>
+	
+	<sql id="category_id">
+		<if test="c_detail != null">
+			and c_detail = #{c_detail}
+		</if>
+	</sql>
+</mapper>

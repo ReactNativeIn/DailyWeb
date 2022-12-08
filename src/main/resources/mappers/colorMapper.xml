@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="ColorDAO">
+	<!-- 색상 아이디 생성 -->
+	<select id="creatId" resultType="int">
+		<![CDATA[
+			select ifnull(max(color_id), -1) + 1
+			from color
+		]]>
+	</select>
+	
+	<!-- 색상 등록 -->
+	<insert id="insertColor">
+		<![CDATA[
+			insert into color (color_id, product_id, color)
+			values (#{color_id}, #{product_id}, #{color})
+		]]>
+	</insert>
+</mapper>
