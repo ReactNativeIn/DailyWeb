@@ -1,23 +1,18 @@
 package com.daily.www;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.daily.www.cartitem.CartItemVO;
-import com.daily.www.color.ColorVO;
-import com.daily.www.member.MemberVO;
-import com.daily.www.product.ProductService;
-import com.daily.www.product.ProductVO;
-import com.daily.www.size.SizeVO;
+import com.daily.www.color.vo.ColorVO;
+import com.daily.www.member.vo.MemberVO;
+import com.daily.www.product.service.ProductService;
+import com.daily.www.product.vo.ProductVO;
+import com.daily.www.size.vo.SizeVO;
 
 
 /**
@@ -26,7 +21,7 @@ import com.daily.www.size.SizeVO;
 @Controller
 public class HomeController {
 	
-	@Inject
+	@Autowired
 	ProductService productService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -45,11 +40,5 @@ public class HomeController {
 		
 		return "home";
 	}
-	
-
-	
-
-	
-
 	
 }
