@@ -1,0 +1,244 @@
+	.webtoon .list_area .img_list {
+	    padding: 30px 0 5px;
+	    border-bottom: 1px solid #eaeaea;
+	    overflow: hidden;
+	    padding-left: 1px;
+	    zoom: 1;
+	}
+	.webtoon .list_area .img_list li {
+	    float: left;
+	    width: 231px;
+	    line-height: 17px;
+	}
+	.webtoon .list_area .img_list li em.ico_store {
+	    display: table-cell;
+	    position: relative;
+	    left: 4px;
+	}
+	.webtoon .list_area .img_list li .thumb {
+	    float: left;
+	    margin-right: 11px;
+	}
+	.webtoon .list_area .img_list li .thumb img {
+	    display: block;
+	}
+	.webtoon .list_area .img_list li .thumb a {
+	    display: block;
+	    position: relative;
+	}
+	.webtoon .list_area .img_list li dl {
+	    float: left;
+	    width: 124px;
+	    height: 109px;
+	    margin-top: 6px;
+	}
+	.webtoon .list_area .img_list li dt {
+	    display: table;
+	    font-weight: bold;
+	}
+	.webtoon .list_area .img_list li dt a {
+	    color: #222;
+	}
+	.webtoon .list_area .img_list li .date2 {
+	    padding-bottom: 1px;
+	    font-size: 11px;
+	    line-height: 13px;
+	    color: #767676;
+	}
+	.webtoon .list_area .img_list li .desc {
+	    letter-spacing: -1px;
+	}
+	.webtoon .list_area .img_list li .desc a {
+	    display: inline-block;
+	    max-width: 100%;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    color: #666;
+	}
+	.webtoon .list_area .img_list li .rating {
+	    line-height: 15px;
+	}
+	.webtoon .list_area .img_list li .more {
+	    margin-top: 13px;
+	}
+	.webtoon .list_area .img_list li .more a {
+	    display: inline-block;
+	    padding: 0 4px 0 1px;
+	    background: url(https://ssl.pstatic.net/static/comic/images/migration/webtoon/ico_r_arrow.gif) no-repeat right 6px;
+	    font-size: 11px;
+	    color: #767676;
+	    letter-spacing: -1px;
+	}
+	.webtoon .list_area .img_list li .more2 {
+	    margin-top: 7px;
+	}
+	.webtoon .list_area .img_list li .more2 a {
+	    display: inline-block;
+	    padding: 0 4px 0 1px;
+	    background: url(https://ssl.pstatic.net/static/comic/images/migration/webtoon/ico_r_arrow.gif) no-repeat right 6px;
+	    font-size: 11px;
+	    color: #767676;
+	    letter-spacing: -1px;
+	}
+	.webtoon .table_list_area {
+	    margin-top: -1px;
+	}
+	.webtoon .table_list_area table {
+	    width: 100%;
+	    border-collapse: collapsed;
+	    line-height: 18px;
+	    table-layout: fixed;
+	}
+	.webtoon .table_list_area table caption {
+	    display: none;
+	}
+	.webtoon .table_list_area table th {
+	    height: 29px;
+	    border-top: 2px solid #474747;
+	    border-bottom: 1px solid #b6b6b6;
+	    background: url(https://ssl.pstatic.net/static/comic/images/migration/webtoon/sprite_th2.gif) center no-repeat;
+	    text-align: center;
+	}
+	.webtoon .table_list_area table th span {
+	    display: block;
+	    overflow: hidden;
+	    text-indent: -1000px;
+	}
+	.webtoon .table_list_area table th.th_title {
+	    background-position: 111px 0;
+	}
+	.webtoon .table_list_area table th.th_rating {
+	    background-position: 46px -30px;
+	}
+	.webtoon .table_list_area table th.th_author {
+	    background-position: 70px -60px;
+	}
+	.webtoon .table_list_area table th.th_udate {
+	    background-position: 23px -90px;
+	}
+	.webtoon .table_list_area table th.th_author2 {
+	    background-position: 0 -120px;
+	}
+	.webtoon .table_list_area table th.th_theme {
+	    background-position: 0 -150px;
+	}
+	.webtoon .table_list_area table td {
+	    padding: 10px 0 9px 14px;
+	    border-bottom: 1px solid #eee;
+	    color: #555;
+	    vertical-align: top;
+	}
+	.webtoon .table_list_area table td.subject a {
+	    display: inline-block;
+	    margin-right: 2px;
+	    color: #222;
+	    vertical-align: top;
+	}
+	.webtoon .table_list_area table td.subject a + img {
+	    margin: 1px 0 0 8px;
+	}
+	.webtoon .table_list_area table td.subject .ico_new {
+	    margin-top: 3px;
+	}
+	.webtoon .table_list_area table td.rating {
+	    padding-top: 7px;
+	}
+	.webtoon .table_list_area table td.rating .star {
+	    _margin: 4px 0 -1px;
+	}
+	.webtoon .table_list_area table td.rating strong {
+	    margin-left: 2px;
+	}
+	.webtoon .table_list_area table td.date {
+	    font: 10px/16px tahoma;
+	    color: #777;
+	}
+	.webtoon .table_list_area table td.date span {
+	    margin-left: 4px;
+	    font-size: 10px;
+	    font-family: tahoma;
+	    color: #777;
+	}
+	.webtoon .table_list_area table .first td {
+	    padding-top: 23px;
+	}
+	.webtoon .table_list_area table .first td.rating {
+	    padding-top: 20px;
+	}
+	.webtoon .table_list_area table .last td {
+	    padding-bottom: 22px;
+	    border-bottom: 1px solid #b6b6b6;
+	}
+	.webtoon .table_list_area table .ico_adult {
+	    display: inline-block;
+	    margin: 2px 0 1px -1px !important;
+	}
+	.webtoon .table_list_area2 {
+	    padding-bottom: 7px;
+	    border-top: 2px solid #3e3e3e;
+	    border-bottom: 1px solid #b6b6b6;
+	    zoom: 1;
+	}
+	.webtoon .table_list_area2 .section {
+	    overflow: hidden;
+	    margin: -1px 0 1px;
+	    padding-top: 12px;
+	    padding-bottom: 13px;
+	    border-top: 1px solid #eee;
+	    zoom: 1;
+	}
+	.webtoon .table_list_area2 .section h4 {
+	    float: left;
+	    width: 156px;
+	    margin-top: 2px;
+	    font-weight: bold;
+	    color: #222;
+	    text-indent: 14px;
+	}
+	.webtoon .table_list_area2 .section table {
+	    float: left;
+	    width: 538px;
+	}
+	.webtoon .table_list_area2 .section thead {
+	    display: none;
+	}
+	.webtoon .table_list_area2 .section td {
+	    padding-top: 3px;
+	    padding-bottom: 1px;
+	    border: 0;
+	}
+	.webtoon .table_list_area2 .section td.rating {
+	    padding-top: 0;
+	}
+	.webtoon .author_list_area .thead {
+	    position: relative;
+	    height: 37px;
+	    background: #fff url(https://ssl.pstatic.net/static/comic/images/migration/webtoon/bg_table_list2.gif) no-repeat;
+	}
+	.webtoon .author_list_area .img_list {
+	    padding-bottom: 10px;
+	}
+	.webtoon .author_list_area .img_list li dl {
+	    height: 99px;
+	}
+	.webtoon .theme_list_area h4 {
+	    margin-top: 27px;
+	}
+	.webtoon .theme_list_area .thead {
+	    position: relative;
+	    height: 37px;
+	    background: url(https://ssl.pstatic.net/static/comic/images/migration/webtoon/bg_table_list2.gif) no-repeat 0 -50px;
+	}
+	.webtoon .theme_list_area .section h4 {
+	    width: 91px;
+	}
+	.webtoon .theme_list_area .section table {
+	    width: 603px;
+	}
+	.webtoon .theme_list_area .img_list {
+	    padding-bottom: 15px;
+	}
+	.webtoon .theme_list_area .img_list li dl {
+	    height: 99px;
+	}

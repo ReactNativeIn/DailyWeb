@@ -9,14 +9,14 @@ import lombok.Data;
 @Component("ordersVO")
 @Data
 public class OrdersVO {
-	private int orders_id;
-	private int usePoint;
-	private String o_comment;
-	private Date o_enroll;
-	private String o_state;
-	private int deliverCost;
-	private String addressee;
-	private String address;
-	private String phone;
-	private String id;
+	private int orders_id;		// 주문 아이디(기본키)
+	private int usePoint;		// 사용 포인트
+	private String o_comment;	// 요청사항(선택)
+	private Date o_enroll;		// 주문 날짜
+	private String o_state;		// 배송상태
+	private int deliverCost;	// 배송비
+	private String addressee;	// 받는사람 이름
+	private String address;		// 받는사람 주소
+	private String o_phone;		// 받는사람 전화번호
+	private String id;			// 멤버아이디
 }
