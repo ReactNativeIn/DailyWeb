@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
 <html>
 <head>
 	<title>Home</title>
@@ -32,13 +30,13 @@
 			<div class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block banner" src="${contextPath}/resources/images/test1.jpg"/>
+						<img class="d-block banner" src="/resources/images/test1.jpg"/>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block banner" src="${contextPath}/resources/images/test2.jpg"/>
+						<img class="d-block banner" src="/resources/images/test2.jpg"/>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block banner" src="${contextPath}/resources/images/test3.jpg"/>
+						<img class="d-block banner" src="/resources/images/test3.jpg"/>
 					</div>
 				</div>
 			</div>
@@ -117,4 +115,5 @@
 	
 	<jsp:include page="./common/footer.jsp"/>
 </body>
+
 </html>

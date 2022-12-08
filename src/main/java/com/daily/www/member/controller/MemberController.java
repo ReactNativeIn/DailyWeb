@@ -85,4 +85,10 @@ public class MemberController {
 		}
 		return "/member/ordersHistory";
 	}
+	
+	// 주문/결제 화면 이동
+	@RequestMapping(value = "/payment")
+	public String paymentForm() {
+		return "member/payment";
+	}
 }

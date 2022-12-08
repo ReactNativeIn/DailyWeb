@@ -120,34 +120,4 @@ function sizeBtn(event){
 	
 	that.parent().append(sizeOption);
 }
-
-// 색상 입력시 값 넣어주기(동적)
-function colorInput(event){
-	var that = $(event).parent().next().next().children().eq(0);
-	that.val(event.value);
-	
-}
  
-// 상품 등록 버튼 클릭시, ajax처리 , 성공 시 상품 리스트 화면 / 실패 시 이전의 데이터 유지 및 현재 상품 등록 화면
-function productInsert(){
-	alert("시작");
-	
-	
-	alert($("#c_name option:selected").val());
-	
-	$.ajax({
-		type: "POST",
-		url: "/product/productInsert",
-		data: {},
-		success: function(data){
-			if(data == "Y") {
-				alert("상품을 등록하였습니다.");
-			} else if(data == "N") {
-				alert("상품 등록이 실패하였습니다.");
-			}
-		},
-		error : function(data) {
-			alert("예상치 못한 에러");
-		}
-	});
-}

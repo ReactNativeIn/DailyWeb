@@ -1,10 +1,13 @@
 package com.daily.www.product.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daily.www.color.dao.ColorDAO;
 import com.daily.www.color.vo.ColorVO;
+import com.daily.www.common.util.Criteria;
 import com.daily.www.file.dao.FileDAO;
 import com.daily.www.file.vo.FileVO;
 import com.daily.www.product.dao.ProductDAO;
@@ -79,6 +82,20 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteProduct(int product_id) {
 		productDAO.deleteProduct(product_id);
+	}
+	
+	// new 상품 리스트 총 개수
+	@Override
+	public int listTotalCount(Criteria cri) throws Exception {	
+		//	logger.info("BoardServiceImpl 전체 게시글 수 구하기 (페이징 처리) ==> " + cri);
+		return productDAO.listTotalCount(cri);
+	}
+	
+	// new 상품 목록 보기 (페이징 처리)
+	@Override
+	public List<ProductVO> listPaging(Criteria cri) throws Exception {
+		//	logger.info("BoardServiceImpl 게시글 목록 보기 (페이징 처리) ==> " + cri);
+		return productDAO.listPaging(cri);
 	}
 	
 }

@@ -109,7 +109,8 @@
 		</span>
 		<div id="tool">
 			<input id="searchKeyword" type="text" name="searchKeyword" size="35" maxlength="35"/>
-			<a class="tool_a" href="#">
+			<!-- 임시로 주문/결제 화면 이동 -->
+			<a class="tool_a" href="/member/payment">
 				<i id="searchIcon" class="bi bi-search fs-5"></i>
 			</a>
 			<!-- 임시로 장바구니 대신, 잠깐 주문내역 화면 -->
@@ -139,7 +140,7 @@
 			<div class="row">
 				<ul id="category">
 					<li>
-						<a href="#">New</a>
+						<a href="/product/new">New</a>
 					</li>
 					<li class="drop">
 						<a href="#">남성</a>
@@ -166,11 +167,11 @@
 							</li>
 							<li>
 								<a href="#">바지</a>
-							</li>		
+							</li>
 						</ul>
 					</li>
 					<li>
-						<a href="#">남녀공용</a>
+						<a href="/product/남녀공용">남녀공용</a>
 					</li>
 					<li>
 						<a href="#">Q&A</a>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daily.www.orders">
+
+	<!-- 결제처리 -->
+	<insert id="payment" parameterType="orders">
+		<![CDATA[
+			INSERT INTO orders (usePoint, o_comment, o_enroll, o_state, deliverCost, addressee, address, o_phone, id) 
+			SELECT 4000, #{o_comment}, NOW(), "배송준비", 2000, #{addressee}, #{address}, #{o_phone}, #{id} 
+		]]>
+	</insert>
+
+</mapper>

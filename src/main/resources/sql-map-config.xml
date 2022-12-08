@@ -19,6 +19,9 @@
 		<typeAlias alias="product" type="com.daily.www.product.vo.ProductVO"/>
 		<typeAlias alias="review" type="com.daily.www.review.vo.ReviewVO"/>
 		<typeAlias alias="size" type="com.daily.www.size.vo.SizeVO"/>
+		
+		<!-- util -->
+		<typeAlias alias="criteria" type="com.daily.www.common.util.Criteria"/>
 	</typeAliases>
 	
 </configuration>

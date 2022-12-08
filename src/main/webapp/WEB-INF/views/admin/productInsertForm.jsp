@@ -83,12 +83,12 @@
 				<div class="optionWrap" style="border: 1px solid; margin-bottom: 20px; padding: 20px 5px">
 					<div class="colorDiv">			
 						<input type="hidden" name="colorList[0].product_id" value="${product_id}"/>
-						<input class="form-control w-25" type="text" name="colorList[0].color" placeholder="색상 입력"/>											
+						<input required class="form-control w-25" type="text" name="colorList[0].color" placeholder="색상 입력"/>											
 					</div>
 					<button class="sizeBtn" type="button" onclick="sizeBtn(this);">사이즈 / 재고 추가</button>
 					<div class="sizeDiv">
-						<input class="form-control w-25" type="text" name="sizeList[0].size" placeholder="사이즈 입력"/>
-						<input class="form-control w-25" type="number" name="sizeList[0].s_stock" min="0" placeholder="재고량 입력"/>										
+						<input required class="form-control w-25" type="text" name="sizeList[0].size" placeholder="사이즈 입력"/>
+						<input required class="form-control w-25" type="number" name="sizeList[0].s_stock" min="0" placeholder="재고량 입력"/>										
 						<input type="hidden" name="sizeList[0].color_id"/>	
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 				<span class="input-group-text fs-5">
 					상품명
 				</span>
-				<input type="text" class="form-control" id="p_name" name="p_name" placeholder="상품명을 입력해주세요"/>
+				<input required type="text" class="form-control" id="p_name" name="p_name" placeholder="상품명을 입력해주세요"/>
 			</div>
 			<div class="input-group">
 				<span class="input-group-text fs-5">
@@ -110,7 +110,7 @@
 				<span class="input-group-text fs-5">
 					상품가격
 				</span>
-				<input type="number" class="form-control" id="p_price" name="p_price" placeholder="상품가격" value="0"/>
+				<input required min="0" type="number" class="form-control" id="p_price" name="p_price" placeholder="상품가격"/>
 			</div>
 			<div class="input-group">
 				<div class="fs-5">
