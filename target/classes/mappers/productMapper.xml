@@ -65,7 +65,7 @@
 		<if test="name == 'new'.toString()">
 			c_name = "New" 
 		</if>
-		<if test="name == 'unisex'.toString()">
+		<if test="name == '남녀공용'.toString()">
 			c_name = "남녀공용"
 		</if>
 	</sql>

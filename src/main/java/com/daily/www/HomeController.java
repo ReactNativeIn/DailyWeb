@@ -43,7 +43,7 @@ public class HomeController {
 		// List<CartItemVO> list = CartService.cartList(member);
 		
 		
-		return "home";
+		return "payment";
 	}
 	
 
