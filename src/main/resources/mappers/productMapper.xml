@@ -57,7 +57,7 @@
 	<select id="detatil" parameterType="int" resultType="product">
 		<![CDATA[
 		SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id
-		FROM	T_PRODUCT
+		FROM	PRODUCT
 		WHERE	PRODUCT_ID	= #{product_id}
 		]]>
 	</select>
