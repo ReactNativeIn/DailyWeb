@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" 	uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +56,7 @@
 						<c:forEach var="list" items="${boardList}">
 							<tr>
 								<td align="center">${list.board_id}</td>
-								<td align="center"><a href="${contextPath}/board/boardDetail?board_id=${list.board_id}">${list.b_title}</a></td>
+								<td align="center"><a href="/board/boardDetail?board_id=${list.board_id}">${list.b_title}</a></td>
 								<td align="center">${list.b_content}</td>
 								<td align="center" style="color:gray;">${list.id}</td>
 								<td align="center" style="color:gray;"><fmt:formatDate value="${list.b_enroll}" pattern="yyyy년 MM월 dd일"/></td>

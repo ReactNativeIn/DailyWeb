@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>회원 등록 화면</title>
-	<script src="${contextPath}/resources/js/board.js"></script>
+	<script src="/resources/js/board.js"></script>
 	
 <style>
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);

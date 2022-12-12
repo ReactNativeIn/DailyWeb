@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" 	uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +39,7 @@
 			</div>
 			<div class="form-group">
 				<p align="center">
-					<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/board/boardList'">
+					<button type="button" class="btn btn-primary" onclick="location.href='/board/boardList'">
 						<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
 					</button>
 					<button type="button" class="btn btn-warning" onclick="fn_boardUpdateForm(${boardDetail.board_id})">
@@ -59,7 +57,7 @@
 <!-- 하단 메뉴 -->
 <jsp:include page="../common/footer.jsp" flush="false"/>
 
-	<script src="${contextPath}/resources/js/board.js"></script>
+	<script src="/resources/js/board.js"></script>
 </body>
 </html>
 

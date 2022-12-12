@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
-
 <html>
 <head>
 	<title>Home</title>
@@ -196,5 +193,5 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <!-- 함수 정의 -->
-<script src="${contextPath}/resources/js/payment.js"></script>
+<script src="/resources/js/payment.js"></script>
 </html>

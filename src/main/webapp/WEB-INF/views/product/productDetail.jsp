@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" 	uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,7 +145,7 @@
 
 		<jsp:include page="../common/footer.jsp" flush="false"/>
 		
-		<script src="${contextPath}/resources/js/product.js"></script>
+		<script src="/resources/js/product.js"></script>
 	
 	
 </body>
