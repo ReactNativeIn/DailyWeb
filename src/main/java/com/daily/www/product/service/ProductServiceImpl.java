@@ -137,4 +137,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return list;
 	}
+	
+	// 상품 번호에 해당하는 상품 정보 가져오기
+	@Override
+	public ProductVO productDetail() {
+		return productDAO.productDetail();
+	}
 }

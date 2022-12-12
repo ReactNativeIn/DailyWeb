@@ -107,4 +107,14 @@ public class ProductController {
 		
 		return mav;
 	}
+	
+	// 상품 번호에 해당하는 상품 정보 가져오기
+	@RequestMapping(value = "/productDetail", method = RequestMethod.GET)
+	public String productDetail(Model model) throws Exception {
+		
+		ProductVO productVO = productService.productDetail();
+		model.addAttribute("productDetail", productVO);
+		return "/product/productDetail";
+		
+	}
 }

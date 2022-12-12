@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daily.www.member.service.MemberService;
 import com.daily.www.member.vo.MemberVO;
@@ -20,6 +21,43 @@ public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	// 회원 가입 화면 불러오기
+	@RequestMapping(value = "/registerAjaxForm", method = RequestMethod.GET)
+	public String getRegisterAjaxForm() throws Exception {
+
+		System.out.println("MemberController 회원 가입 화면 불러오기 (AJAX) ==> ");
+		return "/member/registerAjax";
+		
+	}
+	
+	// 아이디 중복 검사 (AJAX)
+	@ResponseBody
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+	public int idCheck(MemberVO memberVO) throws Exception {
+
+		System.out.println("MemberController 아이디 중복 검사 (AJAX) id ==> " + memberVO.getId());
+		
+		int result = memberService.idCheck(memberVO);
+		System.out.println("result : " + result);
+		return result;
+	}
+	
+	
+	// 회원가입 처리
+	@RequestMapping(value = "/addMember", method=RequestMethod.POST)
+	public String addMember(MemberVO memberVO) throws Exception {
+
+		logger.info("MemberControllerImpl 회원가입 처리() 시작.....");
+		
+		
+		int result = 0;
+		// 사용자가 입력한 정보를 서비스에게 넘겨주어 처리하게 한다.
+		result = memberService.addMember(memberVO);
+		
+		return "redirect:/";
+		
+	}
 	
 	// 관리자 화면 이동
 	@RequestMapping(value = "/adminHome")
