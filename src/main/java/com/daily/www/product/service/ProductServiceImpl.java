@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 				for (SizeVO sizeVO : productDTO.getSizeList()) {
 					check = sizeDAO.inserSize(sizeVO);					
 				}
-			}else {
+			} else {
 				System.out.println("color 실패");
 			}
 			
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 			for(FileVO fileVO: productDTO.getFileList()) {
 				check = fileDAO.insertFile(fileVO);				
 			}
-		}else {
+		} else {
 			System.out.println("상품 실패");
 		}
 		

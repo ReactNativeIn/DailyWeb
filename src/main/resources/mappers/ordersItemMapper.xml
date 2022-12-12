@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrdersItemDAO">
+	<!-- 주문상품 등록 -->
+	<insert id="insertOrdersItem">
+		<![CDATA[
+			INSERT INTO ordersItem (oi_number, orders_id, product_id) 
+			VALUES (#{oi_number}, #{orders_id}, #{product_id})
+		]]>
+	</insert>
+</mapper>

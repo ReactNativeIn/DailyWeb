@@ -176,7 +176,8 @@
 							 <td><input class="form-control" type="text" id="request" name="request" maxLength="200" placeholder="요청 사항을 적어주세요 (200자 이내)"/></td>
 						</tr>
 				</table>
-				<input type='hidden' id="id" name="id" value="test10"/>
+				<input type='hidden' id="id" name="id" value="${member.id}"/>
+				<input type="hidden" id ="point" name="point" value="${member.point}"/>
 				<div  class=" row d-flex justify-content-center align-content-center">
 					<button type="button" class="btn btn-primary col-3 btn-lg" onclick="payment();">
 						결제하기

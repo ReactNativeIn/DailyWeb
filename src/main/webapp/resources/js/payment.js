@@ -82,6 +82,8 @@ function payment() {
  	let receiverNumber	= $("#receiverNumber1").val() + $("#receiverNumber2").val() + $("#receiverNumber3").val();
  	let request			= $("#request").val();
  	let id				= $("#id").val();
+ 	// let point			= $("#point").val();
+ 	
  	
  	
  	// alert(request);
@@ -134,6 +136,13 @@ function payment() {
  		$("#address02").focus();
  		return false;
  	}
+ 	
+ 	/*
+ 	if(point < 상품가격 {
+ 		alert("포인트가 부족합니다.");
+ 		return false;
+ 	}
+ 	*/
  	
  	$.ajax({
  		type: "POST",
