@@ -1,9 +1,9 @@
 package com.daily.www.orders.controller;
 
-import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,20 +18,23 @@ public class OrdersController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 	
-	@Inject
+	@Autowired
 	OrdersService ordersService;
 	
+	
+	
 	// 주문/결제 화면 이동
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public void test() {
-		System.out.println("test");
+	@RequestMapping(value="/payment", method=RequestMethod.GET)
+	public String payment() {
+		
+		return "/member/payment";
 	}
 	
 	
 	
 	@ResponseBody
 	@RequestMapping(value="/orderComplete", method=RequestMethod.POST)
-	public String payment(OrdersVO ordersVO) throws Exception {
+	public String orderComplete(OrdersVO ordersVO) throws Exception {
 		
 		logger.info("OrdersControllerImpl 결제 시작...");
 		
