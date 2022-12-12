@@ -119,4 +119,10 @@ public class MemberController {
 	public String paymentForm() {
 		return "member/payment";
 	}
+	
+	// MyPage 화면 이동
+	@RequestMapping(value = "/mypage")
+	public String mypageForm() {
+		return "member/myPage";
+	}
 }
