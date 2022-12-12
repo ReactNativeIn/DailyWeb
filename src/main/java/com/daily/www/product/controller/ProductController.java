@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.daily.www.common.util.Criteria;
@@ -34,8 +35,9 @@ public class ProductController {
 	}	
 	
 	// 상품 등록 - 관리자
+	@ResponseBody
 	@RequestMapping(value = "/productInsert", method = RequestMethod.POST)
-	public String productInsert(ProductDTO productDTO, Model model) {
+	public String productInsert(ProductDTO productDTO) {
 		int check = -1;
 		System.out.println("productInsert");
 		System.out.println("확인 : " + productDTO);
@@ -43,18 +45,16 @@ public class ProductController {
 		check = productService.insertProudct(productDTO);
 		
 		if(check == 1) {
-			model.addAttribute("message", "상품 등록 성공");			
+			return "Y";			
 		}else {
-			model.addAttribute("message", "상품 등록 실패");
+			return "N";
 		}
-		return "admin/productList"; // ajax로 변경 이유 : SPA(single page application)로 해서 뒤로가기를 못하게 하기 위해 location.replace()
-		
 	}
 	
 	// 상품 리스트 화면 이동 - 관리자
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
 	public String productListForm(Model model) {
-		
+		System.out.println("들림");
 		return "admin/productList";
 	}
 	

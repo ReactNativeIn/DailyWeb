@@ -1,6 +1,7 @@
 package com.daily.www.file.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,13 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public List<FileVO> getFileList(int product_id){
 		return sqlSession.selectList(NAMESPACE + ".getFileList", product_id);
+	}
+	
+	// 파일 검색 - 상품들에 해당하는 파일 리스트
+	@Override
+	public List<FileVO> getProductsFileList(Map<String, String[]> product_id){
+		
+		System.out.println(sqlSession.selectList(NAMESPACE + ".getProductsFileList", product_id));
+		return sqlSession.selectList(NAMESPACE + ".getProductsFileList", product_id);
 	}
 }

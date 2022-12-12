@@ -1,14 +1,18 @@
 package com.daily.www.orders.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.daily.www.member.vo.MemberVO;
 import com.daily.www.orders.service.OrdersService;
 import com.daily.www.orders.vo.OrdersVO;
 
@@ -18,7 +22,7 @@ public class OrdersController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 	
-	@Inject
+	@Autowired
 	OrdersService ordersService;
 	
 	// 주문/결제 화면 이동
@@ -27,7 +31,20 @@ public class OrdersController{
 		System.out.println("test");
 	}
 	
-	
+	// 내정보 - 주문내역 화면 이동
+	@RequestMapping(value = "/ordersHistory")
+	public String ordersHistory(String id, HttpSession session, Model model) {
+		
+		if(session.getAttribute("member") == null) { // 로그인 상태가 아니면 주문내역 화면 이동 못함
+			return "member/loginForm";
+		}
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		model.addAttribute("list", ordersService.listOrders(member.getId()));
+		
+		
+		return "/member/ordersHistory";
+	}
 	
 	@ResponseBody
 	@RequestMapping(value="/orderComplete", method=RequestMethod.POST)

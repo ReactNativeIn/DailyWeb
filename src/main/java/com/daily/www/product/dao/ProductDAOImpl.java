@@ -43,6 +43,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	// new 상품 리스트 총 개수
+	@Override
 	public int listTotalCount(Criteria cri) throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE + ".listTotalCount", cri);
@@ -55,5 +56,12 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectList(NAMESPACE + ".listPaging", cri);
 	}
 	
+	// 메인 - New랑 BestItem
+	@Override
+	public List<ProductDTO> listMainNew(){
+		List<ProductDTO> pro = sqlSession.selectList(NAMESPACE + ".main_new");
+		pro.addAll(sqlSession.selectList(NAMESPACE + ".main_BestItem"));
+		return pro;
+	}
 	
 }

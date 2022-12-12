@@ -120,4 +120,27 @@ function sizeBtn(event){
 	
 	that.parent().append(sizeOption);
 }
- 
+
+// 상품 등록 - 상품 등록 버튼
+function insertBtn(){
+	alert("클릭");
+	console.log($("#productForm"));
+	let productForm = $("#productForm").serialize();
+	$.ajax({
+			type:			"post",
+			url:			"/product/productInsert",
+			data:			productForm,
+			dataType:		"text",
+			success:		function(data) {
+				if(data == "Y"){
+					alert("상품 등록 성공");
+					location.replace("/product/productList");	
+				} else if(data == "N"){
+					alert("상품 등록 실패");
+				}
+			},
+			error : function(){
+				alert("예상치 못한 에러");
+			}
+	});
+}
