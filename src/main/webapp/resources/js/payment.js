@@ -137,13 +137,13 @@ function payment() {
  	
  	$.ajax({
  		type: "POST",
- 		url: "/DailyWeb/orders/orderComplete",
+ 		url: "/orders/orderComplete",
  		data: {address:address, addressee:receiverName, o_comment:request, id:id, o_phone:receiverNumber},
  		success: function(data) {
  			if(data == "Y") {
  				alert("주문이 완료되었습니다.");
  				// 결제 완료되면 메인화면으로 이동한다.
- 				location.replace("${contextPath}/DailyWeb");
+ 				location.replace("/");
  			}
  		},
  		error: function(data) {

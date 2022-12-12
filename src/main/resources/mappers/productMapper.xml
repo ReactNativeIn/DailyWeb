@@ -2,11 +2,40 @@
 <!DOCTYPE mapper
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="ProductDAO">
+	<!-- 상품 아이디 생성 -->
+	<select id="createId" resultType="int">
+		<![CDATA[
+			select ifnull(max(product_id), 0) + 1
+			from product
+		]]>
+	</select>
+	<!-- 상품 등록 -->
+	<insert id="insertProduct" parameterType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			insert into product (product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id)
+			values (#{product_id}, #{p_name}, #{p_explanation}, #{p_price}, now(), 0, 
+			(
+				select coalesce(c_id) 
+				from category 
+				where c_name = #{c_name} 
+		]]>
+			<include refid="category_id"/>
+		<![CDATA[
+			));
+		]]>
 
-<mapper namespace="com.daily.www.product">
+	</insert>
+	
+	<sql id="category_id">
+		<if test="c_detail != null">
+			and c_detail = #{c_detail}
+		</if>
+	</sql>
 
 	<!-- 상품수 -->
-	<select id="listTotalCount" parameterType="com.daily.common.util.Criteria" resultType="integer">
+	<select id="listTotalCount" parameterType="criteria" resultType="integer">
 		<![CDATA[
 			SELECT COUNT(*) 
 			FROM product JOIN category 
@@ -17,7 +46,7 @@
 	</select>
 	
 	<!-- 상품목록 불러오기 (페이징) -->
-	<select id="listPaging" parameterType="hashmap" resultType="com.daily.www.product.ProductVO">
+	<select id="listPaging" resultType="product">
 		<![CDATA[
 			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, brd.category_id
 			FROM (

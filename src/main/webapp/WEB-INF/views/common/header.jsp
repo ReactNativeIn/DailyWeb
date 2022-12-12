@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -18,14 +19,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 <!-- 폰트어썸 -->
-<script src="https://kit.fontawesome.com/52943f354a.js" crossorigin="anonymous"></script>	
-
+<script src="https://kit.fontawesome.com/52943f354a.js" crossorigin="anonymous"></script>
 
 <style>
 	header {
 		min-width: 600px;
 	}
-	a:link, a:visited, a:hover, a:active{
+	a, a:link, a:visited, a:hover, a:active{
 		color: black;
 		text-decoration: none;
 	}
@@ -91,7 +91,7 @@
 	$(function(){
 		$(window).on("resize", function(){
 			var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-			if(windowWidth < 800){
+			if(windowWidth < 1000){
 				$("#searchKeyword").hide();
 			}else {
 				$("#searchKeyword").show();		
@@ -105,19 +105,34 @@
 <header>
 	<div class="container" style="padding: 100px 0px">
 		<span id="logo">
-			<a href="#">D A I L Y</a>
+			<a href="/">D A I L Y</a>
 		</span>
 		<div id="tool">
 			<input id="searchKeyword" type="text" name="searchKeyword" size="35" maxlength="35"/>
-			<a class="tool_a" href="#">
+			<!-- 임시로 주문/결제 화면 이동 -->
+			<a class="tool_a" href="/member/payment">
 				<i id="searchIcon" class="bi bi-search fs-5"></i>
 			</a>
-			<a class="tool_a" href="#">
+			<!-- 임시로 장바구니 대신, 잠깐 주문내역 화면 -->
+			<a class="tool_a" href="/member/ordersHistory">
 				<i id="cartIcon" class="bi bi-cart fs-5"></i>
 			</a>
-			<a class="tool_a" href="/member/loginForm">
-				<i id="loginIcon" class="bi bi-person fs-5"></i>
-			</a>
+			<c:choose>
+				<c:when test="${member != null }">
+					<a class="tool_a" href="/<c:if test="${member.id == 'admin' }">member/adminHome</c:if>"> <!-- MyPage -->
+						<span class="fw-bold fs-4">${member.nickname }님</span>
+					</a>
+					<a href="/member/logout">
+						<span class="btn btn-success">로그아웃</span>
+					</a>
+				</c:when>
+				<c:otherwise>
+					<a href="/member/loginForm">
+						<i id="loginIcon" class="bi bi-person fs-5"></i>
+					</a>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 	</div>
 	<nav style="border: 3px solid rgba(220, 220, 220, 1); border-left: none; border-right: none">
@@ -125,7 +140,7 @@
 			<div class="row">
 				<ul id="category">
 					<li>
-						<a href="${contextPath}/DailyWeb/list/new">New</a>
+						<a href="/product/new">New</a>
 					</li>
 					<li class="drop">
 						<a href="#">남성</a>
@@ -156,7 +171,7 @@
 						</ul>
 					</li>
 					<li>
-						<a href="${contextPath}/DailyWeb/list/남녀공용">남녀공용</a>
+						<a href="/product/남녀공용">남녀공용</a>
 					</li>
 					<li>
 						<a href="#">Q&A</a>

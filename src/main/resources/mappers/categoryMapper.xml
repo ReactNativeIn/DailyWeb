@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="CategoryDAO">
+	<!-- 카테고리 전체 리스트 -->
+	<select id="categoryList" resultType="category">
+		<![CDATA[
+			select *
+			from category
+			order by c_id desc;
+		]]>
+	</select>
+	
+	<!-- 중복x 카테고리 전체 리스트 -->
+	<select id="c_namelList" resultType="category">
+		<![CDATA[
+			select distinct c_name
+			from category;
+		]]>
+	</select>
+
+	<!-- 세부 전체 리스트 -->
+	<select id="detailList" parameterType="String" resultType="category">
+		<![CDATA[
+			select c_detail
+			from category
+			where c_name = #{c_name}
+		]]>
+	</select>
+	
+</mapper>

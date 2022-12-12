@@ -1,0 +1,26 @@
+package com.daily.www.product.dto;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.daily.www.color.vo.ColorVO;
+import com.daily.www.file.vo.FileVO;
+import com.daily.www.size.vo.SizeVO;
+
+import lombok.Data;
+
+@Component("productDTO")
+@Data
+public class ProductDTO {
+	private int product_id;
+	private String c_name;
+	private String c_detail;
+	private String p_name;
+	private String p_explanation;
+	private int p_price;
+	private List<ColorVO> colorList;
+	private List<SizeVO> sizeList;
+	private List<FileVO> fileList;
+
+}

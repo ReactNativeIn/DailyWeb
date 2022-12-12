@@ -1,8 +1,11 @@
 <%@	page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
+========
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 <!-- 더미데이터 -->
 <c:set var="sale" value="" />
 <!-- 컨트롤러에서 받아온 Name객체 소문자를 대문자로 -->
@@ -56,6 +59,18 @@
 		
 	}
 	
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
+========
+	/* 헤더 a태그와 속성 겹쳐서 안바뀜 */
+	.productInfoLi a {
+		color:#808080;
+	}
+	
+	.productInfoLi:hover {	/* 커서를 올려놨을때 스타일 */
+		opacity: 0.5;
+	}
+	
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 	/* 안보이게 하기용 css*/
 	.displaynone {
 		display: none;
@@ -75,6 +90,7 @@
 <body>
 
 	<!-- 헤더 -->
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 	<jsp:include page="./common/header.jsp" flush="false"/>
 	<style>
 		/* 헤더 a태그와 속성 겹쳐서 body에 적어줌 */
@@ -86,6 +102,10 @@
 			opacity: 0.5;
 		}
 	</style>
+========
+	<jsp:include page="./common/header.jsp" flush="false"/>
+	
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 	
 	<main class="container" style="margin-top:60px;">
 
@@ -94,13 +114,13 @@
 			<div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;"class="img-fluid mx-auto d-block w-100 h-100" src="${contextPath}/resources/images/cat01.jpg" alt="cat01"/>
+			      <img style="object-fit: contain;"class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat01.jpg" alt="cat01"/>
 			    </div>
 			    <div class="carousel-item mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="${contextPath}/resources/images/cat02.jpg" alt="cat02"/>
+			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat02.jpg" alt="cat02"/>
 			    </div>
 			    <div class="carousel-item mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="${contextPath}/resources/images/cat03.jpg" alt="cat03"/>
+			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat03.jpg" alt="cat03"/>
 			    </div>
 			  </div>
 			</div>
@@ -116,10 +136,18 @@
 					</div>
 					<div class="col-md-6">
 						<ul id="productInfoUl">
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 							<li class="productInfoLi"><a onclick="sort('popular');">인기상품</a></li>
 							<li class="productInfoLi"><a onclick="sort('high');">높은가격</a></li>
 							<li class="productInfoLi"><a onclick="sort('low');">낮은가격</a></li>
 							<li class="productInfoLi"><a onclick="sort('new');">최신상품</a></li>
+========
+							<li class="productInfoLi"><a href="#">사용후기</a></li>
+							<li class="productInfoLi"><a href="/product/new?list=popular">인기상품</a></li>
+							<li class="productInfoLi"><a href="/product/new?list=high">높은가격</a></li>
+							<li class="productInfoLi"><a href="/product/new?list=low">낮은가격</a></li>
+							<li class="productInfoLi"><a href="/product/new?list=new">최신상품</a></li>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 						</ul>
 					</div>
 				</div>
@@ -140,8 +168,12 @@
 							<div class="description">
 								<div class="productName" style="margin:10px 0 10px 0;">
 									<a href="#">
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 										<span class="title displaynone">상품명 : </span>
 										<span style="font-size:12px;">${List.p_name}</span>
+========
+										<img class="w-100 h-100" src="/resources/images/cat01.jpg" alt="..."/>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 									</a>
 								</div>
 								<hr/>
@@ -198,31 +230,51 @@
 					<c:when test="${empty param.list}">
 					    <c:if test="${pageMaker.prev}">
 						    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 						        <a class="btn btn-outline-secondary" href='<c:url value="/list/${Name}?page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>
+========
+						        <a class="btn btn-outline-secondary" href='<c:url value="/product/new?page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 						    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
 					    	<c:choose>
 					    		<c:when test="${pageNum == 1 && empty param.page}">
 								    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 								        <a class="btn btn-secondary disabled" href='<c:url value="/list/${Name}?page=1"/>'><i>${pageNum}</i></a>
+========
+								        <a class="btn btn-secondary disabled" href='<c:url value="/product/new?page=1"/>'><i>${pageNum}</i></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 								    </li>		    		
 					    		</c:when>
 					    		<c:when test="${param.page eq pageNum}">
 								    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 								        <a class="btn btn-secondary disabled" href='<c:url value="/list/${Name}?page=${pageNum}"/>'><i>${pageNum}</i></a>
+========
+								        <a class="btn btn-secondary disabled" href='<c:url value="/product/new?page=${pageNum}"/>'><i>${pageNum}</i></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 								    </li>
 								</c:when>
 								<c:otherwise>
 									<li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 								        <a class="btn btn-outline-secondary" href='<c:url value="/list/${Name}?page=${pageNum}"/>'><i>${pageNum}</i></a>
+========
+								        <a class="btn btn-outline-secondary" href='<c:url value="/product/new?page=${pageNum}"/>'><i>${pageNum}</i></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 								    </li>
 								</c:otherwise>
 							</c:choose>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 						    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 						        <a class="btn btn-outline-secondary" href='<c:url value="/list/${Name}?page=${pageMaker.endPage+1}"/>'><span class="glyphicon glyphicon-chevron-right"></span></a>
+========
+						        <a class="btn btn-outline-secondary" href='<c:url value="/product/new?page=${pageMaker.endPage+1}"/>'><span class="glyphicon glyphicon-chevron-right"></span></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 						    </li>
 					    </c:if>
 					</c:when>
@@ -230,31 +282,51 @@
 					<c:otherwise>
 					    <c:if test="${pageMaker.prev}">
 						    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 						        <a class="btn btn-outline-secondary" href='<c:url value="/list/${Name}?list=${param.list}&page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>
+========
+						        <a class="btn btn-outline-secondary" href='<c:url value="/product/new?list=${param.list}&page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 						    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
 					    	<c:choose>
 					    		<c:when test="${pageNum == 1 && empty param.page}">
 								    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 								        <a class="btn btn-secondary disabled" href='<c:url value="/list/${Name}?list=${param.list}&page=1"/>'><i>${pageNum}</i></a>
+========
+								        <a class="btn btn-secondary disabled" href='<c:url value="/product/new?list=${param.list}&page=1"/>'><i>${pageNum}</i></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 								    </li>		    		
 					    		</c:when>
 					    		<c:when test="${param.page eq pageNum}">
 								    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 								        <a class="btn btn-secondary disabled" href='<c:url value="/list/${Name}?list=${param.list}&page=${pageNum}"/>'><i>${pageNum}</i></a>
+========
+								        <a class="btn btn-secondary disabled" href='<c:url value="/product/new?list=${param.list}&page=${pageNum}"/>'><i>${pageNum}</i></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 								    </li>
 								</c:when>
 								<c:otherwise>
 									<li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 								        <a class="btn btn-outline-secondary" href='<c:url value="/list/${Name}?list=${param.list}&page=${pageNum}"/>'><i>${pageNum}</i></a>
+========
+								        <a class="btn btn-outline-secondary" href='<c:url value="/product/new?list=${param.list}&page=${pageNum}"/>'><i>${pageNum}</i></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 								    </li>
 								</c:otherwise>
 							</c:choose>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 						    <li>
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/productList.jsp
 						        <a class="btn btn-outline-secondary" href='<c:url value="/list/${Name}?list=${param.list}&page=${pageMaker.endPage+1}"/>'><span class="glyphicon glyphicon-chevron-right"></span></a>
+========
+						        <a class="btn btn-outline-secondary" href='<c:url value="/product/new?list=${param.list}&page=${pageMaker.endPage+1}"/>'><span class="glyphicon glyphicon-chevron-right"></span></a>
+>>>>>>>> develop:src/main/webapp/WEB-INF/views/product/new.jsp
 						    </li>
 					    </c:if>					
 					</c:otherwise>
