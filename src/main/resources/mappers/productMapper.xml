@@ -53,6 +53,16 @@
 		]]>
 	</select>
 	
+ 	<!-- 상품 번호에 해당하는 상품 정보 가겨오기 -->
+	<select id="detatil" parameterType="int" resultType="product">
+		<![CDATA[
+		SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id
+		FROM	PRODUCT
+		WHERE	PRODUCT_ID	= #{product_id}
+		]]>
+	</select>
+	
+	
 	<!-- 상품수 -->
 	<select id="listTotalCount" parameterType="criteria" resultType="integer">
 		<![CDATA[

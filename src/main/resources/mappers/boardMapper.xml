@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">
+
+	<!-- 제일 큰 게시글 번호 가져오기 -->
+	<select id="board_id" resultType="java.lang.Integer">
+		<![CDATA[
+		SELECT	MAX(board_id) FROM BOARD
+		]]>
+	</select>
+	
+	<!-- 게시글 쓰기 -->
+	<insert id="insertBoard" parameterType="board">
+		<![CDATA[
+		INSERT	INTO
+		BOARD (board_id, 					b_title, 	b_content, 	id, 	b_enroll, 	b_state)
+		SELECT	IFNULL(MAX(board_id), 0)+1,	#{b_title},	#{b_content},	#{id},	NOW(),		0 FROM BOARD
+		]]>
+	</insert>
+	
+	<!-- 게시글 전체 목록 가져오기 -->
+	<select id="listAll" resultType="board">
+		<![CDATA[
+		SELECT	board_id, b_title, b_content, id, b_enroll, b_state
+		FROM	BOARD
+		ORDER BY board_id DESC
+		]]>
+	</select>
+	
+	<!-- 게시글 번호에 해당하는 게시글의 조회수 증가시키다. -->
+	<update id="updateReadCount" parameterType="int">
+		<![CDATA[
+		UPDATE	BOARD
+		SET		b_state = b_state + 1
+		WHERE	board_id	= #{board_id}
+		]]>
+	</update>
+	
+	<!-- 게시글 번호에 해당하는 게시글 정보 가겨오기 -->
+	<select id="detatil" parameterType="int" resultType="board">
+		<![CDATA[
+		SELECT	board_id, b_title, b_content, id, b_enroll, b_state
+		FROM	BOARD
+		WHERE	board_id	= #{board_id}
+		]]>
+	</select>
+	
+	<!-- 게시글 번호에 해당하는 게시글 지우기 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+		DELETE	FROM BOARD
+		WHERE	board_id	= #{board_id}
+		]]>
+	</delete>
+	
+	<!-- 게시글 번호에 해당하는 게시글을 수정하기 -->
+	<update id="update" parameterType="board">
+		<![CDATA[
+		UPDATE	BOARD
+		SET		b_title = #{b_title}, b_content = #{b_content}
+		WHERE	board_id = #{board_id}
+		]]>
+	</update>
+	
+	<!-- ********************************************************************************* -->
+	<!-- Paging 처리 부분 -->
+	<!-- ********************************************************************************* -->
+	
+	<!-- 전체 게시글 수 구하기 (Paging 처리) -->
+	<select id="boardListTotalCount" parameterType="criteria" resultType="Integer">
+		<![CDATA[
+			SELECT	COUNT(*)
+			FROM	BOARD
+			WHERE	1 = 1
+		]]>
+	</select>
+
+	<!-- 페이지 번호에 해당하는 게시글 목록 가져오기 (Paging 처리) -->
+	<select id="boardListPaging" parameterType="hashmap" resultType="board">
+		<![CDATA[
+		SELECT	board_id, b_title, b_content, id, b_enroll, b_state
+		FROM (
+				SELECT	board_id, b_title, b_content, id, b_enroll, b_state,
+						ROW_NUMBER() OVER(ORDER BY board_id DESC) as rNum
+				FROM	BOARD
+			) brd
+		WHERE	rNum BETWEEN 1+(#{perPageNum}*(#{page}-1)) AND #{perPageNum} + (#{perPageNum}*(#{page}-1))
+		ORDER BY board_id DESC
+		]]>
+	</select>
+	
+	<!-- 전체 게시글 수 구하기 (Paging 처리 + 조건별 검색) -->
+	<select id="boardListTotalCountSearchType" parameterType="com.daily.www.common.util.SearchCriteria" resultType="Integer">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	BOARD
+		WHERE	1=1
+		]]>
+		<include refid = "searchMySQL"/>
+	</select>
+
+	<!-- 게시글 목록 보기 (Paging 처리 + 조건별 검색) -->
+	<select id = "boardListPagingSearchType" parameterType="hashmap" resultType="board">
+		<![CDATA[
+		SELECT	board_id, b_title, b_content, id, b_enroll, b_state
+		FROM (
+				SELECT	board_id, b_title, b_content, id, b_enroll, b_state,
+						ROW_NUMBER() OVER(ORDER BY board_id DESC) as rNum
+				FROM	BOARD
+				WHERE	1 = 1
+		]]>
+				<include refid="searchMySQL"/>
+		<![CDATA[
+			) brd
+		WHERE	rNum BETWEEN 1+(#{perPageNum}*(#{page}-1)) AND #{perPageNum} + (#{perPageNum}*(#{page}-1))
+		ORDER BY board_id DESC
+		]]>
+	</select>
+	
+	
+	
+	<!-- 검색에 대한 부분을 공통으로 사용하기 위해서 별도로 만든다. -->
+	<sql id="searchMySQL">
+		<if test="searchType != null">
+			<if test="searchType == 's'.toString()">AND b_title LIKE CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'c'.toString()">AND b_content LIKE CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'w'.toString()">AND id  LIKE CONCAT('%', #{keyword}, '%')</if>
+		</if>
+	</sql>
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+

@@ -27,5 +27,8 @@ public interface ProductDAO {
 	List<ProductVO> listPaging(Criteria cri) throws Exception;
 
 	// 메인 - New
-	public List<ProductDTO> listMainNew();
+	List<ProductDTO> listMainNew();
+	
+	// 상품 번호에 해당하는 상품 정보 가져오기
+	ProductVO productDetail();
 }

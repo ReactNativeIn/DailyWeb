@@ -174,7 +174,7 @@
 						<a href="/product/남녀공용">남녀공용</a>
 					</li>
 					<li>
-						<a href="#">Q&A</a>
+						<a href="/board/boardList">Q&A</a>
 					</li>
 				</ul>
 			</div>
