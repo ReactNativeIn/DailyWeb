@@ -19,7 +19,6 @@ import com.daily.www.product.vo.ProductVO;
 
 @Controller
 @RequestMapping(value = "/product/*")
-// @RequestMapping(value="/list") // 한길이형 요청
 public class ProductController {
 	
 	@Autowired
@@ -61,8 +60,9 @@ public class ProductController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView newView(Criteria cri, String list, HttpServletResponse response) throws Exception {
 		System.out.println("CategoryController 작동시작...");
+
 		
-		ModelAndView mav = new ModelAndView("product/new");
+		ModelAndView mav = new ModelAndView("product/itemList");
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -76,33 +76,34 @@ public class ProductController {
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
 		List<ProductVO> newList = productService.listPaging(cri);
-		mav.addObject("newList", newList);
+		mav.addObject("List", newList);
 		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("Name", cri.getName());
 		
 		return mav;
+
 	}
 	
 	@RequestMapping(value = "/남녀공용", method = RequestMethod.GET)
 	public ModelAndView uni(Criteria cri, String list, HttpServletResponse response) throws Exception {
 		
-		System.out.println("CategoryController 작동시작...");
-		
-		ModelAndView mav = new ModelAndView("product/unisex");
+		ModelAndView mav = new ModelAndView("product/itemList");
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		
 		cri.setList(list);
 		
-		cri.setName("unisex");
+		cri.setName("남녀공용");
 		
 		// 남녀공용 카테고리 전체 상품수를 구한다.
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
 		List<ProductVO> unisexList = productService.listPaging(cri);
-		mav.addObject("unisexList", unisexList);
+		mav.addObject("List", unisexList);
 		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("Name", cri.getName());
 		
 		return mav;
 	}

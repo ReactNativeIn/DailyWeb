@@ -1,36 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%	request.setCharacterEncoding("UTF-8"); %>
+
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>주문/결제 화면</title>
-	<style>
-		
-		p {
-			height: 30;
-		}
-		#finalInfo {
-			border: 6px solid #808080;
-			padding: 40px;
-		}
-		
-		tr>th {
-			border-bottom: 7px solid black;
-		}
-		
-		.dontTouch {
-			pointer-events: none;
-		}
-		
-	</style>
-	<!-- 다음 주소 가져오기 API -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-	<!-- 함수 정의 -->
-	<script src="/resources/js/payment.js"></script>
+	<title>Home</title>
 </head>
+<style>
+	
+	p {
+		height: 30;
+	}
+	#finalInfo {
+		border: 6px solid #808080;
+		padding: 40px;
+	}
+	
+	tr>th {
+		border-bottom: 7px solid black;
+	}
+	
+	.dontTouch {
+		pointer-events: none;
+	}
+	
+</style>
 <body>
 	<!-- 헤더 -->
 	<jsp:include page="../common/header.jsp" flush="false"/>
@@ -190,8 +186,15 @@
 		</div>
 	</main>
 	
+	
 	<!-- 푸터 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>
 	
+
 </body>
+<!-- 다음 주소 가져오기 API -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<!-- 함수 정의 -->
+<script src="${contextPath}/resources/js/payment.js"></script>
 </html>
