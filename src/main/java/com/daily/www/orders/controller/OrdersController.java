@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daily.www.member.vo.MemberVO;
+import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.service.OrdersService;
-import com.daily.www.orders.vo.OrdersVO;
 
 @Controller
 @RequestMapping(value = "/orders/*")
@@ -47,11 +47,11 @@ public class OrdersController {
 
 	@ResponseBody
 	@RequestMapping(value = "/orderComplete", method = RequestMethod.POST)
-	public String orderComplete(OrdersVO ordersVO) throws Exception {
+	public String orderComplete(OrdersDTO ordersDTO) throws Exception {
 
 		logger.info("OrdersControllerImpl 결제 시작...");
 
-		if (ordersService.payment(ordersVO) == 1) { // 결제성공
+		if (ordersService.payment(ordersDTO) == 1) { // 결제성공
 			return "Y";
 		} else { // 결제실패
 			return "N";

@@ -14,7 +14,6 @@ import com.daily.www.file.dao.FileDAO;
 import com.daily.www.file.vo.FileVO;
 import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
-import com.daily.www.orders.vo.OrdersVO;
 
 
 @Service("OrdersService")
@@ -30,12 +29,12 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	// 결제 등록
 	@Override
-	public int payment(OrdersVO ordersVO) {
+	public int payment(OrdersDTO ordersDTO) {
 		
 		logger.info("OrdersService 실행중...");
 		
 		
-		return ordersDAO.payment(ordersVO);
+		return ordersDAO.payment(ordersDTO);
 	}
 	
 	// 특정 회원에 해당하는 주문내역 조회
