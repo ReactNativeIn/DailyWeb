@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>상품 리스트 - 관리자</title>
 	</head>
 	<body>
 		<jsp:include page="../common/otherHeader.jsp" flush="false"/>
@@ -18,7 +18,4 @@
 		<!-- footer -->
 		<jsp:include page="../common/footer.jsp"/>
 	</body>
-	<script>
-		alert(${message});
-	</script>
 </html>

@@ -1,6 +1,8 @@
 package com.daily.www.file.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,4 +45,10 @@ public class FileServiceImpl implements FileService {
 	public List<FileVO> getFileList(int product_id){
 		return fileDAO.getFileList(product_id);
 	};
+	
+	// 파일 검색 - 상품들에 해당하는 파일 리스트
+	@Override
+	public List<FileVO> getProductsFileList(Map<String, String[]> product_id){
+		return fileDAO.getProductsFileList(product_id);
+	}
 }

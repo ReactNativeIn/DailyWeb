@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -66,24 +64,39 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach begin="1" end="20" var="i">
+							<c:forEach items="${list }" var="item" varStatus="i">
 								<tr>
 									<td class="text-start" style="width: 500px;">
-										<img class="img-thumbnail border-2 w-25" src="/resources/images/test3.jpg"/>
-										상품명
+										<div>
+											<c:choose>
+												<c:when test="${item.fileList == null }">
+													<img class="img-thumbnail border-2 w-25" src="/resources/images/noImage.png"/>
+												</c:when>
+												<c:otherwise>
+													<img class="img-thumbnail border-2 w-25" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
+												</c:otherwise>
+											</c:choose>
+											<span>
+												${item.p_name }
+											</span>
+											<span>
+												${item.oi_color }
+												${item.oi_size}
+											</span>
+										</div>
 									</td>
 									<td>
-										2022-11-15
+										${item.o_enroll }
 									</td>
 									<td>
-										주문번호(111)
+										${item.orders_id }
 									</td>
 									<td>
-										주문금액 666666
+										${item.p_price * item.oi_number }(${item.oi_number })원
 									</td>
 									<td class="text-break">
 										<span>
-											배송중										
+											${item.o_state }										
 										</span>
 										<span>
 											<a href="#" class="btn btn-success fw-bold" style="margin-left: 50px;">후기작성</a>															

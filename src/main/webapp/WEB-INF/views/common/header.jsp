@@ -114,7 +114,7 @@
 				<i id="searchIcon" class="bi bi-search fs-5"></i>
 			</a>
 			<!-- 임시로 장바구니 대신, 잠깐 주문내역 화면 -->
-			<a class="tool_a" href="/member/ordersHistory">
+			<a class="tool_a" href="/orders/ordersHistory">
 				<i id="cartIcon" class="bi bi-cart fs-5"></i>
 			</a>
 			<c:choose>

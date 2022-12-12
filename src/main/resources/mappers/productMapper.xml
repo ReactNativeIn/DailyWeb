@@ -11,6 +11,7 @@
 			from product
 		]]>
 	</select>
+	
 	<!-- 상품 등록 -->
 	<insert id="insertProduct" parameterType="com.daily.www.product.dto.ProductDTO">
 		<![CDATA[
@@ -33,7 +34,25 @@
 			and c_detail = #{c_detail}
 		</if>
 	</sql>
-
+	
+	<!-- 메인 - New -->
+	<select id="main_new" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_enroll, product_id desc limit 5
+		]]>
+	</select>
+	
+	<!-- 메인 - BestItem -->
+	<select id="main_BestItem" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_sell, p_enroll, product_id desc limit 20
+		]]>
+	</select>
+	
 	<!-- 상품수 -->
 	<select id="listTotalCount" parameterType="criteria" resultType="integer">
 		<![CDATA[

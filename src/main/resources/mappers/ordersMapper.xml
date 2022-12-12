@@ -3,7 +3,7 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.daily.www.orders">
+<mapper namespace="OrdersDAO">
 
 	<!-- 결제처리 -->
 	<insert id="payment" parameterType="orders">
@@ -12,5 +12,14 @@
 			SELECT 4000, #{o_comment}, NOW(), "배송준비", 2000, #{addressee}, #{address}, #{o_phone}, #{id} 
 		]]>
 	</insert>
-
+	
+	<!-- 주문내역 조회 - 특정 회원이 해당하는(로그인한) -->
+	<select id="listOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
+		<![CDATA[
+			select *
+			from product p, orders o, ordersitem oi
+			where o.orders_id = oi.orders_id and oi.product_id = p.product_id and o.id = #{id}
+			order by o.o_enroll, o.orders_id desc
+		]]>
+	</select>
 </mapper>

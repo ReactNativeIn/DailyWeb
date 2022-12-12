@@ -76,16 +76,6 @@ public class MemberController {
 		return "/member/findPassword";
 	}
 	
-	// 내정보 - 주문내역 화면 이동
-	@RequestMapping(value = "/ordersHistory")
-	public String ordersHistory(HttpSession session, Model model) {
-		
-		if(session.getAttribute("member") == null) { // 로그인 상태가 아니면 주문내역 화면 이동 못함
-			return "member/loginForm";
-		}
-		return "/member/ordersHistory";
-	}
-	
 	// 주문/결제 화면 이동
 	@RequestMapping(value = "/payment")
 	public String paymentForm() {

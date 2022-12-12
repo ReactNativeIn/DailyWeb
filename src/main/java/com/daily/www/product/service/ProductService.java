@@ -1,6 +1,7 @@
 package com.daily.www.product.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.daily.www.category.vo.CategoryVO;
 import com.daily.www.common.util.Criteria;
@@ -27,4 +28,6 @@ public interface ProductService {
 	// new 상품 목록 보기 (페이징 처리)
 	List<ProductVO> listPaging(Criteria cri) throws Exception;
 
+	// 메인 
+	public Map<String, List<ProductDTO>> listMain();
 }
