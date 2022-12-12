@@ -19,7 +19,7 @@
 			select *
 			from product p, orders o, ordersitem oi
 			where o.orders_id = oi.orders_id and oi.product_id = p.product_id and o.id = #{id}
-			order by o.o_enroll, o.orders_id
+			order by o.o_enroll, o.orders_id desc
 		]]>
 	</select>
 </mapper>

@@ -1,6 +1,5 @@
 package com.daily.www.orders.controller;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;

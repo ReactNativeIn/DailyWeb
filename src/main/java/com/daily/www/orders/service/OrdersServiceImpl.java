@@ -49,23 +49,28 @@ public class OrdersServiceImpl implements OrdersService {
 		for(int i = 0; i < idList.length; i++) {
 			idList[i] = Integer.toString(oDTO.get(i).getProduct_id());
 		}
-		Map<String, String[]> product_id = new HashMap();
-		product_id.put("products_id", idList);
 		
-		List<FileVO> file = fileDAO.getProductsFileList(product_id);
-		
-		if(file != null) {
-			for(int i = 0; i < oDTO.size(); i++) {
-				for(int j = 0; j < file.size(); j++) {
-					if(oDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
-						if(oDTO.get(i).getFileList() == null) {
-							oDTO.get(i).setFileList(new ArrayList<FileVO>());
+		if(idList.length > 0) {
+			Map<String, String[]> product_id = new HashMap();
+			product_id.put("products_id", idList);
+			List<FileVO> file = fileDAO.getProductsFileList(product_id);
+			
+			if(file != null) {
+				for(int i = 0; i < oDTO.size(); i++) {
+					for(int j = 0; j < file.size(); j++) {
+						if(oDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
+							if(oDTO.get(i).getFileList() == null) {
+								oDTO.get(i).setFileList(new ArrayList<FileVO>());
+							}
+							oDTO.get(i).getFileList().add(file.get(j));
 						}
-						oDTO.get(i).getFileList().add(file.get(j));
 					}
 				}
 			}
 		}
+		
+	
+
 		// 여까지 코드 겹칩 - listMain()메서드
 		
 		
