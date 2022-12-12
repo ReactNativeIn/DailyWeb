@@ -4,149 +4,169 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>상품 상세 조회</title>
 
-	<meta charset="UTF-8">
-	<title>상품 선택 화면</title>
+<link rel="stylesheet" href="/resources/css/productDetail.css">
 
 </head>
-<style>
-	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-	
-	main {
-		font-family: 'Jeju Gothic', sans-serif;
-	}
-	
-</style>
-
 <body>
+<!-- 상단 메뉴 -->
+<jsp:include page="../common/header.jsp" flush="false"/>
 
-	<!-- 상단 메뉴 -->
-	
-	<jsp:include page="../common/header.jsp" flush="false"/>
-
-
-<main class="container">
-	<div class="d-flex mt-5">
-		<div class="conatiner text-align-center" id="con1">
-			<img src="../../../resources/images/product/item/chiwawa01.jpg" id="img_main" class="img-reactive img-shadow" alt="상품 이미지" 
-				style="width: 500px; height: 500px; margin-top: 30px; margin-left: 50px; margin-right: 50px;"/>
-			<div class="container" style="margin-left:34px; padding:0">
-				<ul class="list-group list-group-horizontal list-group-flush p-0" id="product_thumb">
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa01.jpg" id="img_thumb" class="img-thumnail" alt="썸네일01" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa02.jpg" id="img_thumb" class="img-thumnail" alt="썸네일02" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa03.jpg" id="img_thumb" class="img-thumnail" alt="썸네일03" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa04.jpg" id="img_thumb" class="img-thumnail" alt="썸네일04" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa05.jpg" id="img_thumb" class="img-thumnail" alt="썸네일05" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa06.jpg" id="img_thumb" class="img-thumnail" alt="썸네일06" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>									
-				</ul>
-			</div>
-		</div>
-		<div class="container d-flex align-items-center">
-			<div id="con2">
-				<div class="jumbotron" id="item_name">
-					<div class="container">
-						<h1 class="display-3" style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen;">멋쟁이 치와와</h1>
-				<div class="container ">
-					<div class="row">
-						<div class="col-md-12" style="width:260; height:280;">
-							<h3 style="margin-top:3px;">10,000원</h3>
-							<p> <b>상품 코드 : <span class="badge bg-danger">new</span> <span class="badge bg-secondary">hit</span></b>
-							<p> <b>색상 : </b>
-								<select class="form-select" aria-label="Default select example">
-								  <option selected>색상을 골라주세요</option>
-								  <option value="1">BLACK</option>
-								  <option value="2">WHITE</option>
-								  <option value="3">GRAY</option>
-								</select>
-							<p> <b>사이즈 : </b>
-								<select class="form-select align-items-center" aria-label="Default select example">
-								  <option selected>사이즈를 골라주세요</option>
-								  <option value="1">FREE Size</option>
-
-								</select>
-							</div>
-							<div class="container" style="border-top:solid; border-bottom:solid; padding-top: 5px; border-color:darkgreen;">
-								<div class="container">
-									<b class="mb-2">멋쟁이 치와와 - </b>
-									<b class="mb-2">Black / M </b>
-									<div style="text-align: end;">
-										<a class="align-items-center" id="sum">10,000원</a>
-									  	<input id="order_num" type="number" value="1" min="1" max="10" class="numbox" placeholder="" aria-label="item_num" style="text" onchange="pp_num()">
-									</div>
-								</div>
-								<div class="input-group mb-2">
-								</div>
-							</div>
-							<div class="container" style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen; margin-bottom: 5px;">
-								<p> <h4 class="mb-2" id="sumAll">총 상품 금액 : 10,000원</h4>
-							</div>
+<div class="wrapper">
+	<div class="wrap">
+		<div class="content_area">
+			<div class="line">
+			</div>			
+			<div class="content_top">
+				<div class="ct_left_area">
+					<div class="image_wrap">
+						<img src="/resources/images/women_outer.jpg" alt="women_outer">		
+					</div>
+				</div>
+				<div class="ct_right_area">
+					<div class="title">
+						<h1>
+							${productDetail.p_name}
+						</h1>
+					</div>
+					<div class="line">
+					</div>
+					<div class="author">
+						 <span> 상품 번호 :
+						 	${productDetail.c_detail}
+						 </span>
+						 <span>|</span>
+						 <span> 판매수량 :
+						 	${productDetail.p_sell}
+						 </span>
+						 <span>|</span>
+						 <span class="p_enroll">
+						 	${productDetail.p_enroll}
+						 </span>
+					</div>
+					<div class="line">
+					</div>	
+					<div class="price">
+						<div class="p_price">상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" pattern="#,### 원" /></div>
+					</div>
+					<div>
+						적립 포인트 : <span class="point_span"></span>원
+					</div>			
+					<div class="line">
+					</div>	
+					<div class="button">						
+						<div class="button_quantity">
+							주문수량
+							<input type="text" class="quantity_input" value="1">
+							<span>
+								<button class="plus_btn">+</button>
+								<button class="minus_btn">-</button>
+							</span>
+						</div>
+						<div class="button_set">
+							<a class="btn_cart">장바구니 담기</a>
+							<a class="btn_buy">바로구매</a>
 						</div>
 					</div>
-					<div class="container align-items-center" id="order_btn" style="margin-top: 5px;">
-						<p class="m-0"> <a href="#" class="btn btn-light"> 장바구니 &raquo;</a>
-							<a href="./products.jsp" class="btn btn-success">바로 구매 &raquo;</a>
-					</div>
-					</div>
-				</div>	
 				</div>
 			</div>
+			<div class="line">
+			</div>				
+			<div class="content_middle">
+				<div class="product_id">
+					${productDetail.product_id}
+				</div>
+				<div class="p_explanation">
+					${productDetail.p_explanation}
+				</div>
+			</div>
+			<div class="line">
+			</div>				
+			<div class="content_bottom">
+				리뷰
 		</div>
-		
-		<!-- 상품 info -->
-		
-		<div class="container">
-			<hr class="mt-5 mb-5">
-			<img src="../../../resources/images/product/info/chiwawa_info01.jpg" id="img_main" class="img-reactive img-shadow" alt="상품 이미지" 
-				style="margin-top: 30px; margin-left: 200px;"/>
-		</div>
-		
-		<div class="sticky-bottom mb-5" style="text-align-last:right;">
-			<p style="margin-bottom:0; width:1500px;"><a href="#top" id="right_top_btn" title="위로가기" class="btn btn-light">▲</a>
-			<p style="margin-bottom:0; width:1500px;"><a href="#footer" id="right_bot_btn" title="아래로가기" class="btn btn-light">▼</a>
-		</div>
-		
-		<div>
-			<hr class="mt-5 mb-5">
-		</div>		
-	
-	</main>
+	</div>
+</div>
+</div>
 
-	<!-- 하단 메뉴 -->
 
-		<jsp:include page="../common/footer.jsp" flush="false"/>
-		
-		<script src="/resources/js/product.js"></script>
-	
-	
+<!-- Footer -->
+<jsp:include page="../common/footer.jsp" flush="false"/>
 </body>
+
+<script>
+
+$(document).ready(function() {
+	
+	/* p_enroll */
+	const year = "${productDetail.p_enroll}";
+	
+	let tempYear = year.substr(0,10);
+	
+	let yearArray = tempYear.split("-")
+	let p_enroll = yearArray[0] + "년 " + yearArray[1] + "월 " + yearArray[2] + "일";
+	
+	$(".p_enroll").html(p_enroll);
+	
+	/* 포인트 삽입 */
+	let Price = "${productDetail.p_price}"
+	let point = Price*0.05;
+	// Math.floor : 소수점 나머지 버리는 메서드
+	point = Math.floor(point);
+	$(".point_span").text(point);
+	
+	
+});
+
+
+// 수량 버튼 조작 -----------------------------------------------------
+let quantity = $(".quantity_input").val();
+
+$(".plus_btn").on("click", function(){
+	$(".quantity_input").val(++quantity);
+});
+
+$(".minus_btn").on("click", function(){
+	if(quantity > 1){
+		$(".quantity_input").val(--quantity);	
+	}
+});
+
+const form = {
+		product_id	: '${productDetail.product_id}',
+		ci_number	: '',
+		p_name		: '${productDetail.p_name}',
+		cart_id		: 1
+}
+
+// 장바구니 추가 버튼 -----------------------------------------------------
+$(".btn_cart").on("click", function(e){
+	form.ci_number = $(".quantity_input").val();
+
+	$.ajax({
+		url: '/cart/add',
+		type: 'POST',
+		data: form,
+		success: function(result){
+			if(result == '0'){
+				alert("장바구니에 추가를 하지 못하였습니다.");
+			} else if(result == '1'){
+				alert("장바구니에 추가되었습니다.");
+			} else if(result == '2'){
+				alert("장바구니에 이미 추가되어져 있습니다.");
+			} 
+			//cartAlert(result);
+		}
+	})
+});
+
+function cartAlert(result){
+}
+
+</script>
+
+
+
 </html>

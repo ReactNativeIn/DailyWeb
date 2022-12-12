@@ -42,14 +42,14 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.insert(NAMESPACE + ".deleteProduct", product_id);
 	}
 	
-	// new 상품 리스트 총 개수
+	// (카테고리별) 상품 리스트 총 개수
 	@Override
 	public int listTotalCount(Criteria cri) throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE + ".listTotalCount", cri);
 	}
 	
-	// new 상품 목록 보기 (페이징 처리)
+	// (카테고리별) 상품 목록 보기 (페이징 처리)
 	@Override
 	public List<ProductVO> listPaging(Criteria cri) throws Exception {
 				
@@ -66,9 +66,9 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
-	public ProductVO productDetail() {
-		
-		return sqlSession.selectOne(NAMESPACE + ".detatil");
+	public ProductDTO productDetail(int product_id) {
+		return sqlSession.selectOne(NAMESPACE + ".detail", product_id);
 	}
+	
 	
 }

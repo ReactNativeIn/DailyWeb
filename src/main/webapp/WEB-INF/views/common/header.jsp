@@ -113,15 +113,25 @@
 			<a class="tool_a" href="/member/payment">
 				<i id="searchIcon" class="bi bi-search fs-5"></i>
 			</a>
-			<!-- 임시로 장바구니 대신, 잠깐 주문내역 화면 -->
-			<a class="tool_a" href="/orders/ordersHistory">
+			<a class="tool_a" href="/cart/cartForm">
 				<i id="cartIcon" class="bi bi-cart fs-5"></i>
 			</a>
 			<c:choose>
 				<c:when test="${member != null }">
-					<a class="tool_a" href="/<c:if test="${member.id == 'admin' }">member/adminHome</c:if>"> <!-- MyPage -->
-						<span class="fw-bold fs-4">${member.nickname }님</span>
-					</a>
+					<c:choose>
+					
+
+						<c:when test="${member.id == 'admin' }">
+							<a class="tool_a" href="/member/adminHome"> <!-- MyPage -->
+								<span class="fw-bold fs-4">${member.nickname }님</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a class="tool_a" href="/orders/ordersHistory"> <!-- MyPage/ 지금은 MyPage-주문내역 -->
+								<span class="fw-bold fs-4">${member.nickname }님</span>
+							</a>
+						</c:otherwise>
+					</c:choose>
 					<a href="/member/logout">
 						<span class="btn btn-success">로그아웃</span>
 					</a>
@@ -143,30 +153,30 @@
 						<a href="/product/new">New</a>
 					</li>
 					<li class="drop">
-						<a href="#">남성</a>
+						<a href="/product/남성">남성</a>
 						<ul class="drop-menu">
 							<li>
-								<a class="dropdown-item" href="#">아우터</a>
+								<a class="dropdown-item" href="/product/남성?detail=outer">아우터</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">상의</a>
+								<a class="dropdown-item" href="/product/남성?detail=top">상의</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">바지</a>
+								<a class="dropdown-item" href="/product/남성?detail=bottom">바지</a>
 							</li>		
 						</ul>
 					</li>
 					<li class="drop">
-						<a href="#">여성</a>
+						<a href="/product/여성">여성</a>
 						<ul class="drop-menu">
 							<li>
-								<a href="#">아우터</a>
+								<a href="/product/여성?detail=outer">아우터</a>
 							</li>
 							<li>
-								<a href="#">상의</a>
+								<a href="/product/여성?detail=top">상의</a>
 							</li>
 							<li>
-								<a href="#">바지</a>
+								<a href="/product/여성?detail=bottom">바지</a>
 							</li>
 						</ul>
 					</li>
