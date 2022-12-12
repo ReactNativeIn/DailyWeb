@@ -12,6 +12,9 @@ function sort(list) {
     location.href = "/product/new?list=" + Sort;
   } else if (link.includes("남녀공용")) {
     location.href = "/product/남녀공용?list=" + Sort;
+  } else if (link.includes("남성")) {
+    location.href = "/product/남성?list=" + Sort;
+  } else if (link.includes("여성")) {
+    location.href = "/product/여성?list=" + Sort;
   }
-
 }

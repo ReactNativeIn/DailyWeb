@@ -32,5 +32,5 @@ public interface ProductService {
 	Map<String, List<ProductDTO>> listMain();
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
-	ProductVO productDetail();
+	ProductDTO productDetail(int product_id);
 }

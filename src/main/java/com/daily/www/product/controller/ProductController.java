@@ -2,6 +2,7 @@ package com.daily.www.product.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,24 @@ public class ProductController {
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
 	public String productListForm(Model model) {
 		System.out.println("들림");
-		return "admin/productList";
+		return "admin/productList_A";
 	}
 	
+	// 상품 상세 조회(상세화면)
+	@RequestMapping(value="/productDetail", method=RequestMethod.GET)
+	public String productDetail(int product_id, Model model, HttpServletRequest request) throws Exception {
+		
+		System.out.println("ProductController productDetail() product_id : " + Integer.parseInt((String)request.getParameter("product_id")));
+
+
+		ProductDTO productDTO = productService.productDetail(product_id);
+		
+		model.addAttribute("productDetail", productDTO);
+		
+		return "/product/productDetail";
+	}
+	
+	// New 상품 목록 보여주기
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView newView(Criteria cri, String list, HttpServletResponse response) throws Exception {
 		System.out.println("CategoryController 작동시작...");
@@ -84,6 +100,62 @@ public class ProductController {
 
 	}
 	
+	// 남성 상품 목록 보여주기
+	@RequestMapping(value = "/남성", method = RequestMethod.GET)
+	public ModelAndView men(Criteria cri, String list, String detail) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("product/itemList");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		cri.setList(list);
+		
+		cri.setName("남성");
+		
+		cri.setDetail(detail);
+		
+		pageMaker.setTotalCount(productService.listTotalCount(cri));
+		
+		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
+		List<ProductVO> menList = productService.listPaging(cri);
+		
+		mav.addObject("List", menList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("Name", cri.getName());
+
+		
+		return mav;
+	}
+	
+	// 여성 상품 목록 보여주기
+	@RequestMapping(value = "/여성", method = RequestMethod.GET)
+	public ModelAndView women(Criteria cri, String list, String detail) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("product/itemList");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		cri.setList(list);
+		
+		cri.setName("여성");
+		
+		cri.setDetail(detail);
+		
+		pageMaker.setTotalCount(productService.listTotalCount(cri));
+		
+		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
+		List<ProductVO> womenList = productService.listPaging(cri);
+		mav.addObject("List", womenList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("Name", cri.getName());
+
+		
+		return mav;
+	}
+	
+	// 남녀공용 상품 목록 보여주기
 	@RequestMapping(value = "/남녀공용", method = RequestMethod.GET)
 	public ModelAndView uni(Criteria cri, String list, HttpServletResponse response) throws Exception {
 		
@@ -108,13 +180,4 @@ public class ProductController {
 		return mav;
 	}
 	
-	// 상품 번호에 해당하는 상품 정보 가져오기
-	@RequestMapping(value = "/productDetail", method = RequestMethod.GET)
-	public String productDetail(Model model) throws Exception {
-		
-		ProductVO productVO = productService.productDetail();
-		model.addAttribute("productDetail", productVO);
-		return "/product/productDetail";
-		
-	}
 }

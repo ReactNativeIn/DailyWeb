@@ -1,5 +1,6 @@
 package com.daily.www.product.dto;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class ProductDTO {
 	private String p_name;
 	private String p_explanation;
 	private int p_price;
+	private Date p_enroll;
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;
 	private List<FileVO> fileList;
