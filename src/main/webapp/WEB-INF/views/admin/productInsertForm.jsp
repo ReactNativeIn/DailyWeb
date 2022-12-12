@@ -52,7 +52,7 @@
 	</style>
 </head>
 <body>
-	
+
 	<!-- 상단 메뉴 -->
 	<jsp:include page="../common/otherHeader.jsp" flush="false"/>
 
@@ -126,18 +126,17 @@
 				<div class="w-100 d-flex flex-wrap uploadedList" ></div><!-- 선택한 파일목록을 뿌려주는 영역 -->
 			</div>
 			<div class="form-group btn-group-lg">
-				<button class="btn btn-success" type="submit">상품 등록</button>
+				<button class="btn btn-success" type="button" onclick="insertBtn();">상품 등록</button>
 			</div>
 		</form>
 	</main>
-	
 	<!-- footer -->
 	<jsp:include page="../common/footer.jsp"/>
 
 </body>
 <script>
 	$(function () {
-		
+
 		// colorId 생성
 		createColorId();
 		

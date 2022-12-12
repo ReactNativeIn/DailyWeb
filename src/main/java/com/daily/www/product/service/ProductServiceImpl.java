@@ -1,6 +1,9 @@
 package com.daily.www.product.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,4 +101,40 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.listPaging(cri);
 	}
 	
+	// 메인
+	@Override
+	public Map<String, List<ProductDTO>> listMain(){
+		Map<String, List<ProductDTO>> list = new HashMap<String, List<ProductDTO>>();
+		List<ProductDTO> pDTO = productDAO.listMainNew();
+
+		String [] idList = new String[pDTO.size()];
+
+		for(int i = 0; i < idList.length; i++) {
+			idList[i] = Integer.toString(pDTO.get(i).getProduct_id());
+		}
+		
+		if(idList.length > 0) {
+			Map<String, String[]> product_id = new HashMap();
+			product_id.put("products_id", idList);
+			
+			List<FileVO> file = fileDAO.getProductsFileList(product_id);
+			
+			if(file != null) {
+				for(int i = 0; i < pDTO.size(); i++) {
+					for(int j = 0; j < file.size(); j++) {
+						if(pDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
+							if(pDTO.get(i).getFileList() == null) {
+								pDTO.get(i).setFileList(new ArrayList<FileVO>());
+							}
+							pDTO.get(i).getFileList().add(file.get(j));
+						}
+					}
+				}
+			}
+			list.put("new", pDTO.subList(0, 5));
+			list.put("best", pDTO.subList(5, pDTO.size()));
+		}
+		
+		return list;
+	}
 }

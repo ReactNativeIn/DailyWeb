@@ -44,4 +44,14 @@
 			where product_id = #{product_id}
 		]]>
 	</select>
+	
+	<!-- 메인 - New랑 BestItem, 상품들에 해당하는 파일 리스트 -->
+	<select id="getProductsFileList" resultType="file">
+		select *
+		from file
+		where product_id in 
+			<foreach collection="products_id" item="id" index="index"  open="(" close=")" separator=",">
+				#{id}
+			</foreach>
+	</select>
 </mapper>

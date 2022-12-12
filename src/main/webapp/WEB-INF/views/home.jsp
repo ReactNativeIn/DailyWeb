@@ -47,22 +47,27 @@
 				<h1 class="title">NEW</h1>
 				<table class="table table-borderless">
 					<tr>
-						<c:forEach begin="1" end="5">
+						<c:forEach items="${newList}" var="item">
 							<td class="text-center">
-								<img class="img-thumbnail border-2 w-75" src="/resources/images/test4.jpg"/>
-							</td>						
-						</c:forEach>
-					</tr>
-					<tr>
-						<c:forEach begin="1" end="5">
-							<td class="text-center">
-								<div class="card-body">
-									<h5 class="card-title">
-										상품명
-									</h5>
-									<p class="card-text">
-										상품 가격
-									</p>
+								<div>
+									<c:choose>
+										<c:when test="${item.fileList == null }">
+											<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+										</c:when>
+										<c:otherwise>
+											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
+										</c:otherwise>
+									</c:choose>
+									<div class="text-center">
+										<div class="card-body">
+											<h5 class="card-title">
+												${item.p_name }
+											</h5>
+											<p class="card-text">
+												${item.p_price}원
+											</p>
+										</div>
+									</div>
 								</div>
 							</td>						
 						</c:forEach>
@@ -74,36 +79,58 @@
 			<div class="contaioner">
 				<h1 class="title">BEST ITEM</h1>
 				<table class="table table-borderless">
-					<c:forEach begin="1" end="20" var="i">
-						<c:if test="${i%5 == 1 }">
+					<c:forEach var="item" items="${bestList }" varStatus="i">
+						<c:if test="${(i.index + 1)%5 == 1 }">
 							<tr>
 						</c:if>
 						<c:choose>
-							<c:when test="${i%5 == 0 }">
+							<c:when test="${(i.index + 1)%5 == 0 }">
 								<td class="text-center">
-									<img class="img-thumbnail border-2 w-75" src="/resources/images/test3.jpg"/>
-								</td>					
-								</tr>
-								<c:forEach begin="1" end="5">
-									<td class="text-center">
-										
-										<div class="card-body">
-										
-											<h5 class="card-title">
-												상품명
-											</h5>
-											<p class="card-text">
-												상품 가격
-											</p>
-											
+									<div>									
+										<c:choose>
+											<c:when test="${item.fileList == null }">
+												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+											</c:when>
+											<c:otherwise>
+												<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
+											</c:otherwise>
+										</c:choose>
+										<div class="text-center">
+											<div class="card-body">
+												<h5 class="card-title">
+													${item.p_name }
+												</h5>
+												<p class="card-text">
+													${item.p_price}원
+												</p>		
+											</div>
 										</div>
-										
-									</td>						
-								</c:forEach>
+									</div>
+								</td>					
+								</tr>			
 							</c:when>
 							<c:otherwise>
 								<td class="text-center">
-									<img class="img-thumbnail border-2 w-75" src="/resources/images/test3.jpg"/>
+									<div>
+										<c:choose>
+											<c:when test="${item.fileList == null }">
+												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+											</c:when>
+											<c:otherwise>
+												<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }/${item.fileList[0].file_s_name}"/>
+											</c:otherwise>
+										</c:choose>
+										<div class="text-center">
+											<div class="card-body">
+												<h5 class="card-title">
+													${item.p_name }
+												</h5>
+												<p class="card-text">
+													${item.p_price}원
+												</p>		
+											</div>
+										</div>
+									</div>
 								</td>	
 							</c:otherwise>
 						</c:choose>

@@ -3,7 +3,7 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.daily.www.orders">
+<mapper namespace="OrdersDAO">
 
 	<!-- 주문 테이블 채우기 -->
 	<insert id="payment" parameterType="orders">
@@ -14,4 +14,14 @@
 	</insert>
 	<!-- orders usePoint = p_price들의 합 deliverCost = 0으로 설정 -->
 	<!-- ordersitem (주문상품정보) 테이블 채우기 -->
+	
+	<!-- 주문내역 조회 - 특정 회원이 해당하는(로그인한) -->
+	<select id="listOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
+		<![CDATA[
+			select *
+			from product p, orders o, ordersitem oi
+			where o.orders_id = oi.orders_id and oi.product_id = p.product_id and o.id = #{id}
+			order by o.o_enroll, o.orders_id desc
+		]]>
+	</select>
 </mapper>
