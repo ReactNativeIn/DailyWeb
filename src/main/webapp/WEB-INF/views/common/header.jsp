@@ -119,15 +119,13 @@
 			<c:choose>
 				<c:when test="${member != null }">
 					<c:choose>
-					
-
 						<c:when test="${member.id == 'admin' }">
-							<a class="tool_a" href="/member/adminHome"> <!-- MyPage -->
+							<a class="tool_a" href="/member/adminHome"> 
 								<span class="fw-bold fs-4">${member.nickname }님</span>
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a class="tool_a" href="/orders/ordersHistory"> <!-- MyPage/ 지금은 MyPage-주문내역 -->
+							<a class="tool_a" href="/member/mypage"> 
 								<span class="fw-bold fs-4">${member.nickname }님</span>
 							</a>
 						</c:otherwise>
