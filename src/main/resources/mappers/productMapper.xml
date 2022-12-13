@@ -36,29 +36,30 @@
 	</sql>
 	
 	<!-- 메인 - New -->
-	<select id="main_new" resultType="com.daily.www.product.dto.ProductDTO">
+	<select id="main" resultType="com.daily.www.product.dto.ProductDTO">
 		<![CDATA[
 			select *
-			from product
-			order by p_enroll, product_id desc limit 5
-		]]>
-	</select>
-	
-	<!-- 메인 - BestItem -->
-	<select id="main_BestItem" resultType="com.daily.www.product.dto.ProductDTO">
-		<![CDATA[
+			from (
+				select *
+				from product
+				order by p_enroll, product_id desc limit 5
+            ) se1
+            union all
 			select *
-			from product
-			order by p_sell, p_enroll, product_id desc limit 20
+			from (
+				select *
+				from product
+				order by p_sell, p_enroll, product_id desc limit 20
+            ) se2;
 		]]>
 	</select>
 	
  	<!-- 상품 번호에 해당하는 상품 정보 가겨오기 -->
 	<select id="detatil" parameterType="int" resultType="product">
 		<![CDATA[
-		SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id
-		FROM	PRODUCT
-		WHERE	PRODUCT_ID	= #{product_id}
+		SELECT	*
+		FROM	product
+		WHERE	1 = 1 AND product_id = #{product_id}
 		]]>
 	</select>
 	
@@ -69,9 +70,10 @@
 			SELECT COUNT(*) 
 			FROM product JOIN category 
 			ON product.category_id = category.c_id 
-			WHERE 1 = 1 AND 
+			WHERE 1 = 1 
 		]]>
 		<include refid = "pathName"/>
+		<include refid = "pathDetail"/>
 	</select>
 	
 	<!-- 상품목록 불러오기 (페이징) -->
@@ -85,9 +87,10 @@
 		<![CDATA[
 				FROM product JOIN category
 				on product.category_id = category.c_id
-				WHERE 
+				WHERE 1 = 1
 		]]>
 		<include refid = "pathName"/>
+		<include refid = "pathDetail"/>
 		<![CDATA[
 				) brd
 			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
@@ -121,12 +124,29 @@
 	<!-- name이 공통된 애들 -->
 	<sql id="pathName">
 		<if test="name == 'new'.toString()">
-			c_name = "New" 
+			AND c_name = "New" 
 		</if>
 		<if test="name == '남녀공용'.toString()">
-			c_name = "남녀공용"
+			AND c_name = "남녀공용"
+		</if>
+		<if test="name == '남성'.toString()">
+			AND c_name = "남성" 
+		</if>
+		<if test="name == '여성'.toString()">
+			AND c_name = "여성"  
 		</if>
 	</sql>
 	
+	<sql id="pathDetail">
+		<if test="detail == 'outer'.toString()">
+			AND c_detail = "아우터" 
+		</if>
+		<if test="detail == 'top'.toString()">
+			AND c_detail = "상의" 
+		</if>
+		<if test="detail == 'bottom'.toString()">
+			AND c_detail = "바지" 
+		</if>
+	</sql>
 	
 </mapper>

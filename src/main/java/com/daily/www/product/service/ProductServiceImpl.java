@@ -1,9 +1,7 @@
 package com.daily.www.product.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,14 +85,14 @@ public class ProductServiceImpl implements ProductService {
 		productDAO.deleteProduct(product_id);
 	}
 	
-	// new 상품 리스트 총 개수
+	// (카테고리별) 상품 리스트 총 개수
 	@Override
 	public int listTotalCount(Criteria cri) throws Exception {	
 		//	logger.info("BoardServiceImpl 전체 게시글 수 구하기 (페이징 처리) ==> " + cri);
 		return productDAO.listTotalCount(cri);
 	}
 	
-	// new 상품 목록 보기 (페이징 처리)
+	// (카테고리별) 상품 목록 보기 (페이징 처리)
 	@Override
 	public List<ProductVO> listPaging(Criteria cri) throws Exception {
 		//	logger.info("BoardServiceImpl 게시글 목록 보기 (페이징 처리) ==> " + cri);
@@ -103,44 +101,19 @@ public class ProductServiceImpl implements ProductService {
 	
 	// 메인
 	@Override
-	public Map<String, List<ProductDTO>> listMain(){
-		Map<String, List<ProductDTO>> list = new HashMap<String, List<ProductDTO>>();
+	public List<ProductDTO> listMain(){
 		List<ProductDTO> pDTO = productDAO.listMainNew();
-
-		String [] idList = new String[pDTO.size()];
-
-		for(int i = 0; i < idList.length; i++) {
-			idList[i] = Integer.toString(pDTO.get(i).getProduct_id());
+	
+		for (ProductDTO productDTO : pDTO) { // forEach는 List를 꺼내서 적용시켜주는거라 따로 저장할 필요가없다.
+			productDTO.setFileList(fileDAO.getFileList(productDTO.getProduct_id()));
 		}
-		
-		if(idList.length > 0) {
-			Map<String, String[]> product_id = new HashMap();
-			product_id.put("products_id", idList);
 			
-			List<FileVO> file = fileDAO.getProductsFileList(product_id);
-			
-			if(file != null) {
-				for(int i = 0; i < pDTO.size(); i++) {
-					for(int j = 0; j < file.size(); j++) {
-						if(pDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
-							if(pDTO.get(i).getFileList() == null) {
-								pDTO.get(i).setFileList(new ArrayList<FileVO>());
-							}
-							pDTO.get(i).getFileList().add(file.get(j));
-						}
-					}
-				}
-			}
-			list.put("new", pDTO.subList(0, 5));
-			list.put("best", pDTO.subList(5, pDTO.size()));
-		}
-		
-		return list;
+		return pDTO;
 	}
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
-	public ProductVO productDetail() {
-		return productDAO.productDetail();
+	public ProductDTO productDetail(int product_id) {
+		return productDAO.productDetail(product_id);
 	}
 }

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
 
 <!DOCTYPE html>
 <html>
@@ -78,7 +76,7 @@
 				text-align: center;
 			}
 	</style>
-	<script src="${contextPath }/resources/js/register.js"></script>
+	<script src="/resources/js/register.js"></script>
 </head>
 <body>
 
@@ -87,7 +85,7 @@
 
 <main class="container">
 <div>
-	<form class="form-horizontal"  id="memberForm" method="post" action="${contextPath}/member/addMember">
+	<form class="form-horizontal"  id="memberForm" method="post" action="/member/addMember">
 				<div class="input-group">
 					<span class="input-group-text">
 						<i class="bi bi-person fs-5"></i>

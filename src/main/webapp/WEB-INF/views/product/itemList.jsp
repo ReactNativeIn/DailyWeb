@@ -1,8 +1,6 @@
 <%@	page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%	request.setCharacterEncoding("UTF-8"); %>
 <!-- 더미데이터 -->
 <c:set var="sale" value="" />
 <!-- 컨트롤러에서 받아온 Name객체 소문자를 대문자로 -->
@@ -94,13 +92,13 @@
 			<div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;"class="img-fluid mx-auto d-block w-100 h-100" src="${contextPath}/resources/images/cat01.jpg" alt="cat01"/>
+			      <img style="object-fit: contain;"class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat01.jpg" alt="cat01"/>
 			    </div>
 			    <div class="carousel-item mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="${contextPath}/resources/images/cat02.jpg" alt="cat02"/>
+			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat02.jpg" alt="cat02"/>
 			    </div>
 			    <div class="carousel-item mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="${contextPath}/resources/images/cat03.jpg" alt="cat03"/>
+			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat03.jpg" alt="cat03"/>
 			    </div>
 			  </div>
 			</div>
@@ -133,7 +131,7 @@
 						<div class="col" style="margin-bottom: 20px;">
 							<div class="productImg">
 								<a href="#">
-									<img style="width: 100%; height: 400px;" src="${contextPath}/resources/images/cat01.jpg" alt="..."/>
+									<img style="width: 100%; height: 400px;" src="/resources/images/cat01.jpg" alt="..."/>
 								</a>
 							</div>
 							<!-- 정보 -->
@@ -271,7 +269,7 @@
 		
 </body>
 
-<script src="${contextPath}/resources/js/sort.js"></script>
+<script src="/resources/js/sort.js"></script>
 <script>
 
 // var element = document.getElementById("sort");
