@@ -130,7 +130,7 @@
 					<c:forEach var="List" items="${List}">
 						<div class="col" style="margin-bottom: 20px;">
 							<div class="productImg">
-								<a href="#">
+								<a href="/product/productDetail/?product_id=${List.product_id}">
 									<img style="width: 100%; height: 400px;" src="/resources/images/cat01.jpg" alt="..."/>
 								</a>
 							</div>
