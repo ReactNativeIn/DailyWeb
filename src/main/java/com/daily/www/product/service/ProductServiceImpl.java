@@ -96,7 +96,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductDTO> listPaging(Criteria cri) throws Exception {
 		//	logger.info("BoardServiceImpl 게시글 목록 보기 (페이징 처리) ==> " + cri);
-		return productDAO.listPaging(cri);
+		List<ProductDTO> pDTO = productDAO.listPaging(cri);
+		
+		for (ProductDTO productDTO : pDTO) {
+			productDTO.setFileList(fileDAO.getFileList(productDTO.getProduct_id()));
+		}
+		
+		return pDTO;
 	}
 	
 	// 메인

@@ -141,6 +141,8 @@ const form = {
 		cart_id		: 1
 }
 
+
+
 // 장바구니 추가 버튼 -----------------------------------------------------
 $(".btn_cart").on("click", function(e){
 	form.ci_number = $(".quantity_input").val();
@@ -161,6 +163,13 @@ $(".btn_cart").on("click", function(e){
 		}
 	})
 });
+
+
+// 구매 버튼 -----------------------------------------------------
+$(".btn_buy").on("click", function(e){
+	location.href="/orders/payment?product_id=${productDetail.product_id}";
+});
+
 
 function cartAlert(result){
 }

@@ -44,19 +44,22 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- 
-							<c:forEach var="productList" items="${list}">
-								<tr>
-								</tr>
-							</c:forEach>
-						 -->
-						 <tr>
-							 <td class="col-sm-1 text-center">상품 그림</td>
-							 <td>상품 정보</td>
-							 <td align="right">상품가격(p_price)</td>
-							 <td align="right">구매개수</td>
-							 <td align="right">상품가격 * 구매개수</td>
-						 </tr>
+						<c:forEach var="product" items="${product}">
+							<tr>
+								<td class="col-sm-1 text-center">
+									<c:when test="${product.fileList == null || product.fileList == '[]'}">
+										<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+									</c:when>
+									<c:otherwise>
+										<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${product.fileList[0].file_path }${product.fileList[0].file_s_name}"/>
+									</c:otherwise>
+								</td>
+								<td>${product.p_name }</td>
+								<td align="right">${product.p_price }</td>
+								<td align="right">${product.p_enroll }</td>
+								<td align="right">${product.P_price * List.p_enroll}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</form>

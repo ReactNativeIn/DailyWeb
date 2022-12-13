@@ -28,5 +28,6 @@ public class ProductDTO {
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;
 	private List<FileVO> fileList;
+	private List<ProductDTO> productDTO;
 
 }

@@ -132,7 +132,7 @@
 							<div class="productImg">
 								<a href="/product/productDetail?product_id=${List.product_id}">
 									<c:choose>
-										<c:when test="${List.fileList == null }">
+										<c:when test="${List.fileList == null || List.fileList == '[]'}">
 											<img style="width: 100%; height: 400px;" src="/resources/images/noImage.png"/>
 										</c:when>
 										<c:otherwise>
