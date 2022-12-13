@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>reViewWriter</title>
+<title>리뷰 작성 화면</title>
 	<style>
 		main {
 			display: flex;

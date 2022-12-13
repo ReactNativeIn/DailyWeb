@@ -125,4 +125,15 @@ public class MemberController {
 	public String mypageForm() {
 		return "member/myPage";
 	}
+	
+	@RequestMapping(value = "/reView")
+	public String reViewInfoFrom() {
+		return "member/reView";
+	}
+	
+	@RequestMapping(value = "/reViewWriter")
+	public String reViewWriterFrom() {
+		return "member/reViewWriter";
+	}
+
 }

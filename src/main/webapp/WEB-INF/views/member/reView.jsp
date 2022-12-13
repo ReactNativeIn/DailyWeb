@@ -6,7 +6,7 @@
 <head>
 <link href="css/myPage.css" rel="stylesheet" type="text/css" media="all"/>
 <meta charset="UTF-8">
-<title>리뷰 정보 화면</title>
+<title>구매 리스트 화면</title>
 	<style>
 		main {
 			display: flex;

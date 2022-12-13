@@ -87,7 +87,7 @@
 										좋아요 별 갯수
 									</td>				
 									<td class="text-break">	
-									<button type="button" onclick="location.href='${contextPath}/aaa'"
+									<button type="button" onclick="location.href='${contextPath}/member/reViewWriter'"
 									class="btn btn-outline-secondary">
 									후기작성하러가기
 									</button>
@@ -96,8 +96,9 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<button type="button" onclick="location.href='${contextPath}/'"
+					<button type="button" onclick="location.href='${contextPath}/member/mypage'"
 					class="btn btn-outline-secondary">
+				
 					나의 정보 조회 화면으로 이동
 					</button>
 				</div>

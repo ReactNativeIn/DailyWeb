@@ -42,7 +42,7 @@
 				  <input type="file" class="form-control" id="inputGroupFile01">
 				</div> <br>     	 		
 			  	  <button class="btn btn-outline-secondary" type="button" id="button-addon1">저장</button>
-				  <button class="btn btn-outline-secondary" type="button" onclick="location.href='${contextPath}/aa'">이전화면으로</button>
+				  <button class="btn btn-outline-secondary" type="button" onclick="location.href='${contextPath}/member/reView'">이전화면으로</button>
 		  	 </div>
 	 	 </div>	 
 </form>

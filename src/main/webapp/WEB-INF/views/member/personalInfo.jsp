@@ -99,7 +99,7 @@
 					</table>
 
 				</div>
-					<button type="button" onclick="location.href='${contextPath}/aa'" class="btn btn-outline-secondary">
+					<button type="button" onclick="location.href='${contextPath}/member/reView'" class="btn btn-outline-secondary">
 					구매 리스트로 이동
 					</button>
 			</section>
