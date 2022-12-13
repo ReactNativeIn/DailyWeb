@@ -13,6 +13,15 @@ public class Criteria {
 	
 	private String name;	// 경로이름
 	
+	private String detail;	// 상품 디테일
+	
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 	
 	public String getName() {
 		return name;

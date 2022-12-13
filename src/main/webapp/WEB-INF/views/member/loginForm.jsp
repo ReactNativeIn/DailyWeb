@@ -57,7 +57,7 @@
 							<a href="/member/findPasswordForm">비밀번호 찾기 | </a>
 						</li>
 						<li>
-							<a href="#">회원가입</a>
+							<a href="/member/registerAjaxForm">회원가입</a>
 						</li>
 					</ul>
 				</div>

@@ -14,8 +14,8 @@
 </style>
 <nav id="sideNav">
 	<ul class="list-group">
-		<li class="list-group-item fs-3 border-0"><a href="#">내 정보</a></li>
-		<li class="list-group-item fs-3 border-0"><a href="/member/ordersHistory">주문 내역 조회</a></li>
+		<li class="list-group-item fs-3 border-0"><a href="/member/mypage">내 정보</a></li>
+		<li class="list-group-item fs-3 border-0"><a href="/orders/ordersHistory">주문 내역 조회</a></li>
 		<li class="list-group-item fs-3 border-0"><a href="#">구매후기</a></li>
 	</ul>
 </nav>
