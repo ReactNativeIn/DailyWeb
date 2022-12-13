@@ -69,7 +69,7 @@
 									<td class="text-start" style="width: 500px;">
 										<div>
 											<c:choose>
-												<c:when test="${item.fileList == null }">
+												<c:when test="${item.fileList == null || item.fileList == '[]' }">
 													<img class="img-thumbnail border-2 w-25" src="/resources/images/noImage.png"/>
 												</c:when>
 												<c:otherwise>
