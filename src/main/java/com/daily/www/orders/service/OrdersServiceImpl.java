@@ -14,67 +14,39 @@ import com.daily.www.file.dao.FileDAO;
 import com.daily.www.file.vo.FileVO;
 import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
-
+import com.daily.www.orders.vo.OrdersVO;
+import com.daily.www.product.dto.ProductDTO;
 
 @Service("OrdersService")
 public class OrdersServiceImpl implements OrdersService {
-	
+
 	@Autowired
 	OrdersDAO ordersDAO;
-	
+
 	@Autowired
 	private FileDAO fileDAO;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(OrdersServiceImpl.class);
-	
+
 	// 결제 등록
 	@Override
 	public int payment(OrdersDTO ordersDTO) {
-		
+
 		logger.info("OrdersService 실행중...");
-		
-		
+
 		return ordersDAO.payment(ordersDTO);
 	}
-	
+
 	// 특정 회원에 해당하는 주문내역 조회
 	@Override
-	public List<OrdersDTO> listOrders(String id){
+	public List<OrdersDTO> listOrders(String id) {
 		List<OrdersDTO> oDTO = ordersDAO.listOrders(id);
-		
-		// 부터
-		String [] idList = new String[oDTO.size()];
 
-		for(int i = 0; i < idList.length; i++) {
-			idList[i] = Integer.toString(oDTO.get(i).getProduct_id());
+		for (OrdersDTO ordersDTO : oDTO) { // forEach는 List를 꺼내서 적용시켜주는거라 따로 저장할 필요가없다.
+			ordersDTO.setFileList(fileDAO.getFileList(ordersDTO.getProduct_id()));
 		}
-		
-		if(idList.length > 0) {
-			Map<String, String[]> product_id = new HashMap();
-			product_id.put("products_id", idList);
-			List<FileVO> file = fileDAO.getProductsFileList(product_id);
-			
-			if(file != null) {
-				for(int i = 0; i < oDTO.size(); i++) {
-					for(int j = 0; j < file.size(); j++) {
-						if(oDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
-							if(oDTO.get(i).getFileList() == null) {
-								oDTO.get(i).setFileList(new ArrayList<FileVO>());
-							}
-							oDTO.get(i).getFileList().add(file.get(j));
-						}
-					}
-				}
-			}
-		}
-		
-	
 
-		// 여까지 코드 겹칩 - listMain()메서드
-		
-		
 		return oDTO;
 	}
-	
-	
-}	// End - OrdersService
+
+} // End - OrdersService

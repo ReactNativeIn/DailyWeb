@@ -22,6 +22,4 @@ public interface FileDAO {
 	// 파일 검색 - 해당 상품에 대한
 	List<FileVO> getFileList(int product_id);
 
-	// 파일 검색 - 상품들에 해당하는 파일 리스트
-	List<FileVO> getProductsFileList(Map<String, String[]> product_id);
 }

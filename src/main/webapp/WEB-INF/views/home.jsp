@@ -51,7 +51,7 @@
 							<td class="text-center">
 								<div>
 									<c:choose>
-										<c:when test="${item.fileList == null }">
+										<c:when test="${item.fileList == null || item.fileList == '[]' }">
 											<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
 										</c:when>
 										<c:otherwise>
@@ -88,7 +88,7 @@
 								<td class="text-center">
 									<div>									
 										<c:choose>
-											<c:when test="${item.fileList == null }">
+											<c:when test="${item.fileList == null || item.fileList == '[]'}">
 												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
 											</c:when>
 											<c:otherwise>
@@ -113,7 +113,7 @@
 								<td class="text-center">
 									<div>
 										<c:choose>
-											<c:when test="${item.fileList == null }">
+											<c:when test="${item.fileList == null || item.fileList == '[]'}">
 												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
 											</c:when>
 											<c:otherwise>
