@@ -213,10 +213,11 @@ $(document).ready(function () {
 	    }
 	    if ($("#passwordRe").val() == "") {
 	      alert("비밀번호 확인값을 입력해 주세요.");
-	      $("#password").focus();
+	      $("#passwordRe").focus();
 	      return false;
 	    } else if (p1 != p2) {
 		  alert("비밀번호가 다릅니다. 다시 입력해주세요");
+		  $("#passwordRe").focus();
 	      return false;
 	    }    
 	    if ($("#name").val() == "") {
