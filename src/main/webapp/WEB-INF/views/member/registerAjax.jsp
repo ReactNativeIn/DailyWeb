@@ -45,7 +45,7 @@
 			}	
 			button[type=button]{
 				font-family: 'Jeju Gothic', sans-serif; 
-				font-size: 13px;
+				font-size: 14px;
 			}			
 			button[type=submit]{
 				font-family: 'Jeju Gothic', sans-serif;
@@ -93,9 +93,10 @@
 						<i class="bi bi-person fs-5"></i>
 					</span>
 					<input type="text" class="form-control" id="id" name="id" placeholder="아이디"/>					
-					<button class="idCheck btn btn-success" type="button" id="idCheck" onClick="fn_idCheck();" value="N">중복확인
+					<button class="idCheck btn btn-outline-success" type="button" id="idCheck" onClick="fn_idCheck();" value="N">중복확인
 					</button>
 				</div>
+				<input type="hidden" id="checked_id" value="">
 				<div class="input-group">
 					<span class="input-group-text">
 						<i class="bi bi-lock fs-5"></i>
@@ -139,8 +140,8 @@
 					<input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임"/>
 				</div>
 				<div class="form-group btn-group-lg">
-					<button class="btn btn-secondary cancel" type="button">취소</button>
-					<button id="submit" class="btn btn-success ms-3" type="submit">회원가입</button>
+					<button class="btn btn-secondary cancel" type="button" style="width:75px; height:38px;">취소</button>
+					<button id="submit" class="btn btn-success ms-1" type="submit" style="width:85px; height:38px;">회원가입</button>
 				</div>
 			</form>
 			</div>
@@ -149,6 +150,7 @@
 </body>
 
 <script>
+
 //취소/회원가입 버튼 함수
 $(document).ready(function () {
 	 //input을 datepicker로 선언
@@ -167,18 +169,23 @@ $(document).ready(function () {
         ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
     });                    
     
-    
     $('#datepicker').datepicker('setDate', 'today'); // 초기값을 오늘로 설정. 
 	
-	
+  //--------------------------------------
+  //아이디 중복체크 여부확인
+  //--------------------------------------
+
+  $("#idCheck").click(function(){
+  	$("#checked_id").val("y");
+  });
 	  // 취소 버튼이 눌렸을 경우 로그인 화면으로 이동한다.
 	  $(".cancel").on("click", function () {
-	    location.href = "/member/loginForm.do";
+	    // location.href = "/member/loginForm.do";
+	    history.back();
 	  });
 
 	  // 회원가입 버튼을 눌렀을 경우
 	  $("#submit").on("click", function () {
-	    alert("회원가입 버튼을 누르셨습니다.");
 	    
 	    var p1 = $("#password").val(); // 비밀번호 값 변수
 		var p2 = $("#passwordRe").val(); // 비밀번호 체크 값 변수
@@ -194,17 +201,22 @@ $(document).ready(function () {
 	      $("#id").focus();
 	      return false;
 	    }
+	    if($("#checked_id").val()==''){
+	      alert('아이디의 중복확인을 진행하셔야 합니다.');
+	      $("#id").focus();
+	      return false;
+	    }
 	    if ($("#password").val() == "") {
-	      alert("비밀번호를 입력하셔야 합니다.");
+	      alert("비밀번호를 입력해 주세요.");
 	      $("#password").focus();
 	      return false;
 	    }
 	    if ($("#passwordRe").val() == "") {
-	      alert("비밀번호를 중복확인 값을 넣어주세요.");
+	      alert("비밀번호 확인값을 입력해 주세요.");
 	      $("#password").focus();
 	      return false;
 	    } else if (p1 != p2) {
-		  alert("비밀번호가 일치 하지 않습니다");
+		  alert("비밀번호가 다릅니다. 다시 입력해주세요");
 	      return false;
 	    }    
 	    if ($("#name").val() == "") {
@@ -221,7 +233,7 @@ $(document).ready(function () {
 	      alert("연락처를 입력하셔야 합니다.");
 	      $("#phone").focus();
 	      return false;
-	    } else if ($("#phone").val().length < 10) {
+	    } else if ($("#phone").val().length < 10 || isNaN($("#phone").val())) {
 	      alert("올바른 형태의 연락처를 입력해주세요.");
 	      $("#phone").focus();
 	      return false;
@@ -243,8 +255,6 @@ $(document).ready(function () {
 	  });
 	});
 </script>
-
-
 
 </html>
 
