@@ -74,7 +74,7 @@ public class ProductController {
 	
 	// New 상품 목록 보여주기
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public ModelAndView newView(Criteria cri, String list, HttpServletResponse response) throws Exception {
+	public ModelAndView newView(Criteria cri, String list) throws Exception {
 		System.out.println("CategoryController 작동시작...");
 
 		

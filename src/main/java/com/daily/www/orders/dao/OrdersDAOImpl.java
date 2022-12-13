@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.daily.www.common.util.Criteria;
 import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.vo.OrdersVO;
 
@@ -30,6 +31,19 @@ public class OrdersDAOImpl implements OrdersDAO {
 		
 		return sqlSession.insert(NAMESPACE + ".payment", ordersVO);
 	}
+	
+	// 주문내역 총 개수 - 회원에 대한
+	@Override
+	public int listTotalCount(String id) {
+		return sqlSession.selectOne(NAMESPACE + ".listTotalOrders", id);
+	}
+	
+	// 특정 회원에 해당하는 주문내역 조회 - paging
+	@Override
+	public List<OrdersDTO> listTotalOrders(Criteria cri){
+		return sqlSession.selectList(NAMESPACE + ".listTotalOrders", cri);
+	}
+	
 	
 	// 특정 회원에 해당하는 주문내역 조회
 	@Override

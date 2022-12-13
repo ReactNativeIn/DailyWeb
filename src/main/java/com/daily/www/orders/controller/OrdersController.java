@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.daily.www.common.util.Criteria;
+import com.daily.www.common.util.PageMaker;
 import com.daily.www.member.vo.MemberVO;
 import com.daily.www.orders.service.OrdersService;
 import com.daily.www.orders.vo.OrdersVO;
@@ -33,15 +35,25 @@ public class OrdersController {
 
 	// 내정보 - 주문내역 화면 이동
 	@RequestMapping(value = "/ordersHistory")
-	public String ordersHistory(String id, HttpSession session, Model model) {
+	public String ordersHistory(Criteria cri, String id, HttpSession session, Model model) {
 
 		if (session.getAttribute("member") == null) { // 로그인 상태가 아니면 주문내역 화면 이동 못함
 			return "member/loginForm";
 		}
-
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		model.addAttribute("list", ordersService.listOrders(member.getId()));
-
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		cri.setId(id);
+		
+		pageMaker.setTotalCount(ordersService.listTotalCount(id));
+		
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//		model.addAttribute("list", ordersService.listOrders(member.getId()));
+		
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("list", ordersService.listTotalOrders(cri));
+		
 		return "/member/ordersHistory";
 	}
 

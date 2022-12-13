@@ -9,6 +9,8 @@ public class Criteria {
 	private int page;	// 현재 페이지 번호
 	private int perPageNum;	// 한 페이지당 보여줄 글의 개수
 	
+	private String id; // 회원 아이디
+	
 	private String list;	// 카테고리에 따른 리스트
 	
 	private String name;	// 경로이름
@@ -19,6 +21,14 @@ public class Criteria {
 		return detail;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
