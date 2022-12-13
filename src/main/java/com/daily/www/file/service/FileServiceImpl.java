@@ -46,9 +46,4 @@ public class FileServiceImpl implements FileService {
 		return fileDAO.getFileList(product_id);
 	};
 	
-	// 파일 검색 - 상품들에 해당하는 파일 리스트
-	@Override
-	public List<FileVO> getProductsFileList(Map<String, String[]> product_id){
-		return fileDAO.getProductsFileList(product_id);
-	}
 }

@@ -36,20 +36,21 @@
 	</sql>
 	
 	<!-- 메인 - New -->
-	<select id="main_new" resultType="com.daily.www.product.dto.ProductDTO">
+	<select id="main" resultType="com.daily.www.product.dto.ProductDTO">
 		<![CDATA[
 			select *
-			from product
-			order by p_enroll, product_id desc limit 5
-		]]>
-	</select>
-	
-	<!-- 메인 - BestItem -->
-	<select id="main_BestItem" resultType="com.daily.www.product.dto.ProductDTO">
-		<![CDATA[
+			from (
+				select *
+				from product
+				order by p_enroll, product_id desc limit 5
+            ) se1
+            union all
 			select *
-			from product
-			order by p_sell, p_enroll, product_id desc limit 20
+			from (
+				select *
+				from product
+				order by p_sell, p_enroll, product_id desc limit 20
+            ) se2;
 		]]>
 	</select>
 	

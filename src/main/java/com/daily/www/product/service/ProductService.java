@@ -29,7 +29,7 @@ public interface ProductService {
 	List<ProductVO> listPaging(Criteria cri) throws Exception;
 
 	// 메인 
-	Map<String, List<ProductDTO>> listMain();
+	List<ProductDTO> listMain();
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	ProductDTO productDetail(int product_id);
