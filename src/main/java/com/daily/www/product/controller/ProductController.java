@@ -91,7 +91,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> newList = productService.listPaging(cri);
+		List<ProductDTO> newList = productService.listPaging(cri);
 		mav.addObject("List", newList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());
@@ -118,7 +118,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> menList = productService.listPaging(cri);
+		List<ProductDTO> menList = productService.listPaging(cri);
 		
 		mav.addObject("List", menList);
 		mav.addObject("pageMaker", pageMaker);
@@ -146,7 +146,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> womenList = productService.listPaging(cri);
+		List<ProductDTO> womenList = productService.listPaging(cri);
 		mav.addObject("List", womenList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());
@@ -172,7 +172,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> unisexList = productService.listPaging(cri);
+		List<ProductDTO> unisexList = productService.listPaging(cri);
 		mav.addObject("List", unisexList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());

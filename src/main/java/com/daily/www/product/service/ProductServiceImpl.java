@@ -97,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	// (카테고리별) 상품 목록 보기 (페이징 처리)
 	@Override
-	public List<ProductVO> listPaging(Criteria cri) throws Exception {
+	public List<ProductDTO> listPaging(Criteria cri) throws Exception {
 		//	logger.info("BoardServiceImpl 게시글 목록 보기 (페이징 처리) ==> " + cri);
 		return productDAO.listPaging(cri);
 	}

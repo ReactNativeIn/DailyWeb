@@ -130,14 +130,21 @@
 					<c:forEach var="List" items="${List}">
 						<div class="col" style="margin-bottom: 20px;">
 							<div class="productImg">
-								<a href="#">
-									<img style="width: 100%; height: 400px;" src="/resources/images/cat01.jpg" alt="..."/>
+								<a href="/product/productDetail?product_id=${List.product_id}">
+									<c:choose>
+										<c:when test="${List.fileList == null }">
+											<img style="width: 100%; height: 400px;" src="/resources/images/noImage.png"/>
+										</c:when>
+										<c:otherwise>
+											<img style="width: 100%; height: 400px;" src="/util/upload/displayFile?fileName=${List.fileList[0].file_path }${List.fileList[0].file_s_name}"/>
+										</c:otherwise>
+									</c:choose>
 								</a>
 							</div>
 							<!-- 정보 -->
 							<div class="description">
 								<div class="productName" style="margin:10px 0 10px 0;">
-									<a href="#">
+									<a href="/product/productDetail?product_id=${List.product_id}">
 										<span class="title displaynone">상품명 : </span>
 										<span style="font-size:12px;">${List.p_name}</span>
 									</a>

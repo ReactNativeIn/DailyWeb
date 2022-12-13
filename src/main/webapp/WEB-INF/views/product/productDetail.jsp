@@ -35,7 +35,7 @@
 					</div>
 					<div class="author">
 						 <span> 상품 번호 :
-						 	${productDetail.c_detail}
+						 	${productDetail.product_id}
 						 </span>
 						 <span>|</span>
 						 <span> 판매수량 :

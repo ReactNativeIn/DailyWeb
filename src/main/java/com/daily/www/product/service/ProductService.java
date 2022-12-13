@@ -26,7 +26,7 @@ public interface ProductService {
 	int listTotalCount(Criteria cri) throws Exception;
 	
 	// new 상품 목록 보기 (페이징 처리)
-	List<ProductVO> listPaging(Criteria cri) throws Exception;
+	List<ProductDTO> listPaging(Criteria cri) throws Exception;
 
 	// 메인 
 	Map<String, List<ProductDTO>> listMain();
