@@ -144,6 +144,30 @@ function insertBtn(){
 			}
 	});
 }
+
+// 포인트 + 소수점 함수
+
+$(document).ready(function() {
+	
+	/* p_enroll */
+	const year = "${productDetail.p_enroll}";
+	
+	let tempYear = year.substr(0,10);
+	
+	let yearArray = tempYear.split("-")
+	let p_enroll = yearArray[0] + "년 " + yearArray[1] + "월 " + yearArray[2] + "일";
+	
+	$(".p_enroll").html(p_enroll);
+	
+	/* 포인트 삽입 */
+	let Price = "${productDetail.p_price}"
+	let point = Price*0.05;
+	// Math.floor : 소수점 나머지 버리는 메서드
+	point = Math.floor(point);
+	$(".point_span").text(point);
+	
+	
+});
 ///---------------------------------------- 대철
 /**
  * 상품 디테일 관련 함수
@@ -177,7 +201,7 @@ function insertBtn(){
  // 가격 계산
  //--------------------------------------
 
- var price = 10000;
+ var price = "${productDetail.p_price}"
  
  var value_sum = document.getElementById("sum");	// 가격 합계 요소
  var value_sumAll = document.querySelector("#sumAll");	// 총 금액

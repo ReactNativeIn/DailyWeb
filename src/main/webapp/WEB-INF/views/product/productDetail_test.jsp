@@ -75,12 +75,11 @@
 			<div id="con2">
 				<div class="jumbotron" id="item_name">
 					<div class="container">
-						<h1 class="display-3" style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen;">${productDetail.p_name}</h1>
+						<h1 class="display-3" style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen;">멋쟁이 치와와</h1>
 				<div class="container ">
 					<div class="row">
 						<div class="col-md-12" style="width:260; height:280;">
-							<h3 style="margin-top:3px;"><fmt:formatNumber value="${productDetail.p_price}" /></h3>
-							<div>적립 포인트 : <span class="point_span"></span>원</div>
+							<h3 style="margin-top:3px;">10,000원</h3>
 							<p> <b>상품 코드 : <span class="badge bg-danger">new</span> <span class="badge bg-secondary">hit</span></b>
 							<p> <b>색상 : </b>
 								<select class="form-select" aria-label="Default select example">
@@ -98,10 +97,10 @@
 							</div>
 							<div class="container" style="border-top:solid; border-bottom:solid; padding-top: 5px; border-color:darkgreen;">
 								<div class="container">
-									<b class="mb-2">${productDetail.p_name} - </b>
+									<b class="mb-2">멋쟁이 치와와 - </b>
 									<b class="mb-2">Black / M </b>
 									<div style="text-align: end;">
-										<a class="align-items-center" id="sum"><fmt:formatNumber value="${productDetail.p_price}" /></a>
+										<a class="align-items-center" id="sum">10,000원</a>
 									  	<input id="order_num" type="number" value="1" min="1" max="10" class="numbox" placeholder="" aria-label="item_num" style="text" onchange="pp_num()">
 									</div>
 								</div>
@@ -109,12 +108,12 @@
 								</div>
 							</div>
 							<div class="container" style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen; margin-bottom: 5px;">
-								<p> <h4 class="mb-2" id="sumAll">총 상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" /></h4>
+								<p> <h4 class="mb-2" id="sumAll">총 상품 금액 : 10,000원</h4>
 							</div>
 						</div>
 					</div>
 					<div class="container align-items-center" id="order_btn" style="margin-top: 5px;">
-						<p class="m-0"> <a href="cart/cartForm" class="btn btn-light"> 장바구니 &raquo;</a>
+						<p class="m-0"> <a href="#" class="btn btn-light"> 장바구니 &raquo;</a>
 							<a href="./products.jsp" class="btn btn-success">바로 구매 &raquo;</a>
 					</div>
 					</div>
