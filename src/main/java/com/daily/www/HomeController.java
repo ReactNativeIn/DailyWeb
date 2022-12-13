@@ -34,15 +34,12 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(MemberVO memberVO, ProductVO productVO, SizeVO sizeVO, ColorVO colorVO, Model model) throws Exception {
 		logger.info("HomeController 작동시작...");
+
+		List<ProductDTO> list = productService.listMain();
+		System.out.println(list);
+		model.addAttribute("newList", list.subList(0, 5));
+		model.addAttribute("bestList", list.subList(5, list.size()));
 		
-		// 구매하기 눌렀을때,
-		
-		
-		// 장바구니에서 구매하기 눌렀을때(얘는 항목이 여러개 일 수 있음 list)
-		// List<CartItemVO> list = CartService.cartList(member);
-		Map<String, List<ProductDTO>> list = productService.listMain();
-		model.addAttribute("newList", list.get("new"));
-		model.addAttribute("bestList", list.get("best"));
 		return "home";
 	}
 	

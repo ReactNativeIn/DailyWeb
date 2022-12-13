@@ -59,12 +59,10 @@ public class ProductDAOImpl implements ProductDAO {
 	// 메인 - New랑 BestItem
 	@Override
 	public List<ProductDTO> listMainNew(){
-		List<ProductDTO> pro = sqlSession.selectList(NAMESPACE + ".main_new");
-		pro.addAll(sqlSession.selectList(NAMESPACE + ".main_BestItem"));
-		return pro;
+		return sqlSession.selectList(NAMESPACE + ".main");
 	}
 	
-	// 상품 번호에 해당하는 상품 정보 가져오기
+	// 상품 번호에 해당하는 상품 정보 가져오기(상세화면)
 	@Override
 	public ProductDTO productDetail(int product_id) {
 		return sqlSession.selectOne(NAMESPACE + ".detail", product_id);
