@@ -145,29 +145,7 @@ function insertBtn(){
 	});
 }
 
-// 포인트 + 소수점 함수
-
-$(document).ready(function() {
 	
-	/* p_enroll */
-	const year = "${productDetail.p_enroll}";
-	
-	let tempYear = year.substr(0,10);
-	
-	let yearArray = tempYear.split("-")
-	let p_enroll = yearArray[0] + "년 " + yearArray[1] + "월 " + yearArray[2] + "일";
-	
-	$(".p_enroll").html(p_enroll);
-	
-	/* 포인트 삽입 */
-	let Price = "${productDetail.p_price}"
-	let point = Price*0.05;
-	// Math.floor : 소수점 나머지 버리는 메서드
-	point = Math.floor(point);
-	$(".point_span").text(point);
-	
-	
-});
 ///---------------------------------------- 대철
 /**
  * 상품 디테일 관련 함수
@@ -197,28 +175,7 @@ $(document).ready(function() {
  }
 
  
- //--------------------------------------
- // 가격 계산
- //--------------------------------------
 
- var price = "${productDetail.p_price}"
- 
- var value_sum = document.getElementById("sum");	// 가격 합계 요소
- var value_sumAll = document.querySelector("#sumAll");	// 총 금액
- 
- for(var i = 0; i< value_num.length; i++) {
- 	value_num[i].addEventListener("click", pp_num);	//이벤트 처리
- }
- 
- function pp_num(){	// 주문 개수에 따른 가격 변경 함수
-  	var value_num = document.getElementById("order_num").value;	// 주문 수량
-  	var num = Number(value_num * price);
-  	format = Number(num).toLocaleString(); // 천의 자리마다 (,)콤마 넣어준다.
-
- 	value_sum.innerHTML = (format + "원");
- 	
- 	value_sumAll.innerHTML = "총 상품 금액 : " + value_sum.innerHTML;
- }
  
  
   //--------------------------------------------------

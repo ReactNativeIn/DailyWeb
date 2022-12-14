@@ -28,48 +28,28 @@
 <main class="container">
 	<div class="d-flex mt-5">
 		<div class="conatiner text-align-center" id="con1">
-			<img src="../../../resources/images/product/item/chiwawa01.jpg" id="img_main" class="img-reactive img-shadow" alt="상품 이미지" 
-				style="width: 500px; height: 500px; margin-top: 30px; margin-left: 50px; margin-right: 50px;"/>
-			<div class="container" style="margin-left:34px; padding:0">
-				<ul class="list-group list-group-horizontal list-group-flush p-0" id="product_thumb">
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa01.jpg" id="img_thumb" class="img-thumnail" alt="썸네일01" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa02.jpg" id="img_thumb" class="img-thumnail" alt="썸네일02" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa03.jpg" id="img_thumb" class="img-thumnail" alt="썸네일03" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa04.jpg" id="img_thumb" class="img-thumnail" alt="썸네일04" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa05.jpg" id="img_thumb" class="img-thumnail" alt="썸네일05" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>				
-					<li class="list-group-item p-1" >
-					<button style="border:none; padding:0px;" onclick="changeImg()">
-						<img src="../../../resources/images/product/item/chiwawa06.jpg" id="img_thumb" class="img-thumnail" alt="썸네일06" 
-							style="width: 70px; height: 70px;"/>
-					</button>
-					</li>									
-				</ul>
-			</div>
+			<c:choose>
+				<c:when test="${productDetail.fileList == null || productDetail.fileList == '[]' }">
+					<img class="img-reactive img-shadow" src="/resources/images/noImage.png"
+					id="img_main"  style="width: 500px; height: 500px; margin-top: 30px; margin-left: 50px; margin-right: 50px;"/>
+				</c:when>
+				<c:otherwise>
+					<img class="img-reactive img-shadow" src="/util/upload/displayFile?fileName=${productDetail.fileList[0].file_path }${productDetail.fileList[0].file_s_name}"
+					id="img_main"  style="width: 500px; height: 500px; margin-top: 30px; margin-left: 50px; margin-right: 50px;"/>
+					<div class="container" style="margin-left:34px; padding:0">
+						<ul class="list-group list-group-horizontal list-group-flush p-0" id="product_thumb">
+							<c:forEach var="item" items="${productDetail.fileList }">
+								<li class="list-group-item p-1" >
+									<button style="border:none; padding:0px;" onclick="changeImg()">
+										<img src="/util/upload/displayFile?fileName=${item.file_path }${item.file_s_name}" id="img_thumb" 
+											class="img-thumnail" style="width: 70px; height: 70px;"/>
+									</button>							
+								</li>
+							</c:forEach>							
+						</ul>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="container d-flex align-items-center">
 			<div id="con2">
@@ -85,7 +65,7 @@
 							<p> <b>색상 : </b>
 								<select class="form-select" aria-label="Default select example">
 								  <option selected>색상을 골라주세요</option>
-								  <option value="1">BLACK</option>
+								  <option value="1">${productDetail.colorList}</option>
 								  <option value="2">WHITE</option>
 								  <option value="3">GRAY</option>
 								</select>
@@ -96,25 +76,25 @@
 
 								</select>
 							</div>
-							<div class="container" style="border-top:solid; border-bottom:solid; padding-top: 5px; border-color:darkgreen;">
+							<div class="container" style="border-bottom:solid; padding-top: 5px; border-color:darkgreen;">
 								<div class="container">
 									<b class="mb-2">${productDetail.p_name} - </b>
 									<b class="mb-2">Black / M </b>
 									<div style="text-align: end;">
 										<a class="align-items-center" id="sum"><fmt:formatNumber value="${productDetail.p_price}" /></a>
-									  	<input id="order_num" type="number" value="1" min="1" max="10" class="numbox" placeholder="" aria-label="item_num" style="text" onchange="pp_num()">
+									  	<input id="order_num" type="number" value="1" min="1" max="10" class="numbox" placeholder="" aria-label="item_num" style="text"/>
 									</div>
 								</div>
 								<div class="input-group mb-2">
 								</div>
 							</div>
 							<div class="container" style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen; margin-bottom: 5px;">
-								<p> <h4 class="mb-2" id="sumAll">총 상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" /></h4>
+								<h4 class="mb-2" id="sumAll">총 상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" />원</h4>
 							</div>
 						</div>
 					</div>
 					<div class="container align-items-center" id="order_btn" style="margin-top: 5px;">
-						<p class="m-0"> <a href="cart/cartForm" class="btn btn-light"> 장바구니 &raquo;</a>
+						<p class="m-0"> <a href="cart/cartForm" class="btn btn-light btn_cart"> 장바구니 &raquo;</a>
 							<a href="./products.jsp" class="btn btn-success">바로 구매 &raquo;</a>
 					</div>
 					</div>
@@ -127,8 +107,10 @@
 		
 		<div class="container">
 			<hr class="mt-5 mb-5">
-			<img src="../../../resources/images/product/info/chiwawa_info01.jpg" id="img_main" class="img-reactive img-shadow" alt="상품 이미지" 
-				style="margin-top: 30px; margin-left: 200px;"/>
+		</div>
+		
+		<!-- 상품 리뷰 -->
+		<div class="container">
 		</div>
 		
 		<div class="sticky-bottom mb-5" style="text-align-last:right;">
@@ -147,7 +129,31 @@
 		<jsp:include page="../common/footer.jsp" flush="false"/>
 		
 		<script src="/resources/js/product.js"></script>
-	
+		<script>
+			$(function(){
+				 //--------------------------------------
+				 // 가격 계산
+				 //--------------------------------------
+				 var price = ${productDetail.p_price};
+				 
+				 var value_sum = document.getElementById("sum");	// 가격 합계 요소
+				 var value_sumAll = document.querySelector("#sumAll");	// 총 금액
+				 
+				 $("#order_num").on("change", function(){
+				 	 alert("pp_num");
+				 	 var value_num = document.getElementById("order_num").value;	// 주문 수량
+					 
+					 var num = value_num * price;
+					 alert(num);
+					 console.log(num);
+				  	 format = num.toLocaleString(); // 천의 자리마다 (,)콤마 넣어준다.
+				  	 value_sum.innerHTML = (format + "원");
+				  	 value_sumAll.innerHTML = "총 상품 금액 : " + value_sum.innerHTML;
+				 });
+				 
+			});
+		
+		</script>
 	
 </body>
 </html>

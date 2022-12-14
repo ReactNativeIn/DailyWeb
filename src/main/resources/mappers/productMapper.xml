@@ -59,7 +59,7 @@
 		<![CDATA[
 		SELECT	*
 		FROM	product
-		WHERE	1 = 1 AND product_id = #{product_id}
+		WHERE	product_id = #{product_id}
 		]]>
 	</select>
 	

@@ -114,6 +114,10 @@ public class ProductServiceImpl implements ProductService {
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
 	public ProductDTO productDetail(int product_id) {
-		return productDAO.productDetail(product_id);
+		ProductDTO pDTO = productDAO.productDetail(product_id);
+		
+		pDTO.setFileList(fileDAO.getFileList(pDTO.getProduct_id()));
+		
+		return pDTO;
 	}
 }
