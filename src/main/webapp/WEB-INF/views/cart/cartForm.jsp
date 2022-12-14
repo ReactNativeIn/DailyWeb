@@ -57,7 +57,7 @@
 						<c:forEach items="${cartInfo}" var="cartInfo">
 							<tr>
 								<td class="td_width_1 cart_info_td">
-									<input type="checkbox" class="individual_cart_checkbox input_size_20" checked="checked">
+									<input type="checkbox" class="individual_cart_checkbox input_size_20" checked="checked" role="cartItemCheckbox">
 									<input type="hidden" class="individual_p_price_input" value="${cartInfo.p_price}">
 									<input type="hidden" class="individual_ci_number_input" value="${cartInfo.ci_number}">
 									<input type="hidden" class="individual_totalPrice_input" value="${cartInfo.p_price * cartInfo.ci_number}">
@@ -176,7 +176,7 @@
 				<p>⊙ <b>[쇼핑계속하기]</b> 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다.</p>
 				<p>⊙ <b>[주문하기]</b> 버튼을 누르시면 장바구니에 추가한 상품을 구매하실 수 있습니다.</p>
 				<p>⊙ 장바구니에 상품이 맞게 추가되었는지 한 번 더 확인하셔 주시기 바랍니다.</p>
-				<p>⊙ 구매하시고자 하는 상품의 총 금액이 <b>30,000원</b> 이상이면 배송비는 <b>무료</b>입니다.</b></p>
+				<p>⊙ 구매하시고자 하는 상품의 총 금액이 <b>30,000원</b> 이상이면 배송비는 <b>무료</b>입니다.</p>
 			</form>
 			<div class="boundary_div">구분선</div>
 		</div>
@@ -317,6 +317,54 @@ $(".delete_btn").on("click", function(e){
 	alert("확인");
 });
 
+
+// 선택된 상품을 리스트로 만들어서 orderController의 postOrder에서 처리하게 됨
+// 아직 수정해야됨 적용 ㄴㄴ
+function fn_buySelectedItem() {
+  //post요청을 보낼 form 생성
+  let newForm = document.createElement("form");
+  newForm.setAttribute("method", "Post");
+  newForm.setAttribute("action", "${contextPath}/orders/payment");
+  newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
+
+  $("input[role='cartItemCheckbox']:checked").each(function (index) {
+    let hiddenInputId = document.createElement("input");
+    let hiddenInputSize = document.createElement("input");
+    let hiddenInputCount = document.createElement("input");
+    //카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
+    let cartItemId = $(this).val();
+    //가져온 카트 아이템 아이디로 개수와 사이즈를 가져옴
+    let itemSize = $("#size_" + cartItemId).text();
+    let itemCount = $("#resultQuantity_" + cartItemId).text();
+    let itemCountNum = Number(itemCount);
+    //cartId를 cartItemVOList의 변수로 넘겨줌
+    hiddenInputId.setAttribute("type", "hidden");
+    hiddenInputId.setAttribute("name", "cartItemVOList[" + index + "].id");
+    hiddenInputId.setAttribute("value", cartItemId);
+
+    newForm.append(hiddenInputId);
+
+    hiddenInputSize.setAttribute("type", "hidden");
+    hiddenInputSize.setAttribute(
+      "name",
+      "cartItemVOList[" + index + "].productSize"
+    );
+    hiddenInputSize.setAttribute("value", itemSize);
+
+    newForm.append(hiddenInputSize);
+
+    hiddenInputCount.setAttribute("type", "hidden");
+    hiddenInputCount.setAttribute(
+      "name",
+      "cartItemVOList[" + index + "].productCount"
+    );
+    hiddenInputCount.setAttribute("value", itemCount);
+
+    newForm.append(hiddenInputCount);
+  });
+  document.body.append(newForm);
+  newForm.submit();
+}
 </script>
 
 

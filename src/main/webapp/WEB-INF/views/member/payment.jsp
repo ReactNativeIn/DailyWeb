@@ -23,6 +23,7 @@
 		pointer-events: none;
 	}
 	
+	
 </style>
 <body>
 	<!-- 헤더 -->
@@ -45,19 +46,21 @@
 					</thead>
 					<tbody>
 						<c:forEach var="product" items="${product}">
-							<tr>
-								<td class="col-sm-1 text-center">
-									<c:when test="${product.fileList == null || product.fileList == '[]'}">
-										<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
-									</c:when>
-									<c:otherwise>
-										<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${product.fileList[0].file_path }${product.fileList[0].file_s_name}"/>
-									</c:otherwise>
+							<tr valign="middle">
+								<td class="col-md-1 text-center">
+									<c:choose>
+										<c:when test="${product.fileList == null || product.fileList == '[]'}">
+											<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+										</c:when>
+										<c:otherwise>
+											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${product.fileList[0].file_path }${product.fileList[0].file_s_name}"/>
+										</c:otherwise>
+									</c:choose>
 								</td>
-								<td>${product.p_name }</td>
-								<td align="right">${product.p_price }</td>
-								<td align="right">${product.p_enroll }</td>
-								<td align="right">${product.P_price * List.p_enroll}</td>
+								<td>${product.p_name}</td>
+								<td align="right">${product.p_price}</td>
+								<td align="right"><input class="col-md-6" type="number" value="${product.p_count}" id="ci_number" name="ci_number"/></td>
+								<td align="right">${product.p_price * product.p_count}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -101,16 +104,6 @@
 						<tr>
 							 <td class="col-md-3 text-left align-middle">주문 연락처</td>
 							 <td class="dontTouch">
-							 <!--
-								<select style="padding-left:4px; width: 71px; appearance:none;" id="ordererNumber1" name="ordererNumber1" title="주문자 앞번호">
-									<option value='010' >010</option>
-									<option value='011' >011</option>
-									<option value='016' >016</option>
-									<option value='017' >017</option>
-									<option value='018' >018</option>
-									<option value='019' >019</option>
-								</select>
-								-->
 								<input style="width: 81px;" type="text" id="ordererNumber1" name="ordererNumber1" title="주문자 앞번호" maxlength="3" value="010" readonly>
 								&nbsp;-&nbsp;
 								<input style="width: 81px;" type="text" id="ordererNumber2" name="ordererNumber2" title="주문자 중간번호" maxlength="4" value="3456" readonly>
@@ -198,4 +191,5 @@
 
 <!-- 함수 정의 -->
 <script src="/resources/js/payment.js"></script>
+
 </html>

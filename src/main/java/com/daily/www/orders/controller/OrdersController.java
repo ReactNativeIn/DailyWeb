@@ -34,11 +34,25 @@ public class OrdersController {
 	
 	// 주문/결제 화면 이동
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
-	public String payment(HttpSession session, int product_id, Model model) {
+	public String payment(HttpSession session, ProductDTO product, Model model) {
 		
-		List<ProductDTO> productDTO = new ArrayList<ProductDTO>();
-		productDTO.add(productService.productDetail(product_id));
-		model.addAttribute("product" , productDTO);
+		List<ProductDTO> productDTO = productService.productDetail(product);
+		// productDTO.add(productService.productDetail(product));
+		// System.out.println("프로덕트 디티오 => " + productDTO);
+		System.out.println(productDTO);
+		model.addAttribute("product", productDTO);
+
+		return "/member/payment";
+	}
+	
+	@RequestMapping(value = "/directPayment", method = RequestMethod.GET)
+	public String directPayment(ProductDTO product, Model model) {
+		List<ProductDTO> productDTO = new ArrayList<>();
+		ProductDTO pDTO = productService.productOrderDetail(product);
+		productDTO.add(pDTO);
+		System.out.println(productDTO);
+		model.addAttribute("product", productDTO);
+		
 		return "/member/payment";
 	}
 

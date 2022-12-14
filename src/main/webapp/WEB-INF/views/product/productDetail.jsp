@@ -8,7 +8,6 @@
 <title>상품 상세 조회</title>
 
 <link rel="stylesheet" href="/resources/css/productDetail.css">
-
 </head>
 <body>
 <!-- 상단 메뉴 -->
@@ -59,7 +58,7 @@
 					<div class="button">						
 						<div class="button_quantity">
 							주문수량
-							<input type="text" class="quantity_input" value="1">
+							<input type="text" class="quantity_input" value="1" id="jumun">
 							<span>
 								<button class="plus_btn">+</button>
 								<button class="minus_btn">-</button>
@@ -90,6 +89,11 @@
 	</div>
 </div>
 </div>
+
+<form id="orderForm" method="get" action="${contextPath}/orders/directPayment">
+	<input type="number" id ="product_id" name="product_id" value=""/>
+	<input type="number" id ="p_count" name="p_count" value=""/>
+</form>
 
 
 <!-- Footer -->
@@ -167,7 +171,11 @@ $(".btn_cart").on("click", function(e){
 
 // 구매 버튼 -----------------------------------------------------
 $(".btn_buy").on("click", function(e){
-	location.href="/orders/payment?product_id=${productDetail.product_id}";
+	$('#product_id').val(${param.product_id});
+	$('#p_count').val($('#jumun').val());
+	alert($('#p_count').val());
+	
+	$('#orderForm').submit();
 });
 
 

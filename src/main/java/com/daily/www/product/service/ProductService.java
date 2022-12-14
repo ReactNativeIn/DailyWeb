@@ -32,5 +32,7 @@ public interface ProductService {
 	List<ProductDTO> listMain();
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
-	ProductDTO productDetail(int product_id);
+	List<ProductDTO> productDetail(ProductDTO productDTO);
+	
+	ProductDTO productOrderDetail(ProductDTO productDTO);
 }
