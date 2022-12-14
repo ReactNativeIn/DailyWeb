@@ -44,7 +44,13 @@ public class OrdersServiceImpl implements OrdersService {
 	// 특정 회원에 해당하는 주문내역 조회 - paging
 	@Override
 	public List<OrdersDTO> listTotalOrders(Criteria cri){
-		return ordersDAO.listTotalOrders(cri);
+		List<OrdersDTO> oDTO = ordersDAO.listTotalOrders(cri);
+		
+		for (OrdersDTO ordersDTO : oDTO) { // forEach는 List를 꺼내서 적용시켜주는거라 따로 저장할 필요가없다.
+			ordersDTO.setFileList(fileDAO.getFileList(ordersDTO.getProduct_id()));
+		}
+		
+		return oDTO;
 	}
 	
 	// 특정 회원에 해당하는 주문내역 조회

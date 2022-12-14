@@ -36,24 +36,23 @@ public class OrdersController {
 	// 내정보 - 주문내역 화면 이동
 	@RequestMapping(value = "/ordersHistory")
 	public String ordersHistory(Criteria cri, String id, HttpSession session, Model model) {
-
-		if (session.getAttribute("member") == null) { // 로그인 상태가 아니면 주문내역 화면 이동 못함
+		MemberVO me = (MemberVO) session.getAttribute("member");
+		
+		if (me == null) { // 로그인 상태가 아니면 주문내역 화면 이동 못함
 			return "member/loginForm";
 		}
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		
-		cri.setId(id);
+		cri.setName("orders/ordersHistory");
+		cri.setId(me.getId());
 		
-		pageMaker.setTotalCount(ordersService.listTotalCount(id));
+		pageMaker.setTotalCount(ordersService.listTotalCount(me.getId()));
 		
-//		MemberVO member = (MemberVO) session.getAttribute("member");
-//		model.addAttribute("list", ordersService.listOrders(member.getId()));
-		
+
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("list", ordersService.listTotalOrders(cri));
-		System.out.println(ordersService.listTotalOrders(cri));
 		
 		return "/member/ordersHistory";
 	}

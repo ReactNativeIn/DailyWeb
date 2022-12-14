@@ -41,7 +41,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 	// 특정 회원에 해당하는 주문내역 조회 - paging
 	@Override
 	public List<OrdersDTO> listTotalOrders(Criteria cri){
-		return sqlSession.selectList(NAMESPACE + ".listTotalOrders", cri);
+		return sqlSession.selectList(NAMESPACE + ".listPagingOrders", cri);
 	}
 	
 	

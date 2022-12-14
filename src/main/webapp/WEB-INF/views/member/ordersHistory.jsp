@@ -33,8 +33,7 @@
 			
 		</style>
 		<script>
-			alert("${list}");
-			console.log(${list});
+			console.log("${pageMaker}");
 		</script>
 	</head>
 	<body>
@@ -111,7 +110,10 @@
 						</tbody>
 					</table>
 				</div>
-			</section>
+			
+				<jsp:include page="../common/paging.jsp"/>
+			
+			</section>			
 		</main>
 		
 		<jsp:include page="../common/footer.jsp"/>

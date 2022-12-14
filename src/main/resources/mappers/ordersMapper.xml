@@ -23,21 +23,21 @@
 	</select>
 
 	<!-- 주문내역 조회 - 특정 회원이 해당하는(로그인한, 페이징) -->
-	<select id="listOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
+	<select id="listPagingOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
 		<![CDATA[
 			select *
 			from (
-				select *, ROW_NUMBER() OVER(ORDER BY o.o_enroll, o.orders_id DESC) as rNUM
+				select p.*, o.*, oi.ordersItem_id, oi_number, oi_color, oi_size, ROW_NUMBER() OVER(ORDER BY o.o_enroll, o.orders_id DESC) as rNUM
 				from product p, orders o, ordersitem oi
 				where o.orders_id = oi.orders_id and oi.product_id = p.product_id and o.id = #{id}
 				) odr
 			WHERE odr.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
-			ORDER BY rNUM
+			ORDER BY rNUM desc
 		]]>
 	</select>
 
 	<!-- 주문내역 조회 - 특정 회원이 해당하는(로그인한) -->
-	<select id="listPagingOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
+	<select id="listOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
 		<![CDATA[
 			select *
 			from product p, orders o, ordersitem oi
