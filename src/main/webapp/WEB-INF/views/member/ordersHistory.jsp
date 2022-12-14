@@ -32,6 +32,10 @@
 			}
 			
 		</style>
+		<script>
+			alert("${list}");
+			console.log(${list});
+		</script>
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp" flush="false"/>

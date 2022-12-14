@@ -14,7 +14,7 @@
 	</insert>
 	
 	<!-- 주문내역 총 개수(회원에 대한)-->
-	<select id="listTotalOrders" resultType="com.daily.www.orders.dto.OrdersDTO">
+	<select id="listTotalOrders" resultType="int">
 		<![CDATA[
 			select count(*)
 			from product p, orders o, ordersitem oi
@@ -31,7 +31,7 @@
 				from product p, orders o, ordersitem oi
 				where o.orders_id = oi.orders_id and oi.product_id = p.product_id and o.id = #{id}
 				) odr
-			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
+			WHERE odr.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
 			ORDER BY rNUM
 		]]>
 	</select>

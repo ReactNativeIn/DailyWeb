@@ -53,6 +53,7 @@ public class OrdersController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("list", ordersService.listTotalOrders(cri));
+		System.out.println(ordersService.listTotalOrders(cri));
 		
 		return "/member/ordersHistory";
 	}

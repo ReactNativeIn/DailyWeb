@@ -1,9 +1,6 @@
 package com.daily.www.orders.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.daily.www.common.util.Criteria;
 import com.daily.www.file.dao.FileDAO;
-import com.daily.www.file.vo.FileVO;
 import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.vo.OrdersVO;
-import com.daily.www.product.dto.ProductDTO;
 
 
 @Service("OrdersService")
