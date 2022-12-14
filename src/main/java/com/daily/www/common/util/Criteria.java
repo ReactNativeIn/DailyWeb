@@ -55,7 +55,7 @@ public class Criteria {
 	
 	public Criteria() {			// 생성자
 		this.page		= 1;	// 시작 페이지 번호
-		this.perPageNum	= 5;	// 한 페이지당 보여줄 게시글의 수
+		this.perPageNum	= 20;	// 한 페이지당 보여줄 게시글의 수
 	}
 	
 	
