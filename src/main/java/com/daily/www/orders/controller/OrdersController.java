@@ -50,7 +50,8 @@ public class OrdersController {
 		
 		pageMaker.setTotalCount(ordersService.listTotalCount(me.getId()));
 		
-
+		System.out.println("con" +ordersService.listTotalOrders(cri));
+		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("list", ordersService.listTotalOrders(cri));
 		

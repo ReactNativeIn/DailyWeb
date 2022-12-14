@@ -50,6 +50,8 @@ public class OrdersServiceImpl implements OrdersService {
 			ordersDTO.setFileList(fileDAO.getFileList(ordersDTO.getProduct_id()));
 		}
 		
+		System.out.println("service " + oDTO);
+		
 		return oDTO;
 	}
 	
