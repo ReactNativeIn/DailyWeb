@@ -13,26 +13,24 @@ import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.vo.OrdersVO;
 
-
 @Service("OrdersService")
 public class OrdersServiceImpl implements OrdersService {
-	
+
 	@Autowired
 	OrdersDAO ordersDAO;
-	
+
 	@Autowired
 	private FileDAO fileDAO;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(OrdersServiceImpl.class);
-	
+
 	// 결제 등록
 	@Override
-	public int payment(OrdersVO ordersVO) {
-		
+	public int payment(OrdersDTO ordersDTO) {
+
 		logger.info("OrdersService 실행중...");
-		
-		
-		return ordersDAO.payment(ordersVO);
+
+		return ordersDAO.payment(ordersDTO);
 	}
 	
 	// 주문내역 총 개수 - 회원에 대한
@@ -57,16 +55,14 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	// 특정 회원에 해당하는 주문내역 조회
 	@Override
-	public List<OrdersDTO> listOrders(String id){
+	public List<OrdersDTO> listOrders(String id) {
 		List<OrdersDTO> oDTO = ordersDAO.listOrders(id);
-		
-		
+
 		for (OrdersDTO ordersDTO : oDTO) { // forEach는 List를 꺼내서 적용시켜주는거라 따로 저장할 필요가없다.
 			ordersDTO.setFileList(fileDAO.getFileList(ordersDTO.getProduct_id()));
 		}
-			
+
 		return oDTO;
 	}
-	
-	
-}	// End - OrdersService
+
+} // End - OrdersService

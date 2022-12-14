@@ -32,7 +32,7 @@ public class HomeController {
 	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(MemberVO memberVO, ProductVO productVO, SizeVO sizeVO, ColorVO colorVO, Model model) throws Exception {
+	public String home(MemberVO memberVO, ProductDTO productDTO, SizeVO sizeVO, ColorVO colorVO, Model model) throws Exception {
 		logger.info("HomeController 작동시작...");
 
 		List<ProductDTO> list = productService.listMain();

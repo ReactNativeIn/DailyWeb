@@ -51,8 +51,8 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	// (카테고리별) 상품 목록 보기 (페이징 처리)
 	@Override
-	public List<ProductVO> listPaging(Criteria cri) throws Exception {
-				
+	public List<ProductDTO> listPaging(Criteria cri) throws Exception {
+
 		return sqlSession.selectList(NAMESPACE + ".listPaging", cri);
 	}
 	
@@ -62,10 +62,18 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectList(NAMESPACE + ".main");
 	}
 	
-	// 상품 번호에 해당하는 상품 정보 가져오기(상세화면)
+	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
-	public ProductDTO productDetail(int product_id) {
-		return sqlSession.selectOne(NAMESPACE + ".detail", product_id);
+	public List<ProductDTO> productDetail(ProductDTO productDTO) {
+		
+		return sqlSession.selectList(NAMESPACE + ".detail", productDTO);
+	}
+	
+	// 상품 정보 가져와서 상세화면에 보여주기
+	@Override
+	public ProductDTO productOrderDetail(ProductDTO productDTO) {
+		
+		return sqlSession.selectOne(NAMESPACE + ".productOrderDetail", productDTO);
 	}
 	
 	

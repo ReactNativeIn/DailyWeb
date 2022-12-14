@@ -1,5 +1,8 @@
 package com.daily.www.orders.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.daily.www.common.util.Criteria;
 import com.daily.www.common.util.PageMaker;
 import com.daily.www.member.vo.MemberVO;
+import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.service.OrdersService;
-import com.daily.www.orders.vo.OrdersVO;
+import com.daily.www.product.dto.ProductDTO;
+import com.daily.www.product.service.ProductService;
 
 @Controller
 @RequestMapping(value = "/orders/*")
@@ -25,11 +30,31 @@ public class OrdersController {
 
 	@Autowired
 	OrdersService ordersService;
-
+	
+	@Autowired
+	private ProductService productService;
+	
 	// 주문/결제 화면 이동
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
-	public String payment() {
+	public String payment(HttpSession session, ProductDTO product, Model model) {
+		
+		List<ProductDTO> productDTO = productService.productDetail(product);
+		// productDTO.add(productService.productDetail(product));
+		// System.out.println("프로덕트 디티오 => " + productDTO);
+		System.out.println(productDTO);
+		model.addAttribute("product", productDTO);
 
+		return "/member/payment";
+	}
+	
+	@RequestMapping(value = "/directPayment", method = RequestMethod.GET)
+	public String directPayment(ProductDTO product, Model model) {
+		List<ProductDTO> productDTO = new ArrayList<>();
+		ProductDTO pDTO = productService.productOrderDetail(product);
+		productDTO.add(pDTO);
+		System.out.println(productDTO);
+		model.addAttribute("product", productDTO);
+		
 		return "/member/payment";
 	}
 
@@ -60,11 +85,11 @@ public class OrdersController {
 
 	@ResponseBody
 	@RequestMapping(value = "/orderComplete", method = RequestMethod.POST)
-	public String orderComplete(OrdersVO ordersVO) throws Exception {
-
+	public String orderComplete(OrdersDTO ordersDTO) throws Exception {
+		
 		logger.info("OrdersControllerImpl 결제 시작...");
-
-		if (ordersService.payment(ordersVO) == 1) { // 결제성공
+		
+		if (ordersService.payment(ordersDTO) == 1) { // 결제성공
 			return "Y";
 		} else { // 결제실패
 			return "N";

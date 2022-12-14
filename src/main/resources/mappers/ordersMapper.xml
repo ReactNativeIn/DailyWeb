@@ -5,13 +5,15 @@
 
 <mapper namespace="OrdersDAO">
 
-	<!-- 결제처리 -->
+	<!-- 주문 테이블 채우기 -->
 	<insert id="payment" parameterType="orders">
 		<![CDATA[
 			INSERT INTO orders (usePoint, o_comment, o_enroll, o_state, deliverCost, addressee, address, o_phone, id) 
-			SELECT 4000, #{o_comment}, NOW(), "배송준비", 2000, #{addressee}, #{address}, #{o_phone}, #{id} 
+			SELECT 4000, #{o_comment}, NOW(), "배송준비", 0, #{addressee}, #{address}, #{o_phone}, #{id} 
 		]]>
 	</insert>
+	<!-- orders usePoint = p_price들의 합 deliverCost = 0으로 설정 -->
+	<!-- ordersitem (주문상품정보) 테이블 채우기 -->
 	
 	<!-- 주문내역 총 개수(회원에 대한)-->
 	<select id="listTotalOrders" resultType="int">

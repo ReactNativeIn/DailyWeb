@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 				for (SizeVO sizeVO : productDTO.getSizeList()) {
 					check = sizeDAO.inserSize(sizeVO);					
 				}
-			}else {
+			} else {
 				System.out.println("color 실패");
 			}
 			
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 			for(FileVO fileVO: productDTO.getFileList()) {
 				check = fileDAO.insertFile(fileVO);				
 			}
-		}else {
+		} else {
 			System.out.println("상품 실패");
 		}
 		
@@ -93,9 +93,15 @@ public class ProductServiceImpl implements ProductService {
 	
 	// (카테고리별) 상품 목록 보기 (페이징 처리)
 	@Override
-	public List<ProductVO> listPaging(Criteria cri) throws Exception {
+	public List<ProductDTO> listPaging(Criteria cri) throws Exception {
 		//	logger.info("BoardServiceImpl 게시글 목록 보기 (페이징 처리) ==> " + cri);
-		return productDAO.listPaging(cri);
+		List<ProductDTO> pDTO = productDAO.listPaging(cri);
+		
+		for (ProductDTO productDTO : pDTO) {
+			productDTO.setFileList(fileDAO.getFileList(productDTO.getProduct_id()));
+		}
+		
+		return pDTO;
 	}
 	
 	// 메인
@@ -115,6 +121,21 @@ public class ProductServiceImpl implements ProductService {
 	public ProductDTO productDetail(int product_id) {
 		ProductDTO pDTO = productDAO.productDetail(product_id);
 		
+	public List<ProductDTO> productDetail(ProductDTO productDTO) {
+		List<ProductDTO> pDTO = productDAO.productDetail(productDTO);
+		
+		for (ProductDTO product : pDTO) {
+			product.setFileList(fileDAO.getFileList(product.getProduct_id()));
+		}
+		
+		return pDTO;
+	}
+	
+	// 상품 정보 가져와서 상세화면에 보여주기
+	@Override
+	public ProductDTO productOrderDetail(ProductDTO productDTO) {
+		ProductDTO pDTO = productDAO.productOrderDetail(productDTO);
+		pDTO.setP_count(productDTO.getP_count());
 		pDTO.setFileList(fileDAO.getFileList(pDTO.getProduct_id()));
 		
 		return pDTO;

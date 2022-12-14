@@ -66,6 +66,13 @@ public class ProductController {
 
 		ProductDTO productDTO = productService.productDetail(product_id);
 		System.out.println(productDTO);
+	public String productDetail(ProductDTO product, Model model, HttpServletRequest request) throws Exception {
+		
+		System.out.println("ProductController productDetail() product_id : " + Integer.parseInt((String)request.getParameter("product_id")));
+	
+		ProductDTO productDTO = productService.productOrderDetail(product);
+		// System.out.println("productDTO 리스트 => " + productDTO);
+		// ProductDTO p = productService.productDetail(productDTO);
 		model.addAttribute("productDetail", productDTO);
 		
 		return "/product/productDetail";
@@ -90,7 +97,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> newList = productService.listPaging(cri);
+		List<ProductDTO> newList = productService.listPaging(cri);
 		mav.addObject("List", newList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());
@@ -117,7 +124,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> menList = productService.listPaging(cri);
+		List<ProductDTO> menList = productService.listPaging(cri);
 		
 		mav.addObject("List", menList);
 		mav.addObject("pageMaker", pageMaker);
@@ -145,7 +152,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> womenList = productService.listPaging(cri);
+		List<ProductDTO> womenList = productService.listPaging(cri);
 		mav.addObject("List", womenList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());
@@ -171,7 +178,7 @@ public class ProductController {
 		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> unisexList = productService.listPaging(cri);
+		List<ProductDTO> unisexList = productService.listPaging(cri);
 		mav.addObject("List", unisexList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());

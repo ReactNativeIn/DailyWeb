@@ -24,11 +24,16 @@ public interface ProductDAO {
 	int listTotalCount(Criteria cri) throws Exception;
 
 	// new 상품 목록 보기 (페이징 처리)
-	List<ProductVO> listPaging(Criteria cri) throws Exception;
+	List<ProductDTO> listPaging(Criteria cri) throws Exception;
 
 	// 메인 - New
 	List<ProductDTO> listMainNew();
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
-	ProductDTO productDetail(int product_id);
+	// ProductDTO productDetail(int product_id);
+
+	List<ProductDTO> productDetail(ProductDTO productDTO);
+	
+	ProductDTO productOrderDetail(ProductDTO productDTO);
+	
 }
