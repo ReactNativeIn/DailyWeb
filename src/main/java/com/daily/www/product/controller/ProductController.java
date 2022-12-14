@@ -60,13 +60,12 @@ public class ProductController {
 	
 	// 상품 상세 조회(상세화면)
 	@RequestMapping(value="/productDetail", method=RequestMethod.GET)
-	public String productDetail(int product_id, Model model, HttpServletRequest request) throws Exception {
+	public String productDetail(int product_id, Model model) throws Exception {
 		
-		System.out.println("ProductController productDetail() product_id : " + Integer.parseInt((String)request.getParameter("product_id")));
-
+		System.out.println("ProductController productDetail() product_id : " + product_id);
 
 		ProductDTO productDTO = productService.productDetail(product_id);
-		
+		System.out.println(productDTO);
 		model.addAttribute("productDetail", productDTO);
 		
 		return "/product/productDetail";

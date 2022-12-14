@@ -130,14 +130,14 @@
 					<c:forEach var="List" items="${List}">
 						<div class="col" style="margin-bottom: 20px;">
 							<div class="productImg">
-								<a href="#">
+								<a href="/product/productDetail/?product_id=${List.product_id}">
 									<img style="width: 100%; height: 400px;" src="/resources/images/cat01.jpg" alt="..."/>
 								</a>
 							</div>
 							<!-- 정보 -->
 							<div class="description">
 								<div class="productName" style="margin:10px 0 10px 0;">
-									<a href="#">
+									<a href="/product/productDetail/?product_id=${List.product_id}">
 										<span class="title displaynone">상품명 : </span>
 										<span style="font-size:12px;">${List.p_name}</span>
 									</a>
@@ -148,8 +148,8 @@
 										<div class="descriptionDiv">
 											<ul class="descriptionUl">
 												<li class="descriptionLi" title="판매가">
-													<span class="title displaynone">판매가 : </span>
-													<span style="font-size:13px; text-decoration:line-through">${List.p_price}원</span>
+														<span class="title displaynone">판매가 : </span>
+														<span style="font-size:13px; text-decoration:line-through">${List.p_price}원</span>
 												&nbsp;
 												</li>
 												<li class="descriptionLi" style="text-align: right;" title="할인판매가">
@@ -170,8 +170,10 @@
 										<div class="descriptionDiv" style="margin-bottom:8px;">
 											<ul class="descriptionUl">
 												<li class="descriptionLi" title="판매가">
-													<span class="title displaynone">판매가 : </span>
-													<span style="font-size:13px;">${List.p_price}원</span>
+													<a href="/product/productDetail/?product_id=${List.product_id}">	
+														<span class="title displaynone">판매가 : </span>
+														<span style="font-size:13px;">${List.p_price}원</span>
+													</a>
 												</li>
 											</ul>
 										</div>
