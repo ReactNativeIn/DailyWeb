@@ -53,9 +53,30 @@ public class ProductController {
 	
 	// 상품 리스트 화면 이동 - 관리자
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
-	public String productListForm(Model model) {
-		System.out.println("들림");
-		return "admin/productList_A";
+	public ModelAndView productListForm(Criteria cri, String list, HttpServletResponse response) throws Exception {
+//		System.out.println("들림");
+//		return "admin/productList_A";
+		
+		ModelAndView mav = new ModelAndView("admin/productList");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		cri.setList(list);
+		
+		cri.setName("productList");
+		
+		pageMaker.setTotalCount(productService.listTotalCount(cri));
+		
+		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
+		List<ProductVO> menList = productService.listPaging(cri);
+		
+		mav.addObject("List", menList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("Name", cri.getName());
+
+		
+		return mav;
 	}
 	
 	// 상품 상세 조회(상세화면)
