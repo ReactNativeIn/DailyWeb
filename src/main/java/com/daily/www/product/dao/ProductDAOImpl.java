@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.daily.www.common.util.Criteria;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.product.vo.ProductVO;
 
@@ -54,6 +55,12 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductVO> listPaging(Criteria cri) throws Exception {
 				
 		return sqlSession.selectList(NAMESPACE + ".listPaging", cri);
+	}
+	
+	// (카테고리별) 상품 목록 보기 (어드민리스트 페이징 처리)
+	public List<ProductVO> AdminListPaging(SearchCriteria Scri, Criteria cri) throws Exception {
+				
+		return sqlSession.selectList(NAMESPACE + ".AdminListPaging", cri);
 	}
 	
 	// 메인 - New랑 BestItem

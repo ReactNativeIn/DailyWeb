@@ -26,5 +26,6 @@ public class SearchCriteria extends Criteria {
 	public String toString() {
 		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
+	
 
 } // End - public class SearchCriteria

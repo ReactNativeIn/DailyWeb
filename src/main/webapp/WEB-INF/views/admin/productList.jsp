@@ -155,10 +155,6 @@
 										</div>
 									</c:otherwise>
 								</c:choose>
-								<!-- 상품 업로드한지 7일 지났으면 신상품 배지 안보이게 -->
-								<c:if test="${sale == 1 }">
-									<h6><span class="badge bg-secondary">신상품</span></h6>
-								</c:if>
 							</div>
 						</div>
 					</c:forEach>
@@ -239,17 +235,63 @@
 		</div>
 		
 		<div class="col-sm-offset-3">
-		<!-- <input type='text' id='searchKeyword' value="${pageVO.keyword}"> --> 
+		
+				<!-- 
+		<select id='searchType'>
+			<option>검색종류</option>
+				<option value="t" <c:if test="${searchType == 't'}">selected</c:if>>제목</option>
+				<option value="c" <c:if test="${searchType == 'c'}">selected</c:if>>내용</option>				
+		</select>
+				 -->
+		
+		<!--<input type='text' id='searchKeyword' value="${pageVO.keyword}"> --> 
 		<input type='text' id='searchKeyword' value="${keyword}">
 		<button id='searchBtn'>검색</button> 
 	</div>
 		
 	<form id="formList" action="/product/productList" method="get">
 		<input type='hidden' name='keyword'		value="${pageVO.keyword}">
+		<!-- 		
+		 <input type='hidden' name='searchType' 	value="${pageVO.type}">
+		 -->
 	</form>
 		
 	</main>
 	
+	<script>
+
+		$(document).ready(function() {
+			
+			var formObj = $("#formList");
+			
+			// 검색 버튼을 눌렀을 경우
+			$("#searchBtn").click(function(e){
+				
+				// var typeStr = $("#searchType").find(":selected").val();
+				var keywordStr = $("#searchKeyword").val();
+								
+				//if (typeStr == "검색종류" || typeStr == null) {
+					//alert("검색종류를 선택해주세요.")
+					//return false;
+				//} else if (keywordStr == "" || keywordStr == null) {
+					//alert("검색어를 입력해주세요.")
+					//return false;
+				//}
+				
+				if (keywordStr == "" || keywordStr == null) {
+					alert("검색어를 입력해주세요.")
+					return false;
+				} 
+					console.log(keywordStr);
+					// formObj.find("[name='type']").val(typeStr);
+					//formObj.find("[name='searchType']").val(typeStr);
+					formObj.find("[name='keyword']").val(keywordStr);
+					formObj.find("[name='page']").val("1");
+					formObj.submit();
+						
+		})});
+
+</script>
 	
 	<!-- 푸터 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>

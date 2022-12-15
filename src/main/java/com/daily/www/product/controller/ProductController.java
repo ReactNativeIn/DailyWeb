@@ -2,7 +2,6 @@ package com.daily.www.product.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.daily.www.common.util.Criteria;
 import com.daily.www.common.util.PageMaker;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.product.service.ProductService;
 import com.daily.www.product.vo.ProductVO;
@@ -53,11 +53,13 @@ public class ProductController {
 	
 	// 상품 리스트 화면 이동 - 관리자
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
-	public ModelAndView productListForm(Criteria cri, String list, HttpServletResponse response) throws Exception {
+	public ModelAndView productListForm(Criteria cri, SearchCriteria scri, String list, HttpServletResponse response) throws Exception {
 //		System.out.println("들림");
 //		return "admin/productList_A";
 		
 		ModelAndView mav = new ModelAndView("admin/productList");
+		
+		mav.addObject("keyword",	scri.getKeyword());
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);

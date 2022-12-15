@@ -98,6 +98,30 @@
 		]]>
 	</select>
 	
+	<!-- 상품목록 불러오기 (관리자 리스트) -->
+	<select id="AdminListPaging" resultType="product">
+		<![CDATA[
+			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, brd.category_id
+			FROM (
+				SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id, 
+		]]>
+		<![CDATA[
+				FROM product JOIN category
+				on product.category_id = category.c_id
+				WHERE 1 = 1
+		]]>
+		<include refid = "searchMySQL"/>
+		<!-- 
+		 <include refid = "pathName"/>
+		<include refid = "pathDetail"/>		
+		 -->
+		<![CDATA[
+				) brd
+			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
+			ORDER BY rNUM
+		]]>
+	</select>
+	
 	<!-- list 파라미터에서 공통으로 사용하는 부분 -->
 	<sql id="listMySQL">
 		<if test="list == null">
@@ -146,6 +170,13 @@
 		</if>
 		<if test="detail == 'bottom'.toString()">
 			AND c_detail = "바지" 
+		</if>
+	</sql>
+		
+	<!-- 게시글 목록 보기 (Paging 처리) + 검색조건 -->
+	<sql id="searchMySQL" >
+		<if test="searchType != null">
+			AND p_name LIKE CONCAT('%',#{keyword},'%')
 		</if>
 	</sql>
 	
