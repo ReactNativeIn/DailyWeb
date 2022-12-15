@@ -30,9 +30,7 @@ public interface ProductDAO {
 	List<ProductDTO> listMainNew();
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
-	// ProductDTO productDetail(int product_id);
-
-	List<ProductDTO> productDetail(ProductDTO productDTO);
+	ProductDTO productDetail(int product_id);
 	
 	ProductDTO productOrderDetail(ProductDTO productDTO);
 	

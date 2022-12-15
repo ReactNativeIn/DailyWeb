@@ -11,5 +11,14 @@
 			values (#{size}, #{s_stock}, #{color_id})
 		]]>
 	</insert>
+	
+	<select id="getListSize" resultType="size">	
+		select s.* 
+		from size s, color c
+		where s.color_id = c.color_id and s.color_id in
+		<foreach collection="list" item="colorVO" open="(" close=")" separator=",">
+				#{colorVO.color_id}
+		</foreach>
+	</select>
 
 </mapper>

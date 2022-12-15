@@ -7,16 +7,12 @@
 		<meta charset="UTF-8">
 		<title>주문내역 조회</title>
 		<style>
-			main {
-				display: flex;
-				min-width: 1000px;
-			}
 			.title {
 				font-weight: bold;
     			color: black;
 			}
 			#content {
-				min-width: 1200px;
+				min-width: 900px;
 				margin-top: 50px;
 				flex : 1;
 			}
@@ -39,7 +35,7 @@
 	<body>
 		<jsp:include page="../common/header.jsp" flush="false"/>
 		
-		<main class="container-fluid p-5">
+		<main class="container-fluid p-5 d-flex flex-wrap">
 			
 			<jsp:include page="../common/sideNav.jsp"/>
 			
@@ -69,7 +65,7 @@
 						<tbody>
 							<c:forEach items="${list }" var="item" varStatus="i">
 								<tr>
-									<td class="text-start" style="width: 500px;">
+									<td class="text-start">
 										<div>
 											<c:choose>
 												<c:when test="${item.fileList == null || item.fileList == '[]' }">

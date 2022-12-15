@@ -57,9 +57,9 @@
  	<!-- 상품 번호에 해당하는 상품 정보 가져오기 -->
 	<select id="detail" resultType="com.daily.www.product.dto.ProductDTO">
 		<![CDATA[
-		SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id
+		SELECT	*
 		FROM	product
-		WHERE	1 = 1 AND product_id = #{product_id}
+		WHERE	product_id = #{product_id}
 		]]>
 	</select>
 	

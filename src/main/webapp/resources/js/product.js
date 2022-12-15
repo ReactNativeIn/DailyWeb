@@ -145,44 +145,38 @@ function insertBtn(){
 	});
 }
 
+// productDetail 화면 - 색상에 따른 사이즈
+function callSize(){
 	
-///---------------------------------------- 대철
-/**
- * 상품 디테일 관련 함수
- */
- 
- //----------------------------------
- // 썸네일을 메인이미지로 변경
- //----------------------------------
- 
- var main_img = document.querySelector("#img_main");	// 메인 이미지
- var thumb_img = document.querySelectorAll("#img_thumb");	// 작은 사진(여러개)
- var format = 0;
- 
- function changeImg() {
- for(var i = 0; i< thumb_img.length; i++) {
- 	thumb_img[i].addEventListener("click", changepic);	// 이벤트 처리
- 	/*
- 	onclick으로 하면 하나의 요소에 하나의 이벤트만 사용가능
- 	thumb_img[i].onclick = changepics;
- 	*/
- 	}
- }
- 
- function changepic(){	//사진 바꾸는 함수
- 	var thumb_imgAttribute = this.getAttribute("src");
- 	main_img.setAttribute("src",thumb_imgAttribute);
- }
+	var selectColor = $("#selectColor").val();
+	console.log(selectColor);
+	$("." + selectColor).removeAttr("hidden");
+	
+	// 다시 hidden
+	$("#selectSize").find("option[class!=" + selectColor + "]").each(function(index, value){
+		console.log(index);
+		console.log(value);
+		$(value).attr("hidden","hidden");
+		$(value).prop("selected", false); // 선택 초기화
+	});
+}
 
- 
-
- 
- 
-  //--------------------------------------------------
-  // 선택된 썸네일에 효과주기
-  //--------------------------------------------------
-  
-function imgClick(){
-		$('#img_thumb').css('border','solid');
-		$('#img_thumb').css('border','1px');
+// productDetail 화면 - 색상, 사이즈까지 선택시 추가
+function selectSize(){
+	var color = $("#selectColor").val();
+	var size = $("#selectSize").val();
+	
+	for(var i = 0; i < dataN.length; i++){
+		var newOption = document.createElement("option");
+	
+		var text = document.createTextNode(dataN[i].c_detail);
+		newOption.appendChild(text);
+		newOption.setAttribute("value", dataN[i].c_detail);
+		
+		// select 붙이기
+		$("#c_detail").append(newOption);	
+	}	
+	
+	
+	$("#product_option_wrap")
 }

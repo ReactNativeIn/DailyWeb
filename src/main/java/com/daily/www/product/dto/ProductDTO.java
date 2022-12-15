@@ -18,7 +18,6 @@ public class ProductDTO {
 	private String c_name;
 	private String c_detail;
 	private String p_name;
-	private String p_sell;
 	private String p_explanation;
 	private int p_price;
 	private Date p_enroll;
@@ -30,6 +29,6 @@ public class ProductDTO {
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;
 	private List<FileVO> fileList;
-	private List<ProductDTO> productDTO;
+	//private List<ProductDTO> productDTO;
 
 }

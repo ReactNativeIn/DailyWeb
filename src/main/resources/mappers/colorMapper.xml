@@ -19,4 +19,13 @@
 			values (#{color_id}, #{product_id}, #{color})
 		]]>
 	</insert>
+	
+	<select id="getListColor" resultType="color">
+		<![CDATA[
+			select *
+			from product p, color c
+			where p.product_id = c.product_id and c.product_id = #{product_id}
+		]]>
+	</select>
+	
 </mapper>

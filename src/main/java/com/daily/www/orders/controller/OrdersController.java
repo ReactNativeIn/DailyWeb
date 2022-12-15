@@ -38,11 +38,11 @@ public class OrdersController {
 	@RequestMapping(value = "/payment", method = RequestMethod.GET)
 	public String payment(HttpSession session, ProductDTO product, Model model) {
 		
-		List<ProductDTO> productDTO = productService.productDetail(product);
+		//List<ProductDTO> productDTO = productService.productDetail(product);
 		// productDTO.add(productService.productDetail(product));
 		// System.out.println("프로덕트 디티오 => " + productDTO);
-		System.out.println(productDTO);
-		model.addAttribute("product", productDTO);
+		//System.out.println(productDTO);
+		//model.addAttribute("product", productDTO);
 
 		return "/member/payment";
 	}

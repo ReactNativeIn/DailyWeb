@@ -64,9 +64,8 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
-	public List<ProductDTO> productDetail(ProductDTO productDTO) {
-		
-		return sqlSession.selectList(NAMESPACE + ".detail", productDTO);
+	public ProductDTO productDetail(int product_id) {
+		return sqlSession.selectOne(NAMESPACE + ".detail", product_id);
 	}
 	
 	// 상품 정보 가져와서 상세화면에 보여주기

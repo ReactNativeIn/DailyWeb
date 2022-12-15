@@ -123,76 +123,75 @@
 				</div>
 				
 				
+					<!--  
+					
+					-->
 				<!-- 상품사진과 정보 -->
 				<div class="row row-cols-4 row-cols-md-4 g-4">
-
-					<!-- 카테고리에서 데이터를 받아 출력 -->
-					<c:forEach var="List" items="${List}">
-						<div class="col" style="margin-bottom: 20px;">
-							<div class="productImg">
-								<a href="/product/productDetail?product_id=${List.product_id}">
-									<c:choose>
-										<c:when test="${List.fileList == null || List.fileList == '[]'}">
-											<img style="width: 100%; height: 400px;" src="/resources/images/noImage.png"/>
-										</c:when>
-										<c:otherwise>
-											<img style="width: 100%; height: 400px;" src="/util/upload/displayFile?fileName=${List.fileList[0].file_path }${List.fileList[0].file_s_name}"/>
-										</c:otherwise>
-									</c:choose>
-								</a>
-							</div>
-							<!-- 정보 -->
-							<div class="description">
-								<div class="productName" style="margin:10px 0 10px 0;">
-									<a href="/product/productDetail?product_id=${List.product_id}">
-										<span class="title displaynone">상품명 : </span>
-										<span style="font-size:12px;">${List.p_name}</span>
-									</a>
+						<!-- 카테고리에서 데이터를 받아 출력 -->
+						<c:forEach var="List" items="${List}">
+							<a id="detail" href="/product/productDetail?product_id=${List.product_id}">
+								<div class="col" style="margin-bottom: 20px;">
+									<div class="productImg">
+										<c:choose>
+											<c:when test="${List.fileList == null || List.fileList == '[]'}">
+												<img style="width: 100%; height: 400px;" src="/resources/images/noImage.png"/>
+											</c:when>
+											<c:otherwise>
+												<img style="width: 100%; height: 400px;" src="/util/upload/displayFile?fileName=${List.fileList[0].file_path }${List.fileList[0].file_s_name}"/>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<!-- 정보 -->
+									<div class="description">
+										<div class="productName" style="margin:10px 0 10px 0;">
+											<span class="title displaynone">상품명 : </span>
+											<span style="font-size:12px;">${List.p_name}</span>
+										</div>
+										<hr/>
+										<c:choose>
+											<c:when test="${not empty sale}">
+												<div class="descriptionDiv">
+													<ul class="descriptionUl">
+														<li class="descriptionLi" title="판매가">
+															<span class="title displaynone">판매가 : </span>
+															<span style="font-size:13px; text-decoration:line-through">${List.p_price}원</span>
+														&nbsp;
+														</li>
+														<li class="descriptionLi" style="text-align: right;" title="할인판매가">
+															<span class="displaynone">할인판매가 : </span>
+															<span style="font-size:13px;">
+																할인가 
+																<span style="color: red;">할인금액(판매가-할인가)</span>
+															</span>
+														</li>
+													</ul>
+												</div>
+												<div style="line-height:200%;">
+													<br/>
+												</div>
+												<p style="font-size:12px; margin-bottom:8px;">할인기간</p>
+											</c:when>
+											<c:otherwise>
+												<div class="descriptionDiv" style="margin-bottom:8px;">
+													<ul class="descriptionUl">
+														<li class="descriptionLi" title="판매가">
+															<span class="title displaynone">판매가 : </span>
+															<span style="font-size:13px;">${List.p_price}원</span>
+														</li>
+													</ul>
+												</div>
+											</c:otherwise>
+										</c:choose>
+										<!-- 상품 업로드한지 7일 지났으면 신상품 배지 안보이게 -->
+										<c:if test="${sale == 1 }">
+											<h6><span class="badge bg-secondary">신상품</span></h6>
+										</c:if>
+									</div>
 								</div>
-								<hr/>
-								<c:choose>
-									<c:when test="${not empty sale}">
-										<div class="descriptionDiv">
-											<ul class="descriptionUl">
-												<li class="descriptionLi" title="판매가">
-														<span class="title displaynone">판매가 : </span>
-														<span style="font-size:13px; text-decoration:line-through">${List.p_price}원</span>
-												&nbsp;
-												</li>
-												<li class="descriptionLi" style="text-align: right;" title="할인판매가">
-													<span class="displaynone">할인판매가 : </span>
-													<span style="font-size:13px;">
-														할인가 
-														<span style="color: red;">할인금액(판매가-할인가)</span>
-													</span>
-												</li>
-											</ul>
-										</div>
-										<div style="line-height:200%;">
-											<br/>
-										</div>
-										<p style="font-size:12px; margin-bottom:8px;">할인기간</p>
-									</c:when>
-									<c:otherwise>
-										<div class="descriptionDiv" style="margin-bottom:8px;">
-											<ul class="descriptionUl">
-												<li class="descriptionLi" title="판매가">
-													<a href="/product/productDetail/?product_id=${List.product_id}">	
-														<span class="title displaynone">판매가 : </span>
-														<span style="font-size:13px;">${List.p_price}원</span>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</c:otherwise>
-								</c:choose>
-								<!-- 상품 업로드한지 7일 지났으면 신상품 배지 안보이게 -->
-								<c:if test="${sale == 1 }">
-									<h6><span class="badge bg-secondary">신상품</span></h6>
-								</c:if>
-							</div>
-						</div>
-					</c:forEach>
+							</a>
+						</c:forEach>
+					
 				</div>
 			</div>
 
