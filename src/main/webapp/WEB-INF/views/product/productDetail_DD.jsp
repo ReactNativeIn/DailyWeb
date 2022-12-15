@@ -50,7 +50,7 @@
 						id="img_main"  style="width: 500px; height: 500px; margin-top: 30px; margin-left: 50px; margin-right: 50px;"/>
 					</c:when>
 					<c:otherwise>
-						<img class="img-reactive img-shadow" src="/util/upload/displayFile?fileName=${productDetail.fileList[0].file_path }${productDetail.fileList[0].file_s_name}"
+						<img class="img-reactive img-shadow" src="/util/upload/displayFile?fileName=${productDetail.fileList[0].file_path }${productDetail.fileList[0].uuid}"
 						id="img_main"  style="width: 500px; height: 500px; margin-top: 30px; margin-left: 50px; margin-right: 50px;"/>
 						<div style="margin-left:34px; padding:0">
 							<ul id="img_thumb" class="list-group list-group-horizontal list-group-flush p-0">
@@ -86,19 +86,7 @@
 					
 				</div>
 				
-				
-				<div id="product_option_wrap">
-					<div class="btn-group" role="group" aria-label="Basic outlined example">
-						<button type="button" class="plus_btn btn btn-outline-dark btn-lg">+</button>					  	
-						<input id="order_num" class="quantity_input" type="number" value="1" min="1" max="10"/>
-						<button type="button" class="minus_btn btn btn-outline-dark btn-lg">-</button>
-					</div>
-					<div style="display: inline-block;">
-						<span class="fs-4" id="sum"><fmt:formatNumber value="${productDetail.p_price}" />원</span>															
-					</div>
-				</div>
-				
-				
+				<div class="flex-wrap" id="product_option_wrap"></div>
 				
 				<div style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen; margin-bottom: 5px;">
 					<h4 class="mb-2" id="sumAll">총 상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" />원</h4>
@@ -107,6 +95,8 @@
 					<p class="m-0"> <a href="cart/cartForm" class="btn btn-light btn_cart"> 장바구니 &raquo;</a>
 						<a href="./products.jsp" class="btn btn-success">바로 구매 &raquo;</a>
 				</div>
+				
+				
 			</div>
 		</div>
 		
@@ -124,6 +114,19 @@
 		
 	<!-- 하단 메뉴 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>
+	
+	<form id="detail_form" method="post">
+		<input type="hidden" id="product_id" name="product_id" value="${productDetail.product_id }"/>
+		<input type="hidden" id="p_name" name="p_name" value="${productDetail.p_name }"/>
+		<input type="hidden" id="p_explanation" name="p_explanation" value="${productDetail.p_explanation }"/>
+		<input type="hidden" id="p_price" name="p_price" value="${productDetail.p_price }"/>
+		<input type="hidden" id="p_enroll" name="p_enroll" value="${productDetail.p_enroll }"/>
+		<input type="hidden" id="p_sell" name="p_sell" value="${productDetail.p_sell }"/>
+		<input type="hidden" id="p_count" name="p_count" value="${productDetail.p_count }"/>
+		<input type="hidden" id="colorList" name="colorList" value="${productDetail.colorList }"/>
+		<input type="hidden" id="sizeList" name="sizeList" value="${productDetail.sizeList }"/>
+		<input type="hidden" id="fileList" name="fileList" value="${productDetail.fileList }"/>	
+	</form>
 	
 </body>
 	<script src="/resources/js/product.js"></script>
@@ -150,24 +153,9 @@
 			// 썸네일을 메인이미지로 변경
 			$("#img_thumb").on("click", "li", function(event){
 				var th_src = $(this).children().attr("src");
-				$("#img_main").attr("src", th_src);
+				$("#img_main").attr("src", th_src.replace("s_", ""));
 			});
 			 
-			// 수량 버튼 조작
-			let quantity = $(".quantity_input").val();
-			
-			$(".plus_btn").on("click", function(){
-				console.log($("#order_num"));
-				if(quantity < 10){
-					$(".quantity_input").val(++quantity);					
-				}
-			});
-
-			$(".minus_btn").on("click", function(){
-				if(quantity > 1){
-					$(".quantity_input").val(--quantity);	
-				}
-			});
 			 
 		});
 	
