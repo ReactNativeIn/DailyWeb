@@ -64,7 +64,11 @@
 									<input type="hidden" class="individual_point_input" value="${cartInfo.point}">
 									<input type="hidden" class="individual_totalPoint_input" value="${cartInfo.totalPoint}">
 								</td>
-								<td class="td_width_2"></td>
+								<td class="td_width_2">
+									<div class="image_wrap" data-product="${cartInfo.imageList[0].product_id}" data-path="${cartInfo.imageList[0].file_path}" data-uuid="${cartInfo.imageList[0].uuid}" data-filename="${cartInfo.imageList[0].file_s_name}">
+										<img>
+									</div>
+								</td>
 								<td class="td_width_3">${cartInfo.p_name}</td>
 								<td class="td_width_4 price_td">
 									금액 : <fmt:formatNumber value="${cartInfo.p_price}" pattern="#,### 원" /><br>
@@ -315,6 +319,28 @@ $(".delete_btn").on("click", function(e){
 	$(".quantity_delete_form").submit();
 	
 	alert("확인");
+});
+
+/* 이미지 삽입 
+	i 	: 몇 번째 객체인지의 순서 값
+	obj	: i번째 접근하는 객체
+*/
+$(".image_wrap").each(function(i, obj){
+
+	const bobj = $(obj);
+	
+	if(bobj.data("product")){
+		const uploadPath = bobj.data("path");
+		const uuid = bobj.data("uuid");
+		const fileName = bobj.data("filename");
+		
+		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
+		
+		$(this).find("img").attr('src', 'util/upload/displayFile?fileName=' + fileCallPath);
+	} else {
+		$(this).find("img").attr('src', '/resources/images/no_image_found.png');
+	}
+	
 });
 
 </script>

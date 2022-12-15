@@ -1,10 +1,14 @@
 package com.daily.www.cart.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daily.www.cart.dto.CartDTO;
 import com.daily.www.cart.service.CartService;
+import com.daily.www.member.vo.MemberVO;
 
 //------------------------------------------------------------------------------------
 //[ public class CartController ]
@@ -50,22 +55,10 @@ public class CartController {
 	//									POST	:	UPDATE, DELETE, INSERT 기능, URL 길이 한계 해결, 캐시 無
 	//						배열 지정을 통해 다중 요청 가능
 	//-----------------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/cartForm", method = RequestMethod.GET)
-	public String cartForm(CartDTO cartDTO, String cart_id, Model model) {
+	@RequestMapping(value = "/cartForm/{id}", method = RequestMethod.GET)
+	public String cartForm(@PathVariable("id") String id, Model model) {
 		
 		logger.info("CartController 장바구니 화면 불러오기.....");
-		
-//		ModelAndView mav = new ModelAndView("cart/cartForm");
-//		
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCart_id(cart_id);
-//		
-//		
-//		pageMaker.setTotalCount(cartService.cartTotalCount(cart_id));
-//		
-//		List<CartDTO> cartList = cartService.cartPaging(cart_id);
-//		mav.addObject("cartList", cartList);
-//		mav.addObject("pageMaker", pageMaker);
 		
 		//-----------------------------------------------------------------------------------------------------------
 		// [ 장바구니 목록 불러오기(cartAll) ]
@@ -75,16 +68,13 @@ public class CartController {
 		//				addAttribute("키", "값") 메소드를 사용해 전달할 데이터 세팅
 		//-----------------------------------------------------------------------------------------------------------
 		
-		// 아직 테이블 member의 id가 로그인 돼 있지 않으므로 임의로 cart_id를 '1'로 지정
-		cart_id = "1";
-		
-		// 추가된 장바구니 목록을 보여주기 위해 해당 cart의 특정 cart_id 불러오기(추후 테이블member의 id와 연결할 것임)
-		cartService.getCartList(cart_id);
+		// 추가된 장바구니 목록을 보여주기 위해 회원 id 가져오기
+		cartService.getCartList(id);
 		
 		// model 객체를 통해 데이터 저장
 		// "cart_info"를 키로 지정
 		// cartService의 getCartList에 cart_id를 파라미터로 설정해 데이터 전달
-		model.addAttribute("cartInfo", cartService.getCartList(cart_id));
+		model.addAttribute("cartInfo", cartService.getCartList(id));
 
 		return "/cart/cartForm";
 		
@@ -97,10 +87,17 @@ public class CartController {
 	//-----------------------------------------------------------------------------------------------------------
 	@PostMapping("/cart/add")
 	@ResponseBody
-	public String addCartPOST(CartDTO cartDTO) {
+	public String addCartPOST(CartDTO cartDTO, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO)session.getAttribute("member");
+		
+		if(mvo == null) {
+			return "5";
+		}
+		
 		
 		logger.info("CartController 장바구니에 상품 추가하기.....");
-
 		// int로 result 타입 지정
 		// cartService에 addCart로 데이터 전달
 		int result = cartService.addCart(cartDTO);

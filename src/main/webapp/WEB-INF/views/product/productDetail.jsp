@@ -33,9 +33,9 @@
 					</div>
 					<div class="line">
 					</div>
-					<div class="author">
+					<div class="product">
 						 <span> 상품 번호 :
-						 	${productDetail.c_detail}
+						 	${productDetail.product_id}
 						 </span>
 						 <span>|</span>
 						 <span> 판매수량 :
@@ -135,34 +135,35 @@ $(".minus_btn").on("click", function(){
 });
 
 const form = {
+		id 			: '${member.id}',
 		product_id	: '${productDetail.product_id}',
 		ci_number	: '',
-		p_name		: '${productDetail.p_name}',
-		cart_id		: 1
+		p_name		: '${productDetail.p_name}'
 }
 
 // 장바구니 추가 버튼 -----------------------------------------------------
 $(".btn_cart").on("click", function(e){
-	form.ci_number = $(".quantity_input").val();
-
-	$.ajax({
-		url: '/cart/add',
-		type: 'POST',
-		data: form,
-		success: function(result){
-			if(result == '0'){
-				alert("장바구니에 추가를 하지 못하였습니다.");
-			} else if(result == '1'){
-				alert("장바구니에 추가되었습니다.");
-			} else if(result == '2'){
-				alert("장바구니에 이미 추가되어져 있습니다.");
-			} 
-			//cartAlert(result);
-		}
-	})
+    form.ci_number = $(".quantity_input").val();
+    $.ajax({
+        url: '/cart/add',
+        type: 'POST',
+        data: form,
+        success: function(result){
+            cartAlert(result);
+        }
+    })
 });
 
 function cartAlert(result){
+    if(result == '0'){
+        alert("장바구니에 추가를 하지 못하였습니다.");
+    } else if(result == '1'){
+        alert("장바구니에 추가되었습니다.");
+    } else if(result == '2'){
+        alert("장바구니에 이미 추가되어져 있습니다.");
+    } else if(result == '5'){
+        alert("로그인이 필요합니다.");	
+    }
 }
 
 </script>

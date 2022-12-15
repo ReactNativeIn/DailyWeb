@@ -29,6 +29,12 @@ public interface ProductDAO {
 	// 메인 - New
 	List<ProductDTO> listMainNew();
 	
+	// 남자 상품 목록
+	List<ProductDTO> listMenProducts();
+	
+	// 여자 상품 목록
+	List<ProductDTO> listWomenProducts();
+	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	ProductDTO productDetail(int product_id);
 }

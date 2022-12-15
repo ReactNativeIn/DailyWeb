@@ -102,7 +102,7 @@ public class ProductController {
 	
 	// 남성 상품 목록 보여주기
 	@RequestMapping(value = "/남성", method = RequestMethod.GET)
-	public ModelAndView men(Criteria cri, String list, String detail) throws Exception {
+	public ModelAndView men(Criteria cri, String list, String detail, Model model) throws Exception {
 		
 		ModelAndView mav = new ModelAndView("product/itemList");
 		
@@ -123,6 +123,17 @@ public class ProductController {
 		mav.addObject("List", menList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());
+		
+//		// 상품 리스트 확인하기
+//		if(!list.isEmpty()) {
+//			
+//			model.addAttribute("list", list);
+//			
+//		} else {
+//			model.addAttribute("listcheck", "empty");
+//			
+//			return mav;
+//		}
 
 		
 		return mav;

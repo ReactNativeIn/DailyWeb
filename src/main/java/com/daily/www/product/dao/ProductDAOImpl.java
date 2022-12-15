@@ -64,11 +64,33 @@ public class ProductDAOImpl implements ProductDAO {
 		return pro;
 	}
 	
+	// 남자 상품 목록
+	@Override
+	public List<ProductDTO> listMenProducts(){
+		List<ProductDTO> men = sqlSession.selectList(NAMESPACE + ".product_men");
+		men.addAll(sqlSession.selectList(NAMESPACE + ".outer"));
+		men.addAll(sqlSession.selectList(NAMESPACE + ".top"));
+		men.addAll(sqlSession.selectList(NAMESPACE + ".bottom"));
+		return men;
+	}
+	
+	// 여자 상품 목록
+	@Override
+	public List<ProductDTO> listWomenProducts(){
+		List<ProductDTO> women = sqlSession.selectList(NAMESPACE + ".product_women");
+		women.addAll(sqlSession.selectList(NAMESPACE + ".outer"));
+		women.addAll(sqlSession.selectList(NAMESPACE + ".top"));
+		women.addAll(sqlSession.selectList(NAMESPACE + ".bottom"));
+		return women;
+	}
+	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
 	public ProductDTO productDetail(int product_id) {
 		return sqlSession.selectOne(NAMESPACE + ".detail", product_id);
 	}
+
+
 	
 	
 }

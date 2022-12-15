@@ -21,6 +21,7 @@ public class ProductDTO {
 	private String p_explanation;
 	private int p_price;
 	private Date p_enroll;
+	private int p_sell;
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;
 	private List<FileVO> fileList;

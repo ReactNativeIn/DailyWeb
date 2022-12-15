@@ -53,8 +53,53 @@
 		]]>
 	</select>
 	
+	<!-- 남자 상품 목록 -->
+	<select id="product_men" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_enroll, product_id desc limit 5
+		]]>
+	</select>
+	
+	<!-- 여자 상품 목록 -->
+	<select id="product_women" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_enroll, product_id desc limit 5
+		]]>
+	</select>
+	
+	<!-- outer -->
+	<select id="outer" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_sell, p_enroll, product_id desc limit 20
+		]]>
+	</select>
+	
+	<!-- top -->
+	<select id="top" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_sell, p_enroll, product_id desc limit 20
+		]]>
+	</select>
+	
+	<!-- bottom -->
+	<select id="bottom" resultType="com.daily.www.product.dto.ProductDTO">
+		<![CDATA[
+			select *
+			from product
+			order by p_sell, p_enroll, product_id desc limit 20
+		]]>
+	</select>
+	
  	<!-- 상품 번호에 해당하는 상품 정보 가겨오기 -->
-	<select id="detatil" parameterType="int" resultType="product">
+	<select id="detail" parameterType="int" resultType="com.daily.www.product.dto.ProductDTO">
 		<![CDATA[
 		SELECT	*
 		FROM	product

@@ -139,9 +139,92 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 	
+	// 남자 상품 목록
+	@Override
+	public Map<String, List<ProductDTO>> listMenProduct() {
+		Map<String, List<ProductDTO>> list = new HashMap<String, List<ProductDTO>>();
+		List<ProductDTO> pDTO = productDAO.listMenProducts();
+
+		String [] idList = new String[pDTO.size()];
+
+		for(int i = 0; i < idList.length; i++) {
+			idList[i] = Integer.toString(pDTO.get(i).getProduct_id());
+		}
+		
+		if(idList.length > 0) {
+			Map<String, String[]> product_id = new HashMap();
+			product_id.put("products_id", idList);
+			
+			List<FileVO> file = fileDAO.getProductsFileList(product_id);
+			
+			if(file != null) {
+				for(int i = 0; i < pDTO.size(); i++) {
+					for(int j = 0; j < file.size(); j++) {
+						if(pDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
+							if(pDTO.get(i).getFileList() == null) {
+								pDTO.get(i).setFileList(new ArrayList<FileVO>());
+							}
+							pDTO.get(i).getFileList().add(file.get(j));
+						}
+					}
+				}
+			}
+			list.put("men", pDTO.subList(0, 5));
+			
+			list.put("outer", pDTO.subList(5, pDTO.size()));
+			list.put("top", pDTO.subList(5, pDTO.size()));
+			list.put("bottom", pDTO.subList(5, pDTO.size()));
+		}
+		
+		
+		return list;
+	}
+	
+	@Override
+	public Map<String, List<ProductDTO>> listWomenProduct() {
+		Map<String, List<ProductDTO>> list = new HashMap<String, List<ProductDTO>>();
+		List<ProductDTO> pDTO = productDAO.listMenProducts();
+
+		String [] idList = new String[pDTO.size()];
+
+		for(int i = 0; i < idList.length; i++) {
+			idList[i] = Integer.toString(pDTO.get(i).getProduct_id());
+		}
+		
+		if(idList.length > 0) {
+			Map<String, String[]> product_id = new HashMap();
+			product_id.put("products_id", idList);
+			
+			List<FileVO> file = fileDAO.getProductsFileList(product_id);
+			
+			if(file != null) {
+				for(int i = 0; i < pDTO.size(); i++) {
+					for(int j = 0; j < file.size(); j++) {
+						if(pDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
+							if(pDTO.get(i).getFileList() == null) {
+								pDTO.get(i).setFileList(new ArrayList<FileVO>());
+							}
+							pDTO.get(i).getFileList().add(file.get(j));
+						}
+					}
+				}
+			}
+			list.put("women", pDTO.subList(0, 5));
+			
+			list.put("outer", pDTO.subList(5, pDTO.size()));
+			list.put("top", pDTO.subList(5, pDTO.size()));
+			list.put("bottom", pDTO.subList(5, pDTO.size()));
+		}
+		
+		
+		return list;
+	}
+	
 	// 상품 번호에 해당하는 상품 정보 가져오기
 	@Override
 	public ProductDTO productDetail(int product_id) {
 		return productDAO.productDetail(product_id);
 	}
+
+
 }
