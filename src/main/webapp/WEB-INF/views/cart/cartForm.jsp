@@ -61,18 +61,21 @@
 									<input type="hidden" class="individual_p_price_input" value="${cartInfo.p_price}">
 									<input type="hidden" class="individual_ci_number_input" value="${cartInfo.ci_number}">
 									<input type="hidden" class="individual_totalPrice_input" value="${cartInfo.p_price * cartInfo.ci_number}">
-									<input type="hidden" class="individual_point_input" value="${cartInfo.point}">
-									<input type="hidden" class="individual_totalPoint_input" value="${cartInfo.totalPoint}">
+									<input type="hidden" class="individual_product_id_input" value="${cartInfo.product_id}">
 								</td>
 								<td class="td_width_2">
-									<div class="image_wrap" data-product="${cartInfo.imageList[0].product_id}" data-path="${cartInfo.imageList[0].file_path}" data-uuid="${cartInfo.imageList[0].uuid}" data-filename="${cartInfo.imageList[0].file_s_name}">
-										<img>
-									</div>
+									<c:choose>
+										<c:when test="${cartInfo.imageList == null || cartInfo.imageList == '[]'}">
+											<img class="img-thumbnail border-2 w-75" src="/resources/images/no_image_found.png"/>
+										</c:when>
+										<c:otherwise>
+											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${cartInfo.imageList[0].file_path }${cartInfo.imageList[0].file_s_name}"/>
+										</c:otherwise>
+									</c:choose>
 								</td>
 								<td class="td_width_3">${cartInfo.p_name}</td>
 								<td class="td_width_4 price_td">
 									금액 : <fmt:formatNumber value="${cartInfo.p_price}" pattern="#,### 원" /><br>
-									마일리지 : <span class="green_color"><fmt:formatNumber value="${cartInfo.point}" pattern="#,###" /></span>
 								</td>
 								<td class="td_width_4 table_text_align_center">
 									<div class="table_text_align_center quantity_div">
@@ -147,28 +150,13 @@
 									</tbody>
 								</table>
 							</td>
-							<td>
-								<table>
-									<tbody>
-										<tr>
-											<td>
-												<strong>총 적립 예상 마일리지</strong>
-											
-											</td>
-											<td>
-												<span class="totalPoint_span"></span> 원
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<!-- 구매 버튼 영역 -->
 			<div class="content_btn_section">
-				<a href="#">주문하기</a>
+				<a class="order_btn">주문하기</a>
 				<a href="#">쇼핑계속하기</a>
 			</div>
 			<div class="boundary_div">구분선</div>
@@ -191,11 +179,18 @@
 <form action="/cart/update" method="post" class="quantity_update_form" id="quantity_update_form">
 	<input type="hidden" name="cartItem_id" class="update_cartItem_id" id="update_cartItem_id">
 	<input type="hidden" name="ci_number" class="update_ci_number" id="update_ci_number">
+	<input type="hidden" name="id" value="${member.id}">
 </form>  
 
 <!-- 삭제 form -->
 <form action="/cart/delete" method="post" class="quantity_delete_form">
 	<input type="hidden" name="cartItem_id" class="delete_cartItem_id">
+	<input type="hidden" name="id" value="${member.id}">
+</form>
+
+<!-- 주문 form -->
+<form action="/orders/${member.id}" method="get" class="order_form">
+
 </form>
  
 <!-- 푸터영역 -->
@@ -239,7 +234,6 @@ function setTotalInfo(){
 	
 	let totalPrice 		= 0;	// 총 가격	
 	let totalCount		= 0;	// 총 개수
-	let totalPoint 		= 0;	// 총 포인트 점수
 	let deliveryPrice 	= 0;	// 배송비
 	let finalTotalPrice = 0;	// 최종 가격(총 가격 + 배송비)
 	
@@ -253,8 +247,6 @@ function setTotalInfo(){
 			totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
 			// 총 개수
 			totalCount += parseInt($(element).find(".individual_ci_number_input").val());
-			// 총 마일리지
-			totalPoint += parseInt($(element).find(".individual_totalPoint_input").val());
 			
 		}
 
@@ -277,8 +269,6 @@ function setTotalInfo(){
 	$(".totalPrice_span").text(totalPrice.toLocaleString());
 	// 총 갯수
 	$(".totalCount_span").text(totalCount);
-	// 총 마일리지
-	$(".totalPoint_span").text(totalPoint.toLocaleString());
 	// 배송비
 	$(".delivery_price").text(deliveryPrice);	
 	// 최종 가격(총 가격 + 배송비)
@@ -330,16 +320,45 @@ $(".image_wrap").each(function(i, obj){
 	const bobj = $(obj);
 	
 	if(bobj.data("product")){
-		const uploadPath = bobj.data("path");
-		const uuid = bobj.data("uuid");
-		const fileName = bobj.data("filename");
+		const uploadPath 	= bobj.data("path");
+		/* const uuid 			= bobj.data("uuid"); */
+		const fileName 		= bobj.data("filename");
 		
-		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
+		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + fileName); // + uuid + "_"
 		
-		$(this).find("img").attr('src', 'util/upload/displayFile?fileName=' + fileCallPath);
+		$(this).find("img").attr('src', 'util/upload/display?fileName=' + fileCallPath);
 	} else {
 		$(this).find("img").attr('src', '/resources/images/no_image_found.png');
 	}
+	
+});
+
+/* 주문 페이지 이동 */	
+$(".order_btn").on("click", function(){
+	
+	let form_contents ='';
+	let orderNumber = 0;
+	
+	$(".cart_info_td").each(function(index, element){
+		
+		if($(element).find(".individual_cart_checkbox").is(":checked") === true){	//체크여부
+			
+			let product_id = $(element).find(".individual_product_id_input").val();
+			let ci_number = $(element).find(".individual_ci_number_input").val();
+			
+			let product_id_input = "<input name='orders[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
+			form_contents += product_id_input;
+			
+			let ci_number_input = "<input name='orders[" + orderNumber + "].ci_number' type='hidden' value='" + ci_number + "'>";
+			form_contents += ci_number_input;
+			
+			orderNumber += 1;
+			
+		}
+	});	
+
+	$(".order_form").html(form_contents);
+	$(".order_form").submit();
 	
 });
 

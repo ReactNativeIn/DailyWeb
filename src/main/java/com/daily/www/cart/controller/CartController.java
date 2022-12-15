@@ -69,12 +69,13 @@ public class CartController {
 		//-----------------------------------------------------------------------------------------------------------
 		
 		// 추가된 장바구니 목록을 보여주기 위해 회원 id 가져오기
-		cartService.getCartList(id);
+		
 		
 		// model 객체를 통해 데이터 저장
 		// "cart_info"를 키로 지정
 		// cartService의 getCartList에 cart_id를 파라미터로 설정해 데이터 전달
 		model.addAttribute("cartInfo", cartService.getCartList(id));
+		System.out.println(cartService.getCartList(id));
 
 		return "/cart/cartForm";
 		
@@ -118,7 +119,7 @@ public class CartController {
 		
 		// 변경된 수량 데이터 저장 후, 다시 장바구니 페이지로 돌아옴
 		// 테이블 member의 id로 연결할 예정
-		return "redirect:/cart/cartForm";
+		return "redirect:/cart/cartForm/" + cartDTO.getId();
 		
 	}
 	
@@ -134,41 +135,10 @@ public class CartController {
 		
 		// 변경된 수량 데이터 저장 후, 다시 장바구니 페이지로 돌아옴
 		// 테이블 member의 id로 연결할 예정
-		return "redirect:/cart/cartForm";
+		return "redirect:/cart/cartForm/" + cartDTO.getId();
 		
 	}
 	
-	
-//	@GetMapping("/cart/{cart_id}")
-//	public String cartPageGET(@PathVariable("cart_id") String cart_id, Model model) {
-//		
-//		model.addAttribute("cartInfo", cartService.getCartList(cart_id));
-//		
-//		return "/cart";
-//	}
-	
-	
-//	@Autowired
-//	private CartService cartService;
-	
-//	//-----------------------------------------------------------------------------------------------------------
-//	// 로그인 여부 체크
-//	//-----------------------------------------------------------------------------------------------------------
-//	@PostMapping("/cart/add")
-//	@ResponseBody
-//	public String addCartPOST(CartDTO cartDTO, HttpServletRequest request) {
-//		// 로그인 체크
-//		HttpSession session = request.getSession();
-//		MemberVO mvo = (MemberVO)session.getAttribute("member");
-//		if(mvo == null) {
-//			return "5";
-//		}
-//		
-//		// 카트 등록
-//		
-//		int result = cartService.addCart(cartDTO);
-//		
-//		return result + "";
-//	}
+
 	
 }

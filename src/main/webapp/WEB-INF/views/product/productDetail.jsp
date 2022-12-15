@@ -86,7 +86,12 @@
 			</div>				
 			<div class="content_bottom">
 				리뷰
-		</div>
+			</div>
+			<!-- 주문 form -->
+			<form action="/order/${member.id}" method="get" class="order_form">
+			    <input type="hidden" name="orders[0].product_id" value="${productDetail.product_id}">
+			    <input type="hidden" name="orders[0].ci_number" value="">
+			</form>
 	</div>
 </div>
 </div>
@@ -165,6 +170,13 @@ function cartAlert(result){
         alert("로그인이 필요합니다.");	
     }
 }
+
+/* 바로구매 버튼 */
+$(".btn_buy").on("click", function(){
+    let ci_number = $(".quantity_input").val();
+    $(".order_form").find("input[name='orders[0].ci_number']").val(ci_number);
+    $(".order_form").submit();
+});
 
 </script>
 

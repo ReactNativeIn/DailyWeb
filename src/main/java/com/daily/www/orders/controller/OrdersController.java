@@ -62,12 +62,12 @@ public class OrdersController {
 	} // End - public String payment(Model model, HttpServletRequest request) throws
 		// Exception
 	
-//	@GetMapping("/order/{id}")
-//	public void orderItemVOGET(@PathVariable("id") String id, OrdersVO ov, Model model) {
-//		
-//		System.out.println("id : " + id);
-//		System.out.println("orders : " + ov.getOrders());
-//		
-//	}
+	@GetMapping("/{id}")
+	public void ordersItemVOGET(String id, OrdersVO ov, Model model) {
+		
+		System.out.println("id : " + id);
+		System.out.println("orders : " + ov.getOrders());
+		
+	}
 
 } // End - public class OrdersControllerImpl implements OrdersController

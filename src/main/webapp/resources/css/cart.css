@@ -45,7 +45,7 @@ caption{
 .content_subject{
    height: 110px;
    line-height: 110px;
-   background-color: #d6feef;
+   background-color: #e8ddd9;
    margin-bottom: 60px; 
 
 }
@@ -76,13 +76,13 @@ caption{
  	text-align: right;
 }
 .content_btn_section a{
-   color: #fefeff;
-   background-color: #d6feef;
-   min-width: 125px;
+   color: #f9eedb;
+   background-color: #f9eedb;
+   min-width: 130px;
    padding: 20px 25px;
    display: inline-block;
    height: 39px;
-   font-size: 18px;
+   font-size: 20px;
    font-weight: bold;
    text-align: center;
    margin-right: 14px;
@@ -109,13 +109,17 @@ th{
 	width: 5%;
 }	 	 	 
 .td_width_2{
-	width: 10%;
+	width: 20%;
 }	 	 
 .td_width_3{
 	width: 25%;
+	text-align: center; 	
+	font-size: 20px;
+	
 }	 
 .td_width_4{
 	width: 15%;
+	font-size: 20px;
 }	
 .cart_table{
 	font-size: 14px;
@@ -145,13 +149,13 @@ th{
 }
 .quantity_input{
 	position: absolute;
-	width: 27px;
-    height: 23px;
+	width: 30px;
+    height: 25px;
     text-align: center;
     border: 1px solid #c6c6c6;
     border-right: 0px;
-    line-height: 19px;
-    font-size: 12px;
+    line-height: 25px;
+    font-size: 15px;
     color: #4c4848;	
     left: 0;
 }
@@ -178,20 +182,22 @@ th{
 }		
 .quantity_modify_btn{
 	border: 1px solid #d0d0d0;
-    height: 13px;
+    height: 25px;
     line-height: 13px;
-    background-color: #fff;
+    background-color: #faffdd;
     text-align: center;
-    width: 28px;
+    width: 50px;
     display: inline-block;
-    padding: 3px 6px 2px;
+    padding: 6px 0px 6px;
     margin-top: 3px;		
 }
 .table_text_align_center{
 	text-align: center;
 }
 .delete_btn{
-	width: 40px;		
+	height: 25px;
+	width: 50px;	
+	background-color: #fee0ef;	
 }
 		
 .content_total_section{
@@ -206,8 +212,8 @@ th{
 		width : 50%;
 }
 .finalTotalPrice_span{
-	color: #854A72;
-	font-size: 17px;
+	color: #c70746;
+	font-size: 25px;
 	font-weight: bold;
 }
 .totalPoint_span{
