@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.daily.www.cart.dto.CartDTO;
+import com.daily.www.cart.service.CartService;
 import com.daily.www.member.vo.MemberVO;
 import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.service.OrdersService;
@@ -32,16 +34,28 @@ public class OrdersController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private CartService cartService;
+	
 	// 주문/결제 화면 이동
-	@RequestMapping(value = "/payment", method = RequestMethod.GET)
-	public String payment(HttpSession session, ProductDTO product, Model model) {
-		
+	@RequestMapping(value = "/payment", method = RequestMethod.POST)
+	public String payment(HttpSession session, CartDTO cartDTO, Model model) {
+		/*
 		List<ProductDTO> productDTO = productService.productDetail(product);
 		// productDTO.add(productService.productDetail(product));
 		// System.out.println("프로덕트 디티오 => " + productDTO);
 		System.out.println(productDTO);
 		model.addAttribute("product", productDTO);
-
+		*/
+		
+		
+		// 수정중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// List<CartDTO> cartList = cartService.getCartList(cartDTO);
+		
+		// System.out.println(cartList);
+		// model.addAttribute("product", cartList);
+		
+		
 		return "/member/payment";
 	}
 	

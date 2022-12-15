@@ -20,6 +20,10 @@ public interface CartService {
 	// -----------------------------------------------------------------
 	public List<CartDTO> getCartList(String cart_id);
 	
+	//한길 실험용 코드
+	public List<CartDTO> getCartList(CartDTO cartDTO);
+	
+	
 	// -----------------------------------------------------------------
 	// [ 장바구니 수량 수정(modifyCount) ]
 	// -----------------------------------------------------------------

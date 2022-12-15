@@ -41,11 +41,11 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public List<OrdersDTO> listOrders(String id) {
 		List<OrdersDTO> oDTO = ordersDAO.listOrders(id);
-
+		
 		for (OrdersDTO ordersDTO : oDTO) { // forEach는 List를 꺼내서 적용시켜주는거라 따로 저장할 필요가없다.
 			ordersDTO.setFileList(fileDAO.getFileList(ordersDTO.getProduct_id()));
 		}
-
+		
 		return oDTO;
 	}
 

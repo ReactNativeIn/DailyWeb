@@ -2,8 +2,6 @@ package com.daily.www.cart.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,15 +50,54 @@ public class CartDAOImpl implements CartDAO {
 	// [ 장바구니 리스트 불러오기(cartAll) ]
 	//------------------------------------------------------------------------
 	@Override
-	public List<CartDTO> getCart(String cart_id) {
+	public List<CartDTO> getCart(String id) {
 		
 		logger.info("CartDAOImpl cartList() 장바구니 목록 가져오기.....");
-		List<CartDTO> cartList = sqlSession.selectList(NAMESPACE + ".cartAll", cart_id);
+		List<CartDTO> cartList = sqlSession.selectList(NAMESPACE + ".cartAll", id);
 		
 		logger.info("CartDAOImpl cartList() Data ==> " + cartList);
 		return cartList;
 		
 	}
+	
+	
+	// 한길 실험용 코드
+	public List<CartDTO> getCart(CartDTO cart) {
+			
+		logger.info("CartDAOImpl cartList() 장바구니 목록 가져오기.....");
+		List<CartDTO> cartList = sqlSession.selectList(NAMESPACE + ".cartAll", cart);
+		
+		logger.info("CartDAOImpl cartList() Data ==> " + cartList);
+		return cartList;
+		
+	}
+	
+	
+	//------------------------------------------------------------------------
+	// [ 카트에 저장된 MEMBER ID 불러오기(insertCartId) ]
+	//------------------------------------------------------------------------
+	@Override
+	public int insertCartId(CartDTO cartDTO) {
+		
+		return sqlSession.selectOne(NAMESPACE + ".insertCartId", cartDTO);
+	}
+	
+	public int insertCartId(String id) {
+		return sqlSession.selectOne(NAMESPACE + ".insertCartId", id);
+	}
+	
+	//------------------------------------------------------------------------
+	// [ 장바구니 리스트 불러오기(listCartMember) ]
+	//------------------------------------------------------------------------
+//	@Override
+//	public List<CartDTO> listCartMember(String id) {
+//	
+//		List<CartDTO> car = sqlSession.selectList(NAMESPACE + ".listCartMember");
+//		
+//		return car;
+//	}
+
+	
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// [ 카트 수량 수정(modifyCount) ]

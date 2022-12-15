@@ -5,6 +5,7 @@
 <head>
 	<title>Home</title>
 </head>
+
 <style>
 	
 	p {
@@ -59,8 +60,8 @@
 								</td>
 								<td>${product.p_name}</td>
 								<td align="right">${product.p_price}</td>
-								<td align="right"><input class="col-md-6" type="number" value="${product.p_count}" id="ci_number" name="ci_number"/></td>
-								<td align="right">${product.p_price * product.p_count}</td>
+								<td align="right"><input class="col-md-6" type="number" value="${product.ci_number}" id="ci_number" name="ci_number"/></td>
+								<td align="right">${product.p_price * product.ci_number}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

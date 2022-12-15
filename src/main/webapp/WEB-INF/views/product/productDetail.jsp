@@ -8,6 +8,7 @@
 <title>상품 상세 조회</title>
 
 <link rel="stylesheet" href="/resources/css/productDetail.css">
+
 </head>
 <body>
 <!-- 상단 메뉴 -->
@@ -32,7 +33,7 @@
 					</div>
 					<div class="line">
 					</div>
-					<div class="author">
+					<div class="product">
 						 <span> 상품 번호 :
 						 	${productDetail.product_id}
 						 </span>
@@ -90,11 +91,11 @@
 </div>
 </div>
 
+<!-- 히든폼 -->
 <form id="orderForm" method="get" action="${contextPath}/orders/directPayment">
 	<input type="number" id ="product_id" name="product_id" value=""/>
-	<input type="number" id ="p_count" name="p_count" value=""/>
+	<input type="number" id ="ci_number" name="ci_number" value=""/>
 </form>
-
 
 <!-- Footer -->
 <jsp:include page="../common/footer.jsp" flush="false"/>
@@ -139,48 +140,45 @@ $(".minus_btn").on("click", function(){
 });
 
 const form = {
+		id 			: '${member.id}',
 		product_id	: '${productDetail.product_id}',
 		ci_number	: '',
-		p_name		: '${productDetail.p_name}',
-		cart_id		: 1
+		p_name		: '${productDetail.p_name}'
 }
-
-
 
 // 장바구니 추가 버튼 -----------------------------------------------------
 $(".btn_cart").on("click", function(e){
-	form.ci_number = $(".quantity_input").val();
-
-	$.ajax({
-		url: '/cart/add',
-		type: 'POST',
-		data: form,
-		success: function(result){
-			if(result == '0'){
-				alert("장바구니에 추가를 하지 못하였습니다.");
-			} else if(result == '1'){
-				alert("장바구니에 추가되었습니다.");
-			} else if(result == '2'){
-				alert("장바구니에 이미 추가되어져 있습니다.");
-			} 
-			//cartAlert(result);
-		}
-	})
+    form.ci_number = $(".quantity_input").val();
+    $.ajax({
+        url: '/cart/add',
+        type: 'POST',
+        data: form,
+        success: function(result){
+            cartAlert(result);
+        }
+    })
 });
 
+function cartAlert(result){
+    if(result == '0'){
+        alert("장바구니에 추가를 하지 못하였습니다.");
+    } else if(result == '1'){
+        alert("장바구니에 추가되었습니다.");
+    } else if(result == '2'){
+        alert("장바구니에 이미 추가되어져 있습니다.");
+    } else if(result == '5'){
+        alert("로그인이 필요합니다.");	
+    }
+}
 
-// 구매 버튼 -----------------------------------------------------
+//구매 버튼 -----------------------------------------------------
 $(".btn_buy").on("click", function(e){
 	$('#product_id').val(${param.product_id});
-	$('#p_count').val($('#jumun').val());
-	alert($('#p_count').val());
+	$('#ci_number').val($('#jumun').val());
+	alert($('#ci_number').val());
 	
 	$('#orderForm').submit();
 });
-
-
-function cartAlert(result){
-}
 
 </script>
 
