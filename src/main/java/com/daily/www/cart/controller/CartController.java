@@ -118,7 +118,6 @@ public class CartController {
 		cartService.modifyCount(cartDTO);
 		
 		// 변경된 수량 데이터 저장 후, 다시 장바구니 페이지로 돌아옴
-		// 테이블 member의 id로 연결할 예정
 		return "redirect:/cart/cartForm/" + cartDTO.getId();
 		
 	}
@@ -134,7 +133,6 @@ public class CartController {
 		cartService.deleteCart(cartDTO.getCartItem_id());
 		
 		// 변경된 수량 데이터 저장 후, 다시 장바구니 페이지로 돌아옴
-		// 테이블 member의 id로 연결할 예정
 		return "redirect:/cart/cartForm/" + cartDTO.getId();
 		
 	}

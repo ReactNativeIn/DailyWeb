@@ -66,19 +66,6 @@ public class CartDAOImpl implements CartDAO {
 		return sqlSession.selectOne(NAMESPACE + ".insertCartId", cartDTO);
 	}
 	
-	//------------------------------------------------------------------------
-	// [ 장바구니 리스트 불러오기(listCartMember) ]
-	//------------------------------------------------------------------------
-//	@Override
-//	public List<CartDTO> listCartMember(String id) {
-//	
-//		List<CartDTO> car = sqlSession.selectList(NAMESPACE + ".listCartMember");
-//		
-//		return car;
-//	}
-
-	
-	
 	//-----------------------------------------------------------------------------------------------------------
 	// [ 카트 수량 수정(modifyCount) ]
 	//-----------------------------------------------------------------------------------------------------------

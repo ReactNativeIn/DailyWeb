@@ -124,18 +124,6 @@ public class ProductController {
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("Name", cri.getName());
 		
-//		// 상품 리스트 확인하기
-//		if(!list.isEmpty()) {
-//			
-//			model.addAttribute("list", list);
-//			
-//		} else {
-//			model.addAttribute("listcheck", "empty");
-//			
-//			return mav;
-//		}
-
-		
 		return mav;
 	}
 	

@@ -68,7 +68,7 @@ public class CartServiceImpl implements CartService {
 		// 회원 id와 장바구니 연걸
 		List<CartDTO> cartDTO = cartDAO.getCart(id);
 		
-		// 포인트 점수 적립과 이미지 정보를 
+		// 상품 금액 총합과 이미지 정보를 
 		// for문을 통해 추가되는 상품에 따라 계속해서 더해주기
 		for(CartDTO dto : cartDTO) {
 			
@@ -85,51 +85,6 @@ public class CartServiceImpl implements CartService {
 		
 		return cartDTO;
 	}
-	
-	// -----------------------------------------------------------------
-	// [ 장바구니 이미지 파일 리스트(listCartMember) ]
-	// -----------------------------------------------------------------
-//	@Override
-//	public Map<String, List<CartDTO>> listCartMember(String id) {
-//	
-//		Map<String, List<CartDTO>> clist = new HashMap<String, List<CartDTO>>();
-//		List<CartDTO> cDTO = cartDAO.listCartMember(id);
-//
-//		String [] cList = new String[cDTO.size()];
-//		
-//		for(CartDTO dto : cDTO) {
-//			
-//			// 상품 금액 총합
-//			dto.priceTotal();
-//		}
-//		
-//		for(int i = 0; i < cList.length; i++) {
-//			cList[i] = Integer.toString(cDTO.get(i).getProduct_id());
-//		}
-//		
-//		if(cList.length > 0) {
-//			Map<String, String[]> product_id = new HashMap();
-//			product_id.put("products_id", cList);
-//			
-//			List<FileVO> file = fileDAO.getProductsFileList(product_id);
-//			
-//			if(file != null) {
-//				for(int i = 0; i < cDTO.size(); i++) {
-//					for(int j = 0; j < file.size(); j++) {
-//						if(cDTO.get(i).getProduct_id() == file.get(j).getProduct_id()) {
-//							if(cDTO.get(i).getFileList() == null) {
-//								cDTO.get(i).setFileList(new ArrayList<FileVO>());
-//							}
-//							cDTO.get(i).getFileList().add(file.get(j));
-//						}
-//					}
-//				}
-//			}
-//			clist.put("cart", cDTO.subList(0, 5));
-//		}
-//
-//		return clist;
-//	}
 
 	// -----------------------------------------------------------------
 	// [ 장바구니 수량 수정(modifyCount) ]
