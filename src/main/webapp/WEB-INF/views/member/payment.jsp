@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 	<title>Home</title>
@@ -47,6 +47,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="product" items="${product}">
+							<input type="hidden" role="t_price" value="${product.p_price * product.ci_number}"/>
 							<tr valign="middle">
 								<td class="col-md-1 text-center">
 									<c:choose>
@@ -59,9 +60,9 @@
 									</c:choose>
 								</td>
 								<td>${product.p_name}</td>
-								<td align="right">${product.p_price}</td>
+								<td align="right"><fmt:formatNumber value="${product.p_price}" pattern="#,### 원" /></td>
 								<td align="right"><input class="col-md-6" type="number" value="${product.ci_number}" id="ci_number" name="ci_number"/></td>
-								<td align="right">${product.p_price * product.ci_number}</td>
+								<td align="right"><fmt:formatNumber value="${product.p_price * product.ci_number}" pattern="#,### 원" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -73,11 +74,11 @@
 			<form class="form-horizontal">
 				<div id="finalInfo">
 					<h2>
-					<span>현재 상품 금액(총금액)</span>
+					<span><input id="p_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원</span>
 					<i class="fa-solid fa-plus"></i>
-					<span>기타 부가 금액</span>
+					<span><input id="d_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원</span>
 					<i class="fa-solid fa-equals"></i>
-					<span>최종 금액</span>
+					<span><input id="t_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원</span>
 					</h2>
 				</div>
 			</form>
@@ -192,5 +193,25 @@
 
 <!-- 함수 정의 -->
 <script src="/resources/js/payment.js"></script>
+
+<script>
+	// 총 금액들의 합
+	let total = 0;
+	$("input[role='t_price']").each(function () {
+	    total += parseInt($(this).val());
+	});
+	// alert(total);
+	
+	// 상품 총 금액
+	$('#p_price').val(total);
+	
+	// 배달비
+	if(total < 30000) {
+		$('#d_price').val(4000);
+	}
+	
+	// 총 금액
+	$('#t_price').val($('#p_price').val() + $('#d_price').val());
+</script>
 
 </html>

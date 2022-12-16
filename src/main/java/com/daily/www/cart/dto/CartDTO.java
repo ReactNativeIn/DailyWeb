@@ -28,34 +28,19 @@ public class CartDTO {
 	
 	private List<CartDTO> cartDTOList;
 	private List<FileVO> fileList;
-	private List<FileVO> imageList;
+	
 	
 	// ------------------------------------------------------------------------------------
 	// [ 테이블 product 칼럼 중 활용 가능한 것들 ]
 	// ------------------------------------------------------------------------------------
 	private String 	p_name;		// 상품명
-	private int 	p_price;		// 상품 금액
+	private int 	p_price;	// 상품 금액
+	
 	
 	// ------------------------------------------------------------------------------------
-	// [ 포인트 점수 적립 변수 ]
-	// ------------------------------------------------------------------------------------
-    private int point;
-    private int totalPoint;
-    
-	public int getPoint() {
-		return point;
-	}
-
-	public int getTotalPoint() {
-		return totalPoint;
-	}
-	
-	// ------------------------------------------------------------------------------------
-	// [ 포인트 점수 계산 ]
-	// ------------------------------------------------------------------------------------
-	public void priceTotal() {
-		this.point = (int)(Math.floor(this.p_price*0.05));
-		this.totalPoint =this.point * this.ci_number;
-	}
+	// [ 테이블 size와 color 에서 가져온 정보들]
+	// ------------------------------------------------------------------------------------	
+	private String color;
+	private String size;
 }
 

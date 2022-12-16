@@ -27,10 +27,10 @@
 	<!-- 카트 목록 -->
 	<select id="cartAll" resultType="com.daily.www.cart.dto.CartDTO">
 		<![CDATA[
-			SELECT	a.cartItem_id, a.cart_id, a.product_id, a.ci_number,
-					b.p_name, b.p_price
-			FROM	cartItem a LEFT OUTER JOIN product b
-					ON a.product_id = b.product_id
+			SELECT	a.cartItem_id, a.cart_id, a.product_id, a.ci_number, 
+					b.p_name, b.p_price 
+			FROM	cartItem a LEFT OUTER JOIN product b 
+			ON		a.product_id = b.product_id 
 			WHERE	1=1 AND a.cart_id = (
 										SELECT 	cart_id
 										FROM 	cart
@@ -38,6 +38,15 @@
 									  )
 		]]>
 	</select> 
+	
+	<!-- 카트 아이템 아이디에 대한 정보 -->
+	<select id="cartOne" resultType="com.daily.www.cart.dto.CartDTO">
+		<![CDATA[
+			SELECT	* 
+			FROM	cartItem 
+			WHERE 1=1 AND cartItem_id = #{cartItem_id} 
+		]]>
+	</select>
 	
 	
 	

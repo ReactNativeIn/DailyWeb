@@ -64,8 +64,6 @@
 									<input type="hidden" class="individual_p_price_input" value="${cartInfo.p_price}">
 									<input type="hidden" class="individual_ci_number_input" value="${cartInfo.ci_number}">
 									<input type="hidden" class="individual_totalPrice_input" value="${cartInfo.p_price * cartInfo.ci_number}">
-									<input type="hidden" class="individual_point_input" value="${cartInfo.point}">
-									<input type="hidden" class="individual_totalPoint_input" value="${cartInfo.totalPoint}">
 									<input type="hidden" id="resultQuantity_${cartInfo.cartItem_id}" value="${cartInfo.ci_number}"/>
 								</td>
 								<td class="td_width_2">
@@ -81,7 +79,6 @@
 								<td class="td_width_3">${cartInfo.p_name}</td>
 								<td class="td_width_4 price_td">
 									금액 : <fmt:formatNumber value="${cartInfo.p_price}" pattern="#,### 원" /><br>
-									마일리지 : <span class="green_color"><fmt:formatNumber value="${cartInfo.point}" pattern="#,###" /></span>
 								</td>
 								<td class="td_width_4 table_text_align_center">
 									<div class="table_text_align_center quantity_div">
@@ -151,21 +148,6 @@
 											</td>
 											<td>
 												<span class="finalTotalPrice_span"></span> 원
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
-							<td>
-								<table>
-									<tbody>
-										<tr>
-											<td>
-												<strong>총 적립 예상 마일리지</strong>
-											
-											</td>
-											<td>
-												<span class="totalPoint_span"></span> 원
 											</td>
 										</tr>
 									</tbody>
@@ -250,7 +232,6 @@ function setTotalInfo(){
 	
 	let totalPrice 		= 0;	// 총 가격	
 	let totalCount		= 0;	// 총 개수
-	let totalPoint 		= 0;	// 총 포인트 점수
 	let deliveryPrice 	= 0;	// 배송비
 	let finalTotalPrice = 0;	// 최종 가격(총 가격 + 배송비)
 	
@@ -264,8 +245,6 @@ function setTotalInfo(){
 			totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
 			// 총 개수
 			totalCount += parseInt($(element).find(".individual_ci_number_input").val());
-			// 총 마일리지
-			totalPoint += parseInt($(element).find(".individual_totalPoint_input").val());
 			
 		}
 
@@ -288,8 +267,6 @@ function setTotalInfo(){
 	$(".totalPrice_span").text(totalPrice.toLocaleString());
 	// 총 갯수
 	$(".totalCount_span").text(totalCount);
-	// 총 마일리지
-	$(".totalPoint_span").text(totalPoint.toLocaleString());
 	// 배송비
 	$(".delivery_price").text(deliveryPrice);	
 	// 최종 가격(총 가격 + 배송비)
@@ -350,6 +327,7 @@ $("#jumun").on("click", function() {
       // let itemSize = $("#size_" + cartItemId).text();	// 사이즈
       let itemCount = $("#resultQuantity_" + cartItemId).val();	// 개수
 	  let memberId	= $("#member_id").val();
+      // alert(memberId);
       let itemCountNum = Number(itemCount);
       //cartId를 cartItemVOList의 변수로 넘겨줌
       hiddenInputCartId.setAttribute("type", "hidden");

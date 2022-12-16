@@ -76,5 +76,13 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectOne(NAMESPACE + ".productOrderDetail", productDTO);
 	}
 	
+	// product id로 상품 정보 하나만 가져오기
+	@Override
+	public ProductDTO getInfo(int product_id) {
+		
+		return sqlSession.selectOne(NAMESPACE + ".detail", product_id);
+		
+	}
+	
 	
 }

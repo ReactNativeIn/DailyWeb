@@ -43,7 +43,10 @@ public interface CartDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	int insertCartId(CartDTO cartDTO);
 	
-	//한길 실험용코드
+	// 한길 실험용코드
 	int insertCartId(String id);
+	
+	// 한길코드 (카트아이템 아이디에 일치하는 정보찾기)
+	public CartDTO getInfo(CartDTO dto);
 	
 }

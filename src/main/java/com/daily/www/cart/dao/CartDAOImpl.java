@@ -72,6 +72,14 @@ public class CartDAOImpl implements CartDAO {
 		
 	}
 	
+	// 한길 코드 (카트아이템 아이디와 일치하는 정보 하나만)
+	@Override
+	public CartDTO getInfo(CartDTO cart) {
+		System.out.println("서비스에서 넘어온 tdo 정보" + cart);
+		CartDTO result = sqlSession.selectOne(NAMESPACE + ".cartOne", cart);
+		return result;
+	}
+	
 	
 	//------------------------------------------------------------------------
 	// [ 카트에 저장된 MEMBER ID 불러오기(insertCartId) ]

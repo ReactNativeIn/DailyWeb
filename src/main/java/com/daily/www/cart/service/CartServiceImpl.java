@@ -14,6 +14,7 @@ import com.daily.www.color.dao.ColorDAO;
 import com.daily.www.file.dao.FileDAO;
 import com.daily.www.file.vo.FileVO;
 import com.daily.www.product.dao.ProductDAO;
+import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.size.dao.SizeDAO;
 
 //------------------------------------------------------------------------------------
@@ -76,14 +77,13 @@ public class CartServiceImpl implements CartService {
 		for(CartDTO dto : cartDTO) {
 			
 			// 상품 금액 총합
-			dto.priceTotal();
 			
 			dto.setCart_id(cartDAO.insertCartId(id));
 			// 상품 이미지 정보 얻기
 			int product_id = dto.getProduct_id();
-			List<FileVO> imageList = fileDAO.getFileList(product_id);
+			List<FileVO> fileList = fileDAO.getFileList(product_id);
 			
-			dto.setImageList(imageList);
+			dto.setFileList(fileList);
 			
 		}
 		
@@ -92,25 +92,28 @@ public class CartServiceImpl implements CartService {
 	
 	// 한길 실험용 코드
 	public List<CartDTO> getCartList(CartDTO cart) {
-
+		
 		// 회원 id와 장바구니 연걸
-		List<CartDTO> cartDTO = cartDAO.getCart(cart);
+		List<CartDTO> cartDTO = cart.getCartDTOList();
 		
 		// 포인트 점수 적립과 이미지 정보를 
 		// for문을 통해 추가되는 상품에 따라 계속해서 더해주기
 		for(CartDTO dto : cartDTO) {
+			CartDTO cDTO = cartDAO.getInfo(dto);
+			ProductDTO pDTO = productDAO.getInfo(cDTO.getProduct_id());
 			
-			// 상품 금액 총합
-			dto.priceTotal();
-			
-			dto.setCart_id(cartDAO.insertCartId(cart));
+			// 상품정보들을 넣어주기
+			dto.setProduct_id(cDTO.getProduct_id());
+			dto.setP_name(pDTO.getP_name());
+			dto.setP_price(pDTO.getP_price());
 			// 상품 이미지 정보 얻기
 			int product_id = dto.getProduct_id();
-			List<FileVO> imageList = fileDAO.getFileList(product_id);
-			
-			dto.setImageList(imageList);
+			List<FileVO> fileList = fileDAO.getFileList(product_id);
+			dto.setCart_id(cDTO.getCart_id());
+			dto.setFileList(fileList);
 			
 		}
+		System.out.println("카트 서비스 카트리스트 정보 => " + cartDTO);
 		
 		return cartDTO;
 	}

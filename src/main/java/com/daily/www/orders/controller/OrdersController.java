@@ -50,10 +50,10 @@ public class OrdersController {
 		
 		
 		// 수정중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// List<CartDTO> cartList = cartService.getCartList(cartDTO);
+		List<CartDTO> cartList = cartService.getCartList(cartDTO);
 		
-		// System.out.println(cartList);
-		// model.addAttribute("product", cartList);
+		System.out.println("장바구니에서 결제페이지 배열 가져오기 결과 => " + cartList);
+		model.addAttribute("product", cartList);
 		
 		
 		return "/member/payment";
