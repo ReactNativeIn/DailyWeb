@@ -12,4 +12,12 @@
 		]]>
 	</insert>
 
+	<select id="getSizeList" resultType="Integer">
+		<![CDATA[
+			SELECT	*
+			FROM	size
+			WHERE	size_id = #{size_id}
+		]]>
+	</select>
+
 </mapper>

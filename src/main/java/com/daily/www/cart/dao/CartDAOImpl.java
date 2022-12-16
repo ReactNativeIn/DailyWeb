@@ -47,23 +47,45 @@ public class CartDAOImpl implements CartDAO {
 	}
 	
 	//------------------------------------------------------------------------
-	// [ 장바구니 리스트 불러오기(cartAll) ]
+	// [ 장바구니 리스트 불러오기(getCartList) ]
 	//------------------------------------------------------------------------
 	@Override
 	public List<CartDTO> getCart(String id) {
 		
 		logger.info("CartDAOImpl cartList() 장바구니 목록 가져오기.....");
-		List<CartDTO> cartList = sqlSession.selectList(NAMESPACE + ".cartAll", id);
+		List<CartDTO> cartList = sqlSession.selectList(NAMESPACE + ".getCartList", id);
 		
 		logger.info("CartDAOImpl cartList() Data ==> " + cartList);
 		return cartList;
 		
 	}
 	
+	//-----------------------------------------------------------------------------------------------------------
+	// [ id로 cart_id 구하기(insertCartId) ]
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public int insertCartId(CartDTO cartDTO) {
 		
 		return sqlSession.selectOne(NAMESPACE + ".insertCartId", cartDTO);
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// [ product_id로 color_id 구하기(selectColorId) ]
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int selectColorId(CartDTO cartDTO) {
+		
+		return sqlSession.selectOne(NAMESPACE + ".selectColorId", cartDTO);
+	}
+
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// [ color_id로 size_id 구하기(selectSizeId) ]
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int selectSizeId(CartDTO cartDTO) {
+
+		return sqlSession.selectOne(NAMESPACE + ".selectSizeId", cartDTO);
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
@@ -96,5 +118,8 @@ public class CartDAOImpl implements CartDAO {
 
 		return null;
 	}
+
+
+
 
 }

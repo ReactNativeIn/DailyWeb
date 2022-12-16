@@ -68,13 +68,11 @@ public class CartController {
 		//				addAttribute("키", "값") 메소드를 사용해 전달할 데이터 세팅
 		//-----------------------------------------------------------------------------------------------------------
 		
-		// 추가된 장바구니 목록을 보여주기 위해 회원 id 가져오기
-		
-		
 		// model 객체를 통해 데이터 저장
 		// "cart_info"를 키로 지정
-		// cartService의 getCartList에 cart_id를 파라미터로 설정해 데이터 전달
+		// cartService의 getCartList에 id를 파라미터로 설정해 데이터 전달
 		model.addAttribute("cartInfo", cartService.getCartList(id));
+		
 		System.out.println(cartService.getCartList(id));
 
 		return "/cart/cartForm";

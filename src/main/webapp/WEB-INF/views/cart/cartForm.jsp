@@ -65,11 +65,11 @@
 								</td>
 								<td class="td_width_2">
 									<c:choose>
-										<c:when test="${cartInfo.imageList == null || cartInfo.imageList == '[]'}">
+										<c:when test="${cartInfo.fileList == null || cartInfo.fileList == '[]'}">
 											<img class="img-thumbnail border-2 w-75" src="/resources/images/no_image_found.png"/>
 										</c:when>
 										<c:otherwise>
-											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${cartInfo.imageList[0].file_path }${cartInfo.imageList[0].file_s_name}"/>
+											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${cartInfo.fileList[0].file_path }${cartInfo.fileList[0].file_s_name}"/>
 										</c:otherwise>
 									</c:choose>
 								</td>

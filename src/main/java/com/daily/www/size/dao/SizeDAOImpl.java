@@ -1,5 +1,7 @@
 package com.daily.www.size.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,5 +20,11 @@ public class SizeDAOImpl implements SizeDAO {
 	@Override
 	public int inserSize(SizeVO sizeVO) {
 		return sqlSession.insert(NAMESPACE + ".insertSize", sizeVO);
+	}
+
+	@Override
+	public List<SizeVO> getSizeList(int size_id) {
+		
+		return sqlSession.selectList(NAMESPACE + ".getSizeList", size_id);
 	}
 }

@@ -26,37 +26,30 @@ public class CartDTO {
 	private int 	ci_number;		// 상품 수량
 	private int 	product_id;		// 상품 아이디(외래키)
 	
-	private List<FileVO> imageList;
+	private List<FileVO> fileList;
 	
-	private List<ColorVO> colorlist;
-	private List<SizeVO> sizelist;
+	// ------------------------------------------------------------------------------------
+	// [ 테이블 color, size 칼럼 중 활용 가능한 것들 ]
+	// ------------------------------------------------------------------------------------
+	private int size_id;
+	private int color_id;
+	
+	private List<ColorVO> colorList;
+	
+	public ColorVO colorVO;
+	
+	private String size;
+	private String color;
 	
 	// ------------------------------------------------------------------------------------
 	// [ 테이블 product 칼럼 중 활용 가능한 것들 ]
 	// ------------------------------------------------------------------------------------
 	private String 	p_name;		// 상품명
-	private int 	p_price;		// 상품 금액
+	private int 	p_price;	// 상품 금액
 	
-	// ------------------------------------------------------------------------------------
-	// [ 포인트 점수 적립 변수 ]
-	// ------------------------------------------------------------------------------------
-    private int point;
-    private int totalPoint;
-    
-	public int getPoint() {
-		return point;
-	}
 
-	public int getTotalPoint() {
-		return totalPoint;
 	}
 	
-	// ------------------------------------------------------------------------------------
-	// [ 포인트 점수 계산 ]
-	// ------------------------------------------------------------------------------------
-	public void priceTotal() {
-		this.point = (int)(Math.floor(this.p_price*0.05));
-		this.totalPoint =this.point * this.ci_number;
-	}
-}
+
+
 

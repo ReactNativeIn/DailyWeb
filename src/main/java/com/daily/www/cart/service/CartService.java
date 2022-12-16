@@ -3,6 +3,7 @@ package com.daily.www.cart.service;
 import java.util.List;
 
 import com.daily.www.cart.dto.CartDTO;
+import com.daily.www.color.vo.ColorVO;
 
 //------------------------------------------------------------------------------------
 //[ public interface CartService ]
@@ -15,7 +16,7 @@ public interface CartService {
 	public int addCart(CartDTO cartDTO);
 	
 	// -----------------------------------------------------------------
-	// [ 장바구니 정보 리스트(cartAll) ]
+	// [ 장바구니 정보 리스트(getCartList) ]
 	// -----------------------------------------------------------------
 	public List<CartDTO> getCartList(String id);
 	
