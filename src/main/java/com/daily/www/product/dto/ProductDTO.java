@@ -24,8 +24,6 @@ public class ProductDTO {
 	private int p_sell;
 	private int category_id;
 	
-	
-	private int p_count;	// 상품구매 체크 개수
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;
 	private List<FileVO> fileList;

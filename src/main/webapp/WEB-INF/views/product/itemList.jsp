@@ -138,7 +138,7 @@
 												<img style="width: 100%; height: 400px;" src="/resources/images/noImage.png"/>
 											</c:when>
 											<c:otherwise>
-												<img style="width: 100%; height: 400px;" src="/util/upload/displayFile?fileName=${List.fileList[0].file_path }${List.fileList[0].file_s_name}"/>
+												<img style="width: 100%; height: 400px;" src="/util/upload/displayFile?fileName=${List.fileList[0].file_path }${List.fileList[0].uuid}"/>
 											</c:otherwise>
 										</c:choose>
 									</div>

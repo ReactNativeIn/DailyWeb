@@ -18,6 +18,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	
 	// 상품 등록 화면 - 카테고리(중복x) Ajax
 	@RequestMapping(value = "/c_name", method = RequestMethod.POST)
 	@ResponseBody

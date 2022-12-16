@@ -41,7 +41,7 @@ function categoryCall(){
 		url:			"/category/c_name",
 		dataType:		"json",
 		success: 		function(data){
-			if(data != ''){	
+			if(data != ''){
 				for(var i = 0; i < data.length; i++){
 					var newOption = document.createElement("option");
 
@@ -58,7 +58,7 @@ function categoryCall(){
 				$("#c_name").empty();
 				$("#c_name").hide();
 			}// End - if
-		}
+		},
 	});
 }
 
@@ -164,14 +164,18 @@ function callSize(){
 // 총 금액 구하는 함수
 function sumAllResult(){
 	var sumAll = $("#sumAll"); // 총금액
-	var sumList = $("span[data-class=sum]");
-	let sumResultValue;
+	var sumList = $("span[data-class='sum']");
+	let sumResultValue = 0;
+	console.log(sumList);
 	
 	sumList.each(function(index, value){
-		sumResultValue += Number(value.text); 
+		console.log("a : " + value.innerHTML.replace("원",""));
+		var toNum = value.innerHTML.replace("원","");
+		console.log(toNum.replace(/,/g,""));
+		sumResultValue += Number(toNum.replace(/,/g,"")); 
 	});
 	console.log(sumResultValue);
-	sumAll.text("총 상품 금액 : " + sumResultValue);
+	sumAll.text("총 상품 금액 : " + sumResultValue.toLocaleString() + "원");
 }
 
 
@@ -189,28 +193,43 @@ function buttonPM(event){
 	if(btn == "plus_btn"){
 		cInput.val(Number(cInput.val())+1);
 		$(sum).text(
-			(cInput.val() * $("#p_price").val()).toLocaleString() + "원"
+			(cInput.val() * $("input[name=p_price]").val()).toLocaleString()+ "원"
 		);
+
 	}else if(btn == "minus_btn"){
 		
 		if(cInput.val() > 1){
 			cInput.val(Number(cInput.val())-1);
 			$(sum).text(
-				(cInput.val() * $("#p_price").val()).toLocaleString() + "원"
+				(cInput.val() * $("input[name=p_price]").val()).toLocaleString() + "원"
 			);
 		}
 		
 	}
 	sumAllResult();
-	
 }
 
+let detailColorIndex = 00;
+let detailSizeIndex = 00;
 
 // productDetail 화면 - 색상, 사이즈까지 선택시 추가
 function selectSize(){
-	var color = $("#selectColor").val();
-	var size = $("#selectSize").val();
+	var color = $("#selectColor option:selected");
+	var size = $("#selectSize option:selected");
+	
+	var colorT = color.text();
+	var sizeT = size.text();
 
+	console.log(colorT + ": " + sizeT);
+	
+	var divWrap = document.createElement("div");
+	
+	var nameDiv = document.createElement("div");
+	var selText = document.createTextNode(colorT + " / " + sizeT);
+	nameDiv.appendChild(selText);
+	divWrap.append(nameDiv);
+	
+	
 	var newDiv = document.createElement("div");
 	newDiv.setAttribute("class", "btn-group");
 	newDiv.setAttribute("role", "group")
@@ -230,8 +249,7 @@ function selectSize(){
 	newMButton.appendChild(textM);
 	
 	var newInput = document.createElement("input");
-	newInput.setAttribute("class", "quantity_input");
-	newInput.setAttribute("id", "order_num");
+	newInput.setAttribute("class", "stock_input" + detailSizeIndex);
 	newInput.setAttribute("type", "number");
 	newInput.setAttribute("value", "1");
 	newInput.setAttribute("min", "1");
@@ -246,17 +264,79 @@ function selectSize(){
 	var newSpan = document.createElement("span");
 	newSpan.setAttribute("class", "fs-4 dsa");
 	newSpan.setAttribute("data-class", "sum");
-	var textS = document.createTextNode((Number($("#p_price").val()).toLocaleString())+"원");
+	var textS = document.createTextNode((Number($("input[name=p_price]").val()).toLocaleString())+"원");
 	newSpan.appendChild(textS);
 	
 	newDiv2.append(newSpan);
 	
+	divWrap.append(newDiv);
+	divWrap.append(newDiv2);
+	
+	
 	// 	option 결과 붙이기
-	$("#product_option_wrap").append(newDiv);
-	$("#product_option_wrap").append(newDiv2);
+	$("#product_option_wrap").append(divWrap);
+	//$("#product_option_wrap").append(newDiv2);
 	
 	sumAllResult(); // 총 금액
 	
+	// 다음 선택을 위해 초기화
 	$("#selectColor").children().prop("selected", false);
 	$("#selectSize").children().prop("selected", false);
+	
+	// 다시 hidden
+	$("#selectSize").find("option").each(function(index, value){
+		console.log(index);
+		console.log(value);
+		$(value).attr("hidden","hidden");
+		$(value).prop("selected", false); // 선택 초기화
+	});
+	
+	// form에 데이터 추가
+	
+	// color
+	var colorDataInput = document.createElement("input");
+	colorDataInput.setAttribute("type", "hidden");
+	colorDataInput.setAttribute("name", "colorList[" + detailColorIndex + "].color");
+	colorDataInput.setAttribute("value", colorT);
+	
+	$("#detail_form").append(colorDataInput);
+	
+	//size
+	var sId_dataInput = document.createElement("input");
+	sId_dataInput.setAttribute("type", "hidden");
+	sId_dataInput.setAttribute("name", "sizeList[" + detailSizeIndex + "].size_id");
+	sId_dataInput.setAttribute("value", size.val());
+	
+	var sdataInput = document.createElement("input");
+	sdataInput.setAttribute("type", "hidden");
+	sdataInput.setAttribute("name", "sizeList[" + detailSizeIndex + "].size");
+	sdataInput.setAttribute("value", size.text());
+	
+	var stock_dataInput = document.createElement("input");
+	stock_dataInput.setAttribute("type", "hidden");
+	stock_dataInput.setAttribute("class", "stock");
+	stock_dataInput.setAttribute("name", "sizeList[" + detailSizeIndex + "].s_stock");
+	stock_dataInput.setAttribute("value", "1");
+	
+	$("#detail_form").append(sId_dataInput);
+	$("#detail_form").append(sdataInput);
+	$("#detail_form").append(stock_dataInput);
+	
+	
+	//index 증가
+	detailColorIndex += 1;
+	detailSizeIndex += 1;
+}
+
+function onSubmit(){
+	var detailFormObj = $("#detail_form");
+
+	$(".stock").each(function(index, value){
+		$("input[name='sizeList[" + index + "].s_stock']").val(
+			$("input[class='stock_input" + index + "']").val()
+		);
+	});
+	
+	
+	detailFormObj.submit();
 }

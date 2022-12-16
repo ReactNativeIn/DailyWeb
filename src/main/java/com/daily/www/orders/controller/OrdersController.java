@@ -35,7 +35,7 @@ public class OrdersController {
 	private ProductService productService;
 	
 	// 주문/결제 화면 이동
-	@RequestMapping(value = "/payment", method = RequestMethod.GET)
+	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String payment(HttpSession session, ProductDTO product, Model model) {
 		
 		//List<ProductDTO> productDTO = productService.productDetail(product);
@@ -43,7 +43,7 @@ public class OrdersController {
 		// System.out.println("프로덕트 디티오 => " + productDTO);
 		//System.out.println(productDTO);
 		//model.addAttribute("product", productDTO);
-
+		System.out.println("확인 : " + product);
 		return "/member/payment";
 	}
 	

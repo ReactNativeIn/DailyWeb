@@ -133,7 +133,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductDTO productOrderDetail(ProductDTO productDTO) {
 		ProductDTO pDTO = productDAO.productOrderDetail(productDTO);
-		pDTO.setP_count(productDTO.getP_count());
+//		pDTO.setP_count(productDTO.getP_count());
 		pDTO.setFileList(fileDAO.getFileList(pDTO.getProduct_id()));
 		
 		return pDTO;

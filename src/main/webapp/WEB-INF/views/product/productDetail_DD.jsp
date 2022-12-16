@@ -25,12 +25,16 @@
 			cursor: pointer;
 		}
 		#product_option_wrap {
-			display: flex; 
 			border-bottom:solid; 
 			padding-top: 5px; 
 			border-color:darkgreen; 
 			margin:30px 0px; 
+
+		}
+		#product_option_wrap > div {
+			display: flex; 
 			justify-content: space-between;
+			width: 100%;
 		}
 	</style>
 	
@@ -86,14 +90,16 @@
 					
 				</div>
 				
-				<div class="flex-wrap" id="product_option_wrap"></div>
+				<div id="product_option_wrap"></div>
 				
 				<div style="border-bottom:solid; padding-bottom: 5px; border-color:darkgreen; margin-bottom: 5px;">
-					<h4 class="mb-2" id="sumAll">총 상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" />원</h4>
+					<h4 class="mb-2" id="sumAll">
+						총 상품 금액 : <fmt:formatNumber value="${productDetail.p_price}" />원
+					</h4>
 				</div>
 				<div class="container align-items-center" id="order_btn" style="margin-top: 5px;">
-					<p class="m-0"> <a href="cart/cartForm" class="btn btn-light btn_cart"> 장바구니 &raquo;</a>
-						<a href="./products.jsp" class="btn btn-success">바로 구매 &raquo;</a>
+					<a class="btn btn-light btn_cart" id="name"> 장바구니 &raquo;</a>
+					<a class="btn btn-success" onclick="onSubmit()">바로 구매 &raquo;</a>
 				</div>
 				
 				
@@ -115,17 +121,18 @@
 	<!-- 하단 메뉴 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>
 	
-	<form id="detail_form" method="post">
-		<input type="hidden" id="product_id" name="product_id" value="${productDetail.product_id }"/>
-		<input type="hidden" id="p_name" name="p_name" value="${productDetail.p_name }"/>
-		<input type="hidden" id="p_explanation" name="p_explanation" value="${productDetail.p_explanation }"/>
-		<input type="hidden" id="p_price" name="p_price" value="${productDetail.p_price }"/>
-		<input type="hidden" id="p_enroll" name="p_enroll" value="${productDetail.p_enroll }"/>
-		<input type="hidden" id="p_sell" name="p_sell" value="${productDetail.p_sell }"/>
-		<input type="hidden" id="p_count" name="p_count" value="${productDetail.p_count }"/>
-		<input type="hidden" id="colorList" name="colorList" value="${productDetail.colorList }"/>
-		<input type="hidden" id="sizeList" name="sizeList" value="${productDetail.sizeList }"/>
-		<input type="hidden" id="fileList" name="fileList" value="${productDetail.fileList }"/>	
+	<form id="detail_form" method="post" action="/orders/payment">
+		<input type="hidden" name="product_id" value="${productDetail.product_id }"/>
+		<input type="hidden" name="p_name" value="${productDetail.p_name }"/>
+		<input type="hidden" name="p_explanation" value="${productDetail.p_explanation }"/>
+		<input type="hidden" name="p_price" value="${productDetail.p_price }"/>
+		<input type="hidden" name="p_sell" value="${productDetail.p_sell }"/>
+		<input type="hidden" name="category_id" value="${productDetail.category_id }"/>
+		<input type="hidden" name="fileList[0].uuid" value="${productDetail.fileList[0].uuid }"/>
+		<input type="hidden" name="fileList[0].file_o_name" value="${productDetail.fileList[0].file_o_name }"/>
+		<input type="hidden" name="fileList[0].file_path" value="${productDetail.fileList[0].file_path }"/>
+		<input type="hidden" name="fileList[0].file_s_name" value="${productDetail.fileList[0].file_s_name }"/>
+		<input type="hidden" name="fileList[0].product_id" value="${productDetail.fileList[0].product_id }"/>			
 	</form>
 	
 </body>
