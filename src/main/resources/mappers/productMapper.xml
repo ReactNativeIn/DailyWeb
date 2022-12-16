@@ -111,16 +111,32 @@
 				WHERE 1 = 1
 		]]>
 		<include refid = "searchMySQL"/>
-		<!-- 
-		 <include refid = "pathName"/>
-		<include refid = "pathDetail"/>		
-		 -->
 		<![CDATA[
 				) brd
 			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
 			ORDER BY rNUM
 		]]>
 	</select>
+	
+	
+	<!-- 
+	<select id="AdminListPaging" parameterType="hashmap" resultType="product">
+    <![CDATA[
+    SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, brd.category_id
+	FROM (
+			SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id,
+		            ROW_NUMBER() OVER(ORDER BY product_id DESC) AS rNum
+		    FROM 	product JOIN category
+		    WHERE	1 = 1
+    ]]>
+		<include refid="searchMySQL"/>
+    <![CDATA[
+		) brd
+	WHERE rNum BETWEEN 1 + (#{perPageNum}*(#{page}-1)) AND #{perPageNum} + (#{perPageNum}*(#{page}-1))
+	ORDER BY product_id DESC
+    ]]>
+	</select>
+	 -->
 	
 	<!-- list 파라미터에서 공통으로 사용하는 부분 -->
 	<sql id="listMySQL">
@@ -175,8 +191,11 @@
 		
 	<!-- 게시글 목록 보기 (Paging 처리) + 검색조건 -->
 	<sql id="searchMySQL" >
-		<if test="searchType != null">
-			AND p_name LIKE CONCAT('%',#{keyword},'%')
+		<if test="keyword != null">
+			<if test="searchType == 't'.toString()">AND p_name LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == 'c'.toString()">AND p_explanation LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="searchType == 'w'.toString()">AND p_price  LIKE CONCAT('%',#{keyword},'%')</if>
+			
 		</if>
 	</sql>
 	

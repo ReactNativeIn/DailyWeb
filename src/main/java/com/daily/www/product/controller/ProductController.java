@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ import com.daily.www.product.vo.ProductVO;
 @Controller
 @RequestMapping(value = "/product/*")
 public class ProductController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
 	private ProductService productService;
@@ -51,11 +55,12 @@ public class ProductController {
 		}
 	}
 	
-	// 상품 리스트 화면 이동 - 관리자
+	 //상품 리스트 화면 이동 - 관리자
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
 	public ModelAndView productListForm(Criteria cri, SearchCriteria scri, String list, HttpServletResponse response) throws Exception {
 //		System.out.println("들림");
 //		return "admin/productList_A";
+		
 		
 		ModelAndView mav = new ModelAndView("admin/productList");
 		
@@ -63,12 +68,10 @@ public class ProductController {
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		cri.setList(list);
-		
 		cri.setName("productList");
-		
-		pageMaker.setTotalCount(productService.listTotalCount(cri));
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
 		List<ProductVO> menList = productService.listPaging(cri);
@@ -80,6 +83,32 @@ public class ProductController {
 		
 		return mav;
 	}
+	
+//	//-------------------------------------------------------------------------------------------------
+//	// 상품 목록 보여주기 (Paging 처리 + 검색 기능)
+//	//-------------------------------------------------------------------------------------------------
+//		@RequestMapping(value="/productList", method = RequestMethod.GET)
+//		public ModelAndView productList(SearchCriteria cri) throws Exception {
+//		        
+//			logger.info("---------------------------------------------------------------------");
+//			logger.info("***** BoardController (SearchCriteria cri) CRI ==> " + cri);
+//			logger.info("---------------------------------------------------------------------");
+//
+//			ModelAndView mav = new ModelAndView("/product/productList");
+//		        
+//			mav.addObject("searchType",	cri.getSearchType());
+//			mav.addObject("keyword",	cri.getKeyword());
+//			
+//		    PageMaker pageMaker = new PageMaker();
+//		    pageMaker.setCri(cri);
+//		    pageMaker.setTotalCount(productService.listTotalCount(cri));
+//		        
+//		    List<ProductDTO>  productList = productService.listPaging(cri);
+//		    mav.addObject("productList", productList);
+//		    mav.addObject("pageMaker", pageMaker);
+//		        
+//		    return mav;
+//		}
 	
 	// 상품 상세 조회(상세화면)
 	@RequestMapping(value="/productDetail", method=RequestMethod.GET)

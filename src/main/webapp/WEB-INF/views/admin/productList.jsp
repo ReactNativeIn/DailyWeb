@@ -234,7 +234,7 @@
 			</ul>
 		</div>
 		
-		<div class="col-sm-offset-3">
+		<div class="col-sm-offset-3 align-items-center">
 		
 				<!-- 
 		<select id='searchType'>
@@ -250,7 +250,9 @@
 	</div>
 		
 	<form id="formList" action="/product/productList" method="get">
-		<input type='hidden' name='keyword'		value="${pageVO.keyword}">
+		<input type='hidden' name='page'		value="${result.currentPageNum}">
+		<input type='hidden' name='size'		value="${result.currentPage.pageSize}">
+		<input type='hidden' name='keyword'		value="">
 		<!-- 		
 		 <input type='hidden' name='searchType' 	value="${pageVO.type}">
 		 -->
@@ -269,6 +271,7 @@
 				
 				// var typeStr = $("#searchType").find(":selected").val();
 				var keywordStr = $("#searchKeyword").val();
+				var pageStr = $()
 								
 				//if (typeStr == "검색종류" || typeStr == null) {
 					//alert("검색종류를 선택해주세요.")
@@ -283,6 +286,7 @@
 					return false;
 				} 
 					console.log(keywordStr);
+					console.log()
 					// formObj.find("[name='type']").val(typeStr);
 					//formObj.find("[name='searchType']").val(typeStr);
 					formObj.find("[name='keyword']").val(keywordStr);
@@ -310,3 +314,23 @@
 </script>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
