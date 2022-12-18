@@ -25,6 +25,7 @@ public class ProductDTO {
 	private int category_id;
 	
 	
+	private int cartItem_id;	// 오류 안생기게 하기용
 	private int ci_number;	// 상품구매 체크 개수
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;

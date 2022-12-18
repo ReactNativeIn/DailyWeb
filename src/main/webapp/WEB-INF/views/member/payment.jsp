@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 	<title>Home</title>
@@ -47,7 +48,18 @@
 					</thead>
 					<tbody>
 						<c:forEach var="product" items="${product}">
-							<input type="hidden" role="t_price" value="${product.p_price * product.ci_number}"/>
+						
+						
+						
+						
+							<div>
+							<input type="hidden" role="t_price" value="${product.p_price}"/>
+							<input type="hidden" role="pNUM" value="${product.ci_number}"/>
+							<input type="hidden" role="cartItem_id" value="${product.cartItem_id}"/>
+							<input type="hidden" id="hidden_sum_${cartItem_id}" />
+							<input type="hidden" role="product_id" value="${product.product_id}"/>
+							</div>
+							
 							<tr valign="middle">
 								<td class="col-md-1 text-center">
 									<c:choose>
@@ -60,9 +72,10 @@
 									</c:choose>
 								</td>
 								<td>${product.p_name}</td>
+								
 								<td align="right"><fmt:formatNumber value="${product.p_price}" pattern="#,### 원" /></td>
-								<td align="right"><input class="col-md-6" type="number" value="${product.ci_number}" id="ci_number" name="ci_number"/></td>
-								<td align="right"><fmt:formatNumber value="${product.p_price * product.ci_number}" pattern="#,### 원" /></td>
+								<td align="right"><input role="productNum" class="col-md-6" data-name="${product.cartItem_id}" type="number" value="${product.ci_number}" id="ci_number_${product.cartItem_id}" name="ci_number" min="1"/></td>
+								<td align="right"><input id="p_price_${product.cartItem_id}" style="text-align:right; border: none; background: transparent;" value="${product.p_price * product.ci_number}" class="dontTouch"/> 원</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -74,9 +87,9 @@
 			<form class="form-horizontal">
 				<div id="finalInfo">
 					<h2>
-					<span><input id="p_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원</span>
+					<span><input id="p_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/></span>
 					<i class="fa-solid fa-plus"></i>
-					<span><input id="d_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원</span>
+					<span><input id="d_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/></span>
 					<i class="fa-solid fa-equals"></i>
 					<span><input id="t_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원</span>
 					</h2>
@@ -91,7 +104,7 @@
 							<td class="col-md-2 text-left align-middle">주문하시는 분</td>
 							<td class="col-md-10">
 								<div class="dontTouch col-md-3">
-									<input type="text" class="form-control" id="ordererName" name="ordererName" value="고길동" readonly/>
+									<input type="text" class="form-control" id="ordererName" name="ordererName" value="${member.name}" readonly/>
 								</div>
 							</td>
 						</tr>
@@ -171,7 +184,7 @@
 							 <td><input class="form-control" type="text" id="request" name="request" maxLength="200" placeholder="요청 사항을 적어주세요 (200자 이내)"/></td>
 						</tr>
 				</table>
-				<input type='hidden' id="id" name="id" value="${member.id}"/>
+				<input type='hidden' id ="id" name="id" value="${member.id}"/>
 				<input type="hidden" id ="point" name="point" value="${member.point}"/>
 				<div  class=" row d-flex justify-content-center align-content-center">
 					<button type="button" class="btn btn-primary col-3 btn-lg" onclick="payment();">
@@ -180,6 +193,8 @@
 				</div>
 			</form>
 		</div>
+
+		
 	</main>
 	
 	
@@ -191,27 +206,126 @@
 <!-- 다음 주소 가져오기 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<!-- 함수 정의 -->
-<script src="/resources/js/payment.js"></script>
 
 <script>
-	// 총 금액들의 합
+	// 처음 화면이 로딩됐을때...
 	let total = 0;
 	$("input[role='t_price']").each(function () {
-	    total += parseInt($(this).val());
+		let product_price = parseInt($(this).val());
+		let cartNum = parseInt($(this).parent("div").find("input[role='cartItem_id']").val());
+		let product_number = document.getElementById('ci_number_' + cartNum).value;
+		
+		
+		
+		$("#p_price_" + cartNum).val(product_price * product_number);
+		
+	    total += parseInt(product_price * product_number);
+	    
+	 	// 상품들 총 금액
+		$('#p_price').val(total);
+		
+		let p_price = $('#p_price').val();
+		
+		// 배달비
+		if(total < 30000) {
+			$('#d_price').val(4000);
+		} else {
+			$('#d_price').val("배송비 (무료)");
+		}
+		
+		let d_price = $('#d_price').val();
+		
+		// 총 금액 (배달비 + 상품들 총 금액)
+		
+		// 배달비가 없다면
+		if(isNaN(d_price)) {
+			$('#t_price').val($('#p_price').val());
+		} else {
+			$('#t_price').val(parseInt(p_price) + parseInt(d_price));		
+		}
+		
 	});
-	// alert(total);
 	
-	// 상품 총 금액
-	$('#p_price').val(total);
+	// 구매개수에 변화가 생겼을때...
+	$("input[role='productNum']").change(function() {
+		let total = 0;
+		$("input[role='t_price']").each(function () {
+			let product_price = parseInt($(this).val());
+			let cartNum = parseInt($(this).parent("div").find("input[role='cartItem_id']").val());
+			let product_number = document.getElementById('ci_number_' + cartNum).value;
+			
+			
+			
+			$("#p_price_" + cartNum).val(product_price * product_number);
+			
+		    total += parseInt(product_price * product_number);
+		    
+		 	// 상품들 총 금액
+			$('#p_price').val(total);
+			
+			let p_price = $('#p_price').val();
+			
+			// 배달비
+			if(total < 30000) {
+				$('#d_price').val(4000);
+			} else {
+				$('#d_price').val("배송비 (무료)");
+			}
+			
+			let d_price = $('#d_price').val();
+			
+			// 총 금액 (배달비 + 상품들 총 금액)
+			
+			// 배달비가 없다면
+			if(isNaN(d_price)) {
+				$('#t_price').val($('#p_price').val());
+			} else {
+				$('#t_price').val(parseInt(p_price) + parseInt(d_price));		
+			}
+			
+		});
+	});
 	
-	// 배달비
-	if(total < 30000) {
-		$('#d_price').val(4000);
-	}
 	
-	// 총 금액
-	$('#t_price').val($('#p_price').val() + $('#d_price').val());
+
+		//post요청을 보낼 form 생성
+	    let newForm = document.createElement("form");
+	    newForm.setAttribute("method", "Post");
+	    newForm.setAttribute("action", "${contextPath}/orders/orderComplete");
+	    newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
+
+	    $("input[role='cartItem_id']").each(function (index) {
+			let hiddenInputProductId = document.createElement("input");	// product_id
+			let hiddenInputCount = document.createElement("input");		// oi_number
+																		// 상품 가격
+	      																// 배달비?
+	      																
+	      // 카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
+	      let cartItemId	= $(this).val();	// cartItem_id
+	      
+	      // 상품 아이디에 대한 정보를 가져옴
+	      let productId		= $(this).parent("div").find("input[role='product_id']").val();
+	      
+	      let itemCount = $("#ci_number_" + cartItemId).val();	// 개수
+	      
+	      //cartId를 cartItemDTList의 변수로 넘겨줌
+	      hiddenInputProductId.setAttribute("type", "hidden");
+	      hiddenInputProductId.setAttribute("name", "ordersItemVO[" + index + "].product_id");
+	      hiddenInputProductId.setAttribute("value", productId);
+	      
+	      hiddenInputCount.setAttribute("type", "hidden");
+	      hiddenInputCount.setAttribute("name", "ordersItemVO[" + index + "].oi_number");
+	      hiddenInputCount.setAttribute("value", itemCount);
+	      
+
+		  newForm.append(hiddenInputProductId);
+	      newForm.append(hiddenInputCount);
+	    });
+	    document.body.append(newForm);
+	
 </script>
+
+<!-- 함수 정의 -->
+<script src="/resources/js/payment.js"></script>
 
 </html>

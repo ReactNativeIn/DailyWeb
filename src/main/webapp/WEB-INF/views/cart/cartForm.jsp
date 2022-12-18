@@ -171,7 +171,7 @@
 				<p>⊙ <b>[쇼핑계속하기]</b> 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다.</p>
 				<p>⊙ <b>[주문하기]</b> 버튼을 누르시면 장바구니에 추가한 상품을 구매하실 수 있습니다.</p>
 				<p>⊙ 장바구니에 상품이 맞게 추가되었는지 한 번 더 확인하셔 주시기 바랍니다.</p>
-				<p>⊙ 구매하시고자 하는 상품의 총 금액이 <b>30,000원</b> 이상이면 배송비는 <b>무료</b>입니다.</b></p>
+				<p>⊙ 구매하시고자 하는 상품의 총 금액이 <b>30,000원</b> 이상이면 배송비는 <b>무료</b>입니다.</p>
 			</form>
 			<div class="boundary_div">구분선</div>
 		</div>
@@ -324,7 +324,6 @@ $("#jumun").on("click", function() {
       //카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
       let cartItemId = $(this).val();	// cartItem_id
       //가져온 카트 아이템 아이디로 개수와 사이즈를 가져옴
-      // let itemSize = $("#size_" + cartItemId).text();	// 사이즈
       let itemCount = $("#resultQuantity_" + cartItemId).val();	// 개수
 	  let memberId	= $("#member_id").val();
       // alert(memberId);

@@ -1,9 +1,6 @@
 package com.daily.www.orders.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,18 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daily.www.file.dao.FileDAO;
-import com.daily.www.file.vo.FileVO;
 import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
-import com.daily.www.orders.vo.OrdersVO;
-import com.daily.www.product.dto.ProductDTO;
+import com.daily.www.ordersitem.dao.OrdersItemDAO;
+import com.daily.www.ordersitem.vo.OrdersItemVO;
+import com.daily.www.payment.dao.PaymentDAO;
+import com.daily.www.payment.vo.PaymentVO;
 
 @Service("OrdersService")
 public class OrdersServiceImpl implements OrdersService {
+	
+	@Autowired
+	private OrdersItemDAO ordersItemDAO;
 
 	@Autowired
 	OrdersDAO ordersDAO;
-
+	
+	@Autowired
+	PaymentDAO paymentDAO;
+	
 	@Autowired
 	private FileDAO fileDAO;
 
@@ -31,10 +35,31 @@ public class OrdersServiceImpl implements OrdersService {
 	// 결제 등록
 	@Override
 	public int payment(OrdersDTO ordersDTO) {
-
+		
+		int result = 0;
 		logger.info("OrdersService 실행중...");
-
-		return ordersDAO.payment(ordersDTO);
+		List<OrdersItemVO> ordersItemVO = ordersDTO.getOrdersItemVO();
+		
+		// 주문(orders 테이블에 컬럼 입력)
+		int ordersId = ordersDAO.payment(ordersDTO);
+		
+		for(OrdersItemVO orderVO : ordersItemVO) {
+			orderVO.setOrders_id(ordersId);
+			
+			// 주문상품(ordersItem 테이블에 컬럼 입력)
+			int ordersItemId = ordersItemDAO.insertOrdersItem(orderVO);
+			System.out.println("ordersItemDAO 실행 결과" + orderVO);
+			// 결제(payment) 테이블 컬럼 입력)
+			PaymentVO payment = new PaymentVO();
+			payment.setOrders_id(ordersId);
+			payment.setOrdersItem_id(ordersItemId);
+			
+			result = paymentDAO.insertPayment(payment);
+			
+			
+		}
+		
+		return result;
 	}
 
 	// 특정 회원에 해당하는 주문내역 조회

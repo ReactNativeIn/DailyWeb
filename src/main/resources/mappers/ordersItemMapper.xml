@@ -5,7 +5,7 @@
 
 <mapper namespace="OrdersItemDAO">
 	<!-- 주문상품 등록 -->
-	<insert id="insertOrdersItem">
+	<insert id="insertOrdersItem" useGeneratedKeys="true" keyProperty="ordersItem_id">
 		<![CDATA[
 			INSERT INTO ordersItem (oi_number, orders_id, product_id) 
 			VALUES (#{oi_number}, #{orders_id}, #{product_id})

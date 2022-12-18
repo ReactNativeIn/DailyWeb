@@ -29,7 +29,7 @@ public class OrdersController {
 	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
 	@Autowired
-	OrdersService ordersService;
+	private OrdersService ordersService;
 	
 	@Autowired
 	private ProductService productService;
@@ -37,17 +37,9 @@ public class OrdersController {
 	@Autowired
 	private CartService cartService;
 	
-	// 주문/결제 화면 이동
+	// 장바구니에서 주문/결제 화면 이동
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String payment(HttpSession session, CartDTO cartDTO, Model model) {
-		/*
-		List<ProductDTO> productDTO = productService.productDetail(product);
-		// productDTO.add(productService.productDetail(product));
-		// System.out.println("프로덕트 디티오 => " + productDTO);
-		System.out.println(productDTO);
-		model.addAttribute("product", productDTO);
-		*/
-		
 		
 		// 수정중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		List<CartDTO> cartList = cartService.getCartList(cartDTO);
@@ -55,10 +47,10 @@ public class OrdersController {
 		System.out.println("장바구니에서 결제페이지 배열 가져오기 결과 => " + cartList);
 		model.addAttribute("product", cartList);
 		
-		
 		return "/member/payment";
 	}
 	
+	// 물품 상세정보에서 바로구매 눌렀을때
 	@RequestMapping(value = "/directPayment", method = RequestMethod.GET)
 	public String directPayment(ProductDTO product, Model model) {
 		List<ProductDTO> productDTO = new ArrayList<>();
@@ -84,11 +76,12 @@ public class OrdersController {
 		return "/member/ordersHistory";
 	}
 
+	// 결제 버튼 눌렀을때
 	@ResponseBody
 	@RequestMapping(value = "/orderComplete", method = RequestMethod.POST)
-	public String orderComplete(OrdersDTO ordersDTO) throws Exception {
+	public String orderComplete(OrdersDTO ordersDTO, HttpSession session) throws Exception {
 		
-		logger.info("OrdersControllerImpl 결제 시작...");
+		logger.info("OrdersControllerImpl 결제 시작..." + ordersDTO);
 		
 		if (ordersService.payment(ordersDTO) == 1) { // 결제성공
 			return "Y";
@@ -97,6 +90,7 @@ public class OrdersController {
 		}
 
 	} // End - public String payment(Model model, HttpServletRequest request) throws
+	
 		// Exception
 
 } // End - public class OrdersControllerImpl implements OrdersController

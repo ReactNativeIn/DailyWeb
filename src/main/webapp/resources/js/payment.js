@@ -64,105 +64,88 @@ function daumZipCode() {
     // 이거 안쓰면 버튼 누를때마다 주소입력 팝업 창 계속 뜸
     popupName: "postcodePopup",
   });
-  
-}	// End - function daumZipCode()
-
+} // End - function daumZipCode()
 
 // 결제하기 버튼 눌렀을때
 function payment() {
-	
-	// 입력한 값을 가져온다.
- 	// let ordererName		= $("#ordererName").val();
- 	// let email			= $("#email").val();
- 	let ordererNumber	= $("#ordererNumber1").val() + $("#ordererNumber2").val() + $("#ordererNumber3").val();
- 	let receiverName	= $("#receiverName").val();
- 	let zipcode			= $("#zipcode").val() + $("#address01").val();
- 	let sangse			= $("#address02").val();
- 	let address			= zipcode + $("#address02").val();
- 	let receiverNumber	= $("#receiverNumber1").val() + $("#receiverNumber2").val() + $("#receiverNumber3").val();
- 	let request			= $("#request").val();
- 	let id				= $("#id").val();
- 	// let point			= $("#point").val();
- 	
- 	
- 	
- 	// alert(request);
- 	
- 	// 주문하시는 분에 값이 없으면 반환
- 	if($("#ordererName").val() == "") {
- 		alert("주문하시는 분을 입력해주세요.");
- 		$("#ordererName").focus();
- 		return false;
- 	}
- 	
- 	// 이메일에 값이 없으면 반환
- 	if($("#email").val() == "") {
- 		alert("이메일을 입력해주세요.");
- 		$("#email").focus();
- 		return false;
- 	}
- 	
- 	// 주문 연락처에 값이 없거나 숫자가 아니면 반환
- 	if((ordererNumber.length < 10) || isNaN(ordererNumber)) {
- 		alert("주문 연락처를 올바르게 입력해주세요.");
- 		$("#ordererNumber2").focus();
- 		return false;
- 	}
- 	
- 	// 받으시는 분에 값이 없으면 반환
- 	if($("#receiverName").val() == "") {
- 		alert("받으시는 분을 입력해주세요.");
- 		$("#receiverName").focus();
- 		return false;
- 	}
- 	
- 	// 받으시는 분 연락처에 값이 없거나 숫자가 아니면 반환
- 	if((receiverNumber.length < 10) || isNaN(receiverNumber)) {
- 		alert("받으시는 분 연락처를 올바르게 입력해주세요.");
- 		$("#receiverNumber2").focus();
- 		return false;
- 	}
- 	
- 	// 주소입력 안했을 때
- 	if(zipcode == "") {
- 		alert("주소를 입력해주세요.");
- 		$("#zipcode").focus();
- 		return false;
- 	}
- 	
- 	// 주소입력 안했을 때(상세주소)
- 	if(sangse == "") {
- 		alert("상세주소를 입력해주세요.");
- 		$("#address02").focus();
- 		return false;
- 	}
- 	
- 	/*
- 	if(point < 상품가격 {
- 		alert("포인트가 부족합니다.");
- 		return false;
- 	}
- 	*/
- 	
- 	$.ajax({
- 		type: "POST",
- 		url: "/orders/orderComplete",
- 		data: {address:address, addressee:receiverName, o_comment:request, id:id, o_phone:receiverNumber},
- 		success: function(data) {
- 			if(data == "Y") {
- 				alert("주문이 완료되었습니다.");
- 				// 결제 완료되면 메인화면으로 이동한다.
- 				location.replace("/");
- 			}
- 		},
- 		error: function(data) {
- 			alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
- 		}
- 		
- 	});
- 	
- 
- 	
-	
-	
-}	// End - function payment();
+  // 입력한 값을 가져온다.
+  // let ordererName		= $("#ordererName").val();
+  // let email				= $("#email").val();
+  let ordererNumber 		= $("#ordererNumber1").val() + $("#ordererNumber2").val() + $("#ordererNumber3").val();
+  let receiverName 			= $("#receiverName").val();
+  let zipcode 				= $("#zipcode").val() + $("#address01").val();
+  let sangse 				= $("#address02").val();
+  let address 				= zipcode + $("#address02").val();
+  let receiverNumber 		= $("#receiverNumber1").val() + $("#receiverNumber2").val() + $("#receiverNumber3").val();
+  let request 				= $("#request").val();
+  let id 					= $("#id").val();
+  let usePoint 				= parseInt($("#t_price").val());
+
+  // 주문하시는 분에 값이 없으면 반환
+  if ($("#ordererName").val() == "") {
+    alert("주문하시는 분을 입력해주세요.");
+    $("#ordererName").focus();
+    return false;
+  }
+
+  // 이메일에 값이 없으면 반환
+  if ($("#email").val() == "") {
+    alert("이메일을 입력해주세요.");
+    $("#email").focus();
+    return false;
+  }
+
+  // 주문 연락처에 값이 없거나 숫자가 아니면 반환
+  if (ordererNumber.length < 10 || isNaN(ordererNumber)) {
+    alert("주문 연락처를 올바르게 입력해주세요.");
+    $("#ordererNumber2").focus();
+    return false;
+  }
+
+  // 받으시는 분에 값이 없으면 반환
+  if ($("#receiverName").val() == "") {
+    alert("받으시는 분을 입력해주세요.");
+    $("#receiverName").focus();
+    return false;
+  }
+
+  // 받으시는 분 연락처에 값이 없거나 숫자가 아니면 반환
+  if (receiverNumber.length < 10 || isNaN(receiverNumber)) {
+    alert("받으시는 분 연락처를 올바르게 입력해주세요.");
+    $("#receiverNumber2").focus();
+    return false;
+  }
+
+  // 주소입력 안했을 때
+  if (zipcode == "") {
+    alert("주소를 입력해주세요.");
+    $("#zipcode").focus();
+    return false;
+  }
+  // 주소입력 안했을 때(상세주소)
+  if (sangse == "") {
+    alert("상세주소를 입력해주세요.");
+    $("#address02").focus();
+    return false;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/orders/orderComplete",
+    data: { address: address, addressee: receiverName, o_comment: request, id: id, usePoint: usePoint, o_phone: receiverNumber
+    },
+    success: function (data) {
+      if (data == "Y") {
+        alert("주문이 완료되었습니다.");
+        // 결제 완료되면 메인화면으로 이동한다.
+        location.replace("/");
+      } else {
+        alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
+        location.replace("/");
+      }
+    },
+    error: function (data) {
+      alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
+    },
+  });
+} // End - function payment();

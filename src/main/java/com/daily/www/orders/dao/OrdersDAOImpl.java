@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.daily.www.orders.dto.OrdersDTO;
+import com.daily.www.ordersitem.vo.OrdersItemVO;
 
 @Repository("OrdersDAO")
 public class OrdersDAOImpl implements OrdersDAO {
@@ -25,10 +26,14 @@ public class OrdersDAOImpl implements OrdersDAO {
 	@Override
 	public int payment(OrdersDTO ordersDTO) {
 		
-		logger.info("OrdersDAO 실행중...");
+		logger.info("OrdersDAO 실행중..." + ordersDTO);
+		sqlSession.insert(NAMESPACE + ".payment", ordersDTO);
 		
-		return sqlSession.insert(NAMESPACE + ".payment", ordersDTO);
+		int result = ordersDTO.getOrders_id();
+		System.out.println("result ===> " + result);
+		return result;
 	}
+	
 	
 	// 특정 회원에 해당하는 주문내역 조회
 	@Override
