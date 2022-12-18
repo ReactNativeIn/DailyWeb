@@ -11,4 +11,5 @@ public class SizeVO {
 	private String size;
 	private int s_stock;
 	private int color_id;
+	
 }

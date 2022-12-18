@@ -1,7 +1,5 @@
 package com.daily.www.color.dao;
 
-import java.util.List;
-
 import com.daily.www.color.vo.ColorVO;
 
 public interface ColorDAO {
@@ -12,7 +10,9 @@ public interface ColorDAO {
 	// 색상 등록
 	int insertColor(ColorVO colorVO);
 	
-	// 상품에 대한 색상 아이디 가져오기
-	List<ColorVO> getColorList(int color_id);
+	// color_id에 해당하는 상품 color 정보 가져오기
+	String getColor(int color_id);
+	
+	int getProduct_id(ColorVO colorVO);
 
 }

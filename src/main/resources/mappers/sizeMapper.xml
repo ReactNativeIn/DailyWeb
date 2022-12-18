@@ -11,12 +11,29 @@
 			values (#{size}, #{s_stock}, #{color_id})
 		]]>
 	</insert>
-
-	<select id="getSizeList" resultType="Integer">
+	
+	<!-- product_id 가져오기 -->
+	<select id="getProductId" resultType="Integer">
 		<![CDATA[
-			SELECT	*
-			FROM	size
-			WHERE	size_id = #{size_id}
+			SELECT	product_id
+			FROM	product
+		]]>
+	</select>
+	
+	<!-- color_id 가져오기 -->
+	<select id="getColorId" resultType="Integer">
+		<![CDATA[
+			SELECT	color_id
+			FROM	color
+			WHERE	product_id = #{product_id}
+		]]>
+	</select>
+	
+	<select id="getSize" resultType="String">
+		<![CDATA[
+			SELECT	size
+			FROM	size 
+			WHERE	color_id = #{color_id}
 		]]>
 	</select>
 

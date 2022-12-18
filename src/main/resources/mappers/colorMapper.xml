@@ -20,11 +20,18 @@
 		]]>
 	</insert>
 	
-	<select id="getColorList" resultType="Integer">
+	<select id="getProduct_id" resultType="Integer">
 		<![CDATA[
-			SELECT	*
+			SELECT	product_id
+			FROM	product
+		]]>
+	</select>
+	
+	<select id="getColor" resultType="String">
+		<![CDATA[
+			SELECT	color
 			FROM	color
-			WHERE	color_id = #{color_id}
+			WHERE	product_id = #{product_id}
 		]]>
 	</select>
 	

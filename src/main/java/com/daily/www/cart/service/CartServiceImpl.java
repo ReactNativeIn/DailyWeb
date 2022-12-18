@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.daily.www.cart.dao.CartDAO;
 import com.daily.www.cart.dto.CartDTO;
 import com.daily.www.color.dao.ColorDAO;
-import com.daily.www.color.vo.ColorVO;
 import com.daily.www.file.dao.FileDAO;
 import com.daily.www.file.vo.FileVO;
 import com.daily.www.product.dao.ProductDAO;
@@ -69,22 +68,24 @@ public class CartServiceImpl implements CartService {
 		// 회원 id와 장바구니 연걸
 		List<CartDTO> cartDTO = cartDAO.getCart(id);
 		
-		
-		
 		// 상품 정보를 for문을 통해 추가되는 상품에 따라 계속해서 더해주기
 		for(CartDTO dto : cartDTO) {
 			
-			// 상품에 대한 색상 아이디 가져오기
+			// 상품 color_id에 대한 color 정보 가져오기
 			int color_id = dto.getColor_id();
-			List<ColorVO> colorlist = colorDAO.getColorList(color_id);
+			String color = colorDAO.getColor(color_id);
 			
-			// 상품 이미지 정보 얻기
+			// 상품 size_id에 대한 size 정보 가져오기
+			int size_id = dto.getSize_id();
+			String size = sizeDAO.getSize(size_id);
+			
+			// 상품 product_id에 대한 이미지 파일 정보 가져오기
 			int product_id = dto.getProduct_id();
 			List<FileVO> fileList = fileDAO.getFileList(product_id);
 			
 			dto.setFileList(fileList);
-			dto.setColorList(colorlist);
-			
+			dto.setColor(color);
+			dto.setSize(size);
 			
 		}
 		

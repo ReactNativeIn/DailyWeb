@@ -1,11 +1,11 @@
 package com.daily.www.size.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.daily.www.color.vo.ColorVO;
+import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.size.vo.SizeVO;
 
 @Repository
@@ -22,9 +22,21 @@ public class SizeDAOImpl implements SizeDAO {
 		return sqlSession.insert(NAMESPACE + ".insertSize", sizeVO);
 	}
 
+	// size_id에 해당하는 size 정보 가져오기
 	@Override
-	public List<SizeVO> getSizeList(int size_id) {
-		
-		return sqlSession.selectList(NAMESPACE + ".getSizeList", size_id);
+	public String getSize(int size_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getSize");
 	}
+
+	@Override
+	public int getColorId(ColorVO color_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getColorId");
+	}
+
+	@Override
+	public int getProductId(ProductDTO product_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getProductId");
+	}
+
+
 }

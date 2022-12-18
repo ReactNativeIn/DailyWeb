@@ -10,4 +10,5 @@ public class ColorVO {
 	private int color_id;
 	private int product_id;
 	private String color;
+	
 }

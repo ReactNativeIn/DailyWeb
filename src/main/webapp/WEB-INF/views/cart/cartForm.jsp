@@ -39,15 +39,16 @@
 				<table class="subject_table">
 					<caption>표 제목 부분</caption>
 					<tbody>
-
 						<tr>
 							<th class="td_width_1"></th>
-							<th class="td_width_2"></th>
-							<th class="td_width_3">상품명</th>
-							<th class="td_width_4">금액</th>
-							<th class="td_width_4">수량</th>
-							<th class="td_width_4">합계</th>
-							<th class="td_width_4">삭제</th>
+							<th class="td_width_1"></th>
+							<th class="td_width_2">상품명</th>
+							<th class="td_width_2">Color</th>
+							<th class="td_width_3">Size</th>
+							<th class="td_width_3">금액</th>
+							<th class="td_width_3">수량</th>
+							<th class="td_width_3">합계</th>
+							<th class="td_width_3">삭제</th>
 						</tr>
 					</tbody>
 				</table>
@@ -63,7 +64,7 @@
 									<input type="hidden" class="individual_totalPrice_input" value="${cartInfo.p_price * cartInfo.ci_number}">
 									<input type="hidden" class="individual_product_id_input" value="${cartInfo.product_id}">
 								</td>
-								<td class="td_width_2">
+								<td class="td_width_3">
 									<c:choose>
 										<c:when test="${cartInfo.fileList == null || cartInfo.fileList == '[]'}">
 											<img class="img-thumbnail border-2 w-75" src="/resources/images/no_image_found.png"/>
@@ -73,11 +74,13 @@
 										</c:otherwise>
 									</c:choose>
 								</td>
-								<td class="td_width_3">${cartInfo.p_name}</td>
-								<td class="td_width_4 price_td">
+								<td class="td_width_2">${cartInfo.p_name}</td>
+								<td class="td_width_2">${cartInfo.color}</td>
+								<td class="td_width_3">${cartInfo.size}</td>
+								<td class="td_width_3 price_td">
 									금액 : <fmt:formatNumber value="${cartInfo.p_price}" pattern="#,### 원" /><br>
 								</td>
-								<td class="td_width_4 table_text_align_center">
+								<td class="td_width_3 table_text_align_center">
 									<div class="table_text_align_center quantity_div">
 										<input type="text" value="${cartInfo.ci_number}" class="quantity_input">	
 										<button class="quantity_btn plus_btn">+</button>
@@ -85,10 +88,10 @@
 									</div>
 									<a class="quantity_modify_btn" data-name="${cartInfo.cartItem_id}">변경</a>
 								</td>
-								<td class="td_width_4 table_text_align_center">
+								<td class="td_width_3 table_text_align_center">
 									<fmt:formatNumber value="${cartInfo.p_price * cartInfo.ci_number}" pattern="#,### 원" />
 								</td>
-								<td class="td_width_4 table_text_align_center">
+								<td class="td_width_3 table_text_align_center">
 									<button class="delete_btn" data-name1="${cartInfo.cartItem_id}">삭제</button>
 								</td>
 							</tr>

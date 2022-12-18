@@ -34,10 +34,6 @@ public class CartDTO {
 	private int size_id;
 	private int color_id;
 	
-	private List<ColorVO> colorList;
-	
-	public ColorVO colorVO;
-	
 	private String size;
 	private String color;
 	

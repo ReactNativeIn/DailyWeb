@@ -24,23 +24,6 @@
 		]]>
 	</select>
 	
-	<!-- color_id로 size_id 구하기 
-	<select id="selectSizeId" resultType="Integer">
-		<![CDATA[
-			SELECT	size_id
-			FROM	size
-			WHERE	color_id = #{color_id}
-		]]>
-	</select> -->
-	
-	<!-- product_id로  color_id 구하기 
-	<select id="selectColorId" resultType="String">
-		<![CDATA[
-			SELECT	color_id
-			FROM	color
-			WHERE	product_id = #{product_id}
-		]]>
-	</select> -->
 	
 	<!-- 카트 목록 -->
 	<select id="getCartList" resultType="com.daily.www.cart.dto.CartDTO">
@@ -51,11 +34,12 @@
 					LEFT OUTER JOIN product b
 					ON a.product_id 
 					 = b.product_id
-			WHERE	1=1 AND a.cart_id = (
-											SELECT 	cart_id
-											FROM 	cart
-											WHERE 	id = #{id}
-									  	)
+			WHERE 	1 = 1	
+			AND 	a.cart_id = (
+									SELECT 	cart_id
+									FROM 	cart
+									WHERE 	id = #{id}	)
+									  	
 		]]>
 	</select> 
 	

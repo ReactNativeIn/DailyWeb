@@ -1,7 +1,5 @@
 package com.daily.www.color.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +24,15 @@ public class ColorServiceImpl implements ColorService {
 		colorDAO.insertColor(colorVO);
 	}
 
-	// 상품에 대한 색상 아이디 가져오기
+	// color_id에 해당하는 상품 color 정보 가져오기
 	@Override
-	public List<ColorVO> getColorList(int color_id) {
+	public String getColor(int color_id) {
+		return colorDAO.getColor(color_id);
+	}
 
-		return colorDAO.getColorList(color_id);
+	@Override
+	public int getProduct_id(ColorVO colorVO) {
+		return colorDAO.getProduct_id(colorVO);
 	}
 	
 	

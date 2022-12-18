@@ -1,7 +1,5 @@
 package com.daily.www.color.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,9 +26,14 @@ public class ColorDAOImpl implements ColorDAO {
 		return sqlSession.insert(NAMESPACE + ".insertColor", colorVO);
 	}
 
-	// 상품에 대한 색상 아이디 가져오기
-	public List<ColorVO> getColorList(int color_id) {
-		
-		return sqlSession.selectList(NAMESPACE + ".getColorList", color_id);
+	// color_id에 해당하는 상품 color 정보 가져오기
+	@Override
+	public String getColor(int color_id) {
+		return sqlSession.selectOne(NAMESPACE + ".getColor", color_id);
+	}
+
+	@Override
+	public int getProduct_id(ColorVO colorVO) {
+		return sqlSession.selectOne(NAMESPACE + ".getProduct_id", colorVO);
 	}
 }
