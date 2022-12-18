@@ -57,9 +57,31 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectList(NAMESPACE + ".listPaging", cri);
 	}
 	
-	// (카테고리별) 상품 목록 보기 (어드민리스트 페이징 처리)
-	public List<ProductVO> AdminListPaging(SearchCriteria Scri, Criteria cri) throws Exception {
-				
+	// (카테고리별) 모든 상품 리스트 총 개수 (어드민리스트 페이징 처리)
+	@Override
+	public int AdminListTotalCount(Criteria cri) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE + ".AdminListTotalCount", cri);
+	}
+	
+	// (카테고리별) 모든 상품 리스트 총 개수 (어드민리스트 페이징 처리)
+	@Override
+	public int AdminListTotalCount(SearchCriteria cri) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE + ".AdminListTotalCount", cri);
+	}
+	
+	// (카테고리별) 상품 목록 보기 (어드민리스트 페이징 처리 + 검색)
+	@Override
+	public List<ProductDTO> AdminListPaging(Criteria cri) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE + ".AdminListPaging", cri);
+	}
+	
+	// (카테고리별) 상품 목록 보기 (어드민리스트 페이징 처리 + 검색)
+	@Override
+	public List<ProductDTO> AdminListPaging(SearchCriteria cri) throws Exception {
+		
 		return sqlSession.selectList(NAMESPACE + ".AdminListPaging", cri);
 	}
 	

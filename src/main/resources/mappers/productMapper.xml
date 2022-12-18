@@ -76,6 +76,16 @@
 		<include refid = "pathDetail"/>
 	</select>
 	
+	<!-- 전체 상품수 -->
+	<select id="AdminlistTotalCount" parameterType="searchCriteria" resultType="integer">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM product
+			WHERE 1 = 1 
+		]]>
+		<include refid = "searchMySQL"/>
+	</select>
+	
 	<!-- 상품목록 불러오기 (페이징) -->
 	<select id="listPaging" resultType="product">
 		<![CDATA[
@@ -99,44 +109,22 @@
 	</select>
 	
 	<!-- 상품목록 불러오기 (관리자 리스트) -->
-	<select id="AdminListPaging" resultType="product">
-		<![CDATA[
-			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, brd.category_id
-			FROM (
-				SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id, 
-		]]>
-		<![CDATA[
-				FROM product JOIN category
-				on product.category_id = category.c_id
-				WHERE 1 = 1
-		]]>
-		<include refid = "searchMySQL"/>
-		<![CDATA[
-				) brd
-			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
-			ORDER BY rNUM
-		]]>
-	</select>
-	
-	
-	<!-- 
 	<select id="AdminListPaging" parameterType="hashmap" resultType="product">
-    <![CDATA[
-    SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, brd.category_id
-	FROM (
-			SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id,
-		            ROW_NUMBER() OVER(ORDER BY product_id DESC) AS rNum
-		    FROM 	product JOIN category
-		    WHERE	1 = 1
-    ]]>
-		<include refid="searchMySQL"/>
-    <![CDATA[
-		) brd
-	WHERE rNum BETWEEN 1 + (#{perPageNum}*(#{page}-1)) AND #{perPageNum} + (#{perPageNum}*(#{page}-1))
-	ORDER BY product_id DESC
-    ]]>
+		<![CDATA[
+			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id
+			FROM ( 
+					select	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id,
+							row_number() over(order by product_id desc) as rNum
+					from	product
+					where	1 = 1
+		]]>
+			<include refid = "searchMySQL"/>
+		<![CDATA[
+				) prd
+		WHERE	rNum BETWEEN 1+(#{perPageNum}*(#{page}-1)) AND #{perPageNum} + (#{perPageNum}*(#{page}-1))
+		ORDER BY product_id DESC
+		]]>
 	</select>
-	 -->
 	
 	<!-- list 파라미터에서 공통으로 사용하는 부분 -->
 	<sql id="listMySQL">
@@ -192,10 +180,7 @@
 	<!-- 게시글 목록 보기 (Paging 처리) + 검색조건 -->
 	<sql id="searchMySQL" >
 		<if test="keyword != null">
-			<if test="searchType == 't'.toString()">AND p_name LIKE CONCAT('%',#{keyword},'%')</if>
-			<if test="searchType == 'c'.toString()">AND p_explanation LIKE CONCAT('%',#{keyword},'%')</if>
-			<if test="searchType == 'w'.toString()">AND p_price  LIKE CONCAT('%',#{keyword},'%')</if>
-			
+			AND p_name LIKE CONCAT('%',#{keyword},'%')
 		</if>
 	</sql>
 	

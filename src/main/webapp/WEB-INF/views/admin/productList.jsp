@@ -251,10 +251,10 @@
 		
 	<form id="formList" action="/product/productList" method="get">
 		<input type='hidden' name='page'		value="${result.currentPageNum}">
-		<input type='hidden' name='size'		value="${result.currentPage.pageSize}">
 		<input type='hidden' name='keyword'		value="">
 		<!-- 		
-		 <input type='hidden' name='searchType' 	value="${pageVO.type}">
+		<input type='hidden' name='size'		value="${result.currentPage.pageSize}">
+		<input type='hidden' name='searchType' 	value="${pageVO.type}">
 		 -->
 	</form>
 		
@@ -270,8 +270,8 @@
 			$("#searchBtn").click(function(e){
 				
 				// var typeStr = $("#searchType").find(":selected").val();
-				var keywordStr = $("#searchKeyword").val();
-				var pageStr = $()
+				var keywordStr = $("#searchKeyword").val(); // 처음 검색val은 공란
+				// var pageStr = $()
 								
 				//if (typeStr == "검색종류" || typeStr == null) {
 					//alert("검색종류를 선택해주세요.")
@@ -285,15 +285,15 @@
 					alert("검색어를 입력해주세요.")
 					return false;
 				} 
-					console.log(keywordStr);
-					console.log()
+					// alert("검색 키워드 : " + keywordStr);
 					// formObj.find("[name='type']").val(typeStr);
 					//formObj.find("[name='searchType']").val(typeStr);
 					formObj.find("[name='keyword']").val(keywordStr);
 					formObj.find("[name='page']").val("1");
 					formObj.submit();
 						
-		})});
+		})
+	});
 
 </script>
 	

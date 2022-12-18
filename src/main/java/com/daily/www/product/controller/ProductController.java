@@ -73,8 +73,9 @@ public class ProductController {
 		cri.setList(list);
 		cri.setName("productList");
 		
-		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다.
-		List<ProductVO> menList = productService.listPaging(cri);
+		
+		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다. (검색기능)
+		List<ProductDTO> menList = productService.AdminListPaging(cri);
 		
 		mav.addObject("List", menList);
 		mav.addObject("pageMaker", pageMaker);
