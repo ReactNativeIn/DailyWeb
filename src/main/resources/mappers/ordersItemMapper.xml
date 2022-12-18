@@ -4,11 +4,19 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="OrdersItemDAO">
+
+	<select id="creatId" resultType="int">
+		<![CDATA[
+			select ifnull(max(ordersitem_id), -1) + 1
+			from ordersitem 
+		]]>
+	</select>
+
 	<!-- 주문상품 등록 -->
 	<insert id="insertOrdersItem">
 		<![CDATA[
-			INSERT INTO ordersItem (oi_number, orders_id, product_id) 
-			VALUES (#{oi_number}, #{orders_id}, #{product_id})
+			insert into ordersItem (ordersItem_id, oi_number, oi_color, oi_size, orders_id, product_id)
+			values (#{ordersItem_id}, #{oi_number}, #{oi_color}, #{oi_size}, #{orders_id}, #{product_id})
 		]]>
 	</insert>
 </mapper>

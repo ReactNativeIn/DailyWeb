@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+  <c:set var="phone" value="${member.phone }" />
 <html>
 <head>
 	<title>Home</title>
 </head>
+
 <style>
 	
 	p {
@@ -35,34 +38,43 @@
 			
 			<!-- 상품정보 상품에 대한 정보를 DB에서 받아와 보여줌 -->
 			<form class="form-horizontal">
+				<input type="hidden" id="orders_id" name="orders_id" value=""/>
+				<input type="hidden" id="product_id" name="product_id" value="${product.product_id }"/>
 				<table class="table">
 					<thead>
 						<tr>
-							<th colspan="2" class="col-sm-4 text-center">상품정보</th>
-							<th class="col-sm-1 text-center">상품단일금액</th>
-							<th class="col-sm-1 text-center">수량</th>
-							<th class="col-sm-1 text-center">총금액</th>
+							<th colspan="2" class="text-center">상품정보</th>
+							<th colspan="2" class="text-center">상품단일금액</th>
+							<th colspan="2" class="text-center">옵션 / 수량 / 가격</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="product" items="${product}">
-							<tr valign="middle">
-								<td class="col-md-1 text-center">
-									<c:choose>
-										<c:when test="${product.fileList == null || product.fileList == '[]'}">
-											<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
-										</c:when>
-										<c:otherwise>
-											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${product.fileList[0].file_path }${product.fileList[0].file_s_name}"/>
-										</c:otherwise>
-									</c:choose>
-								</td>
-								<td>${product.p_name}</td>
-								<td align="right">${product.p_price}</td>
-								<td align="right"><input class="col-md-6" type="number" value="${product.p_count}" id="ci_number" name="ci_number"/></td>
-								<td align="right">${product.p_price * product.p_count}</td>
-							</tr>
-						</c:forEach>
+						<tr valign="middle">
+							<td colspan="2" class="text-center">
+								<c:choose>
+									<c:when test="${product.fileList == null || product.fileList == '[]'}">
+										<img class="img-thumbnail" src="/resources/images/noImage.png"/>
+									</c:when>
+									<c:otherwise>
+										<img class="img-thumbnail" src="/util/upload/displayFile?fileName=${product.fileList[0].file_path }${product.fileList[0].uuid}"/>
+									</c:otherwise>
+								</c:choose>
+								<div>
+									<strong>상품명 :</strong> ${product.p_name}
+								</div>
+							</td>												
+							<td colspan="2" align="center"><fmt:formatNumber value="${product.p_price}" pattern="#,### 원" /></td>
+							<td colspan="2" align="center">
+								<c:forEach items="${product.colorList }" var="color" varStatus="i">
+										<div style="border-bottom: 2px solid; padding: 20px 0px;">
+											${color.color }
+											${product.sizeList[i.index].size} /
+											${product.sizeList[i.index].s_stock}개 /
+											<span id="to_price"><fmt:formatNumber value="${product.p_price * product.sizeList[i.index].s_stock}" pattern="#,### 원" /></span>
+										</div>
+								</c:forEach>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</form>
@@ -72,11 +84,17 @@
 			<form class="form-horizontal">
 				<div id="finalInfo">
 					<h2>
-					<span>현재 상품 금액(총금액)</span>
-					<i class="fa-solid fa-plus"></i>
-					<span>기타 부가 금액</span>
-					<i class="fa-solid fa-equals"></i>
-					<span>최종 금액</span>
+						<span>
+							<input id="p_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원
+						</span>
+						<i class="fa-solid fa-plus"></i>
+						<span>
+							<input id="d_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2" value="0"/>원
+						</span>
+						<i class="fa-solid fa-equals"></i>
+						<span>
+							<input id="t_price" style="text-align:right; border: none; background: transparent;" class="dontTouch col-md-2"/> 원
+						</span>
 					</h2>
 				</div>
 			</form>
@@ -89,7 +107,7 @@
 							<td class="col-md-2 text-left align-middle">주문하시는 분</td>
 							<td class="col-md-10">
 								<div class="dontTouch col-md-3">
-									<input type="text" class="form-control" id="ordererName" name="ordererName" value="고길동" readonly/>
+									<input type="text" class="form-control" id="ordererName" name="ordererName" value="${member.name }" readonly/>
 								</div>
 							</td>
 						</tr>
@@ -97,18 +115,18 @@
 							 <td class="col-md-3 text-left align-middle">주문 이메일</td>
 							 <td>
 							 	<div class="dontTouch col-md-5">
-									<input type="email" class="form-control" id="email" name="email" value="test@test.com" readonly/>
+									<input type="email" class="form-control" id="email" name="email" value="${member.email }" readonly/>
 								</div>
 							 </td>
 						</tr>
 						<tr>
 							 <td class="col-md-3 text-left align-middle">주문 연락처</td>
 							 <td class="dontTouch">
-								<input style="width: 81px;" type="text" id="ordererNumber1" name="ordererNumber1" title="주문자 앞번호" maxlength="3" value="010" readonly>
+								<input style="width: 81px;" type="text" id="ordererNumber1" name="ordererNumber1" title="주문자 앞번호" maxlength="3" value="${fn:substring(phone, 0, 3) }" readonly>
 								&nbsp;-&nbsp;
-								<input style="width: 81px;" type="text" id="ordererNumber2" name="ordererNumber2" title="주문자 중간번호" maxlength="4" value="3456" readonly>
+								<input style="width: 81px;" type="text" id="ordererNumber2" name="ordererNumber2" title="주문자 중간번호" maxlength="4" value="${fn:substring(phone, 4, 8)}" readonly>
 								&nbsp;-&nbsp;
-								<input style="width: 81px;" type="text" id="ordererNumber3" name="ordererNumber3" title="주문자 뒷번호" maxlength="4" value="7890" readonly>
+								<input style="width: 81px;" type="text" id="ordererNumber3" name="ordererNumber3" title="주문자 뒷번호" maxlength="4" value="${fn:substring(phone, 9, 13)}" readonly>
 							</td>
 						</tr>
 						<tr>
@@ -166,7 +184,7 @@
 						</tr>
 						<tr>
 							 <td class="col-md-3 text-left align-middle">주문 요청사항(선택)</td>
-							 <td><input class="form-control" type="text" id="request" name="request" maxLength="200" placeholder="요청 사항을 적어주세요 (200자 이내)"/></td>
+							 <td><input class="form-control" type="text" id="request" name="request" maxLength="200" placeholder="요청 사항을 적어주세요 (200자 이내)" value=" "/></td>
 						</tr>
 				</table>
 				<input type='hidden' id="id" name="id" value="${member.id}"/>
@@ -184,6 +202,13 @@
 	<!-- 푸터 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>
 	
+	<form id="payForm">
+		<c:forEach items="${product.colorList }" var="color" varStatus="i">
+			<input class="color" type="hidden" name="ordersItemVO[${i.index }].oi_color" value="${color.color}" />
+			<input class="size" type="hidden" name="ordersItemVO[${i.index }].oi_size" value="${product.sizeList[i.index].size}" />
+			<input class="s_stock" role="t_price" type="hidden" name="ordersItemVO[${i.index }].oi_number" value="${product.sizeList[i.index].s_stock}" />
+		</c:forEach>
+	</form>
 
 </body>
 <!-- 다음 주소 가져오기 API -->
@@ -191,5 +216,21 @@
 
 <!-- 함수 정의 -->
 <script src="/resources/js/payment.js"></script>
+
+<script>
+	// 총 금액들의 합
+	let total = 0;
+	
+	$("input[role='t_price']").each(function (index, value) {
+	    total += parseInt($(this).val());
+	});
+	
+	var imsi = ${product.p_price} * total;
+	// 상품 총 금액
+	$('#p_price').val(imsi.toLocaleString());
+	
+	// 총 금액
+	$('#t_price').val((imsi + parseInt($('#d_price').val())).toLocaleString());
+</script>
 
 </html>

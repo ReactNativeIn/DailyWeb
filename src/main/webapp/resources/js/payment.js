@@ -1,8 +1,30 @@
 /**
  * 결제화면에서 쓸 함수
  */
+ 
+ let ordersId = -1; // -1이면 값이 정의되지 않은 상태
+ 
+// ordersId 생성
+function createOrdersId(){
+	$.ajax({
+		type: "post",
+		url: "/orders/createOrdersId",
+		dataType: "json",
+		success: function(data){
+			
+			if(ordersId == -1){
+				ordersId = data;
+				$("input[name='orders_id']").val(ordersId);
+			}
+		}
+	});	
+}
+
 
 $(function () {
+  // ordersId생성
+  createOrdersId();
+  
   $("#equal_ordererNumber").click(function () {
     var sameNumber = this.checked;
     $("#receiverNumber1").val(sameNumber ? $("#ordererNumber1").val() : "010");
@@ -74,7 +96,12 @@ function payment() {
 	// 입력한 값을 가져온다.
  	// let ordererName		= $("#ordererName").val();
  	// let email			= $("#email").val();
- 	let ordererNumber	= $("#ordererNumber1").val() + $("#ordererNumber2").val() + $("#ordererNumber3").val();
+ 	// let ordererNumber	= $("#ordererNumber1").val() + $("#ordererNumber2").val() + $("#ordererNumber3").val();
+ 	
+ 	let orders_id = $("#orders_id").val();
+ 	let product_id = $("#product_id").val();
+ 	
+ 	let d_price = $("#d_price").val();
  	let receiverName	= $("#receiverName").val();
  	let zipcode			= $("#zipcode").val() + $("#address01").val();
  	let sangse			= $("#address02").val();
@@ -82,9 +109,9 @@ function payment() {
  	let receiverNumber	= $("#receiverNumber1").val() + $("#receiverNumber2").val() + $("#receiverNumber3").val();
  	let request			= $("#request").val();
  	let id				= $("#id").val();
- 	// let point			= $("#point").val();
  	
- 	
+ 	let point			= parseInt($("#point").val());
+ 	let t_price = parseInt($("#t_price").val().replace(/,/g,""));
  	
  	// alert(request);
  	
@@ -102,12 +129,13 @@ function payment() {
  		return false;
  	}
  	
+ 	/*
  	// 주문 연락처에 값이 없거나 숫자가 아니면 반환
  	if((ordererNumber.length < 10) || isNaN(ordererNumber)) {
  		alert("주문 연락처를 올바르게 입력해주세요.");
  		$("#ordererNumber2").focus();
  		return false;
- 	}
+ 	}*/
  	
  	// 받으시는 분에 값이 없으면 반환
  	if($("#receiverName").val() == "") {
@@ -137,17 +165,33 @@ function payment() {
  		return false;
  	}
  	
- 	/*
- 	if(point < 상품가격 {
+ 	// 사용자의 포인트가 총 구매 가격보다 낮으면 반환
+ 	if(point < t_price) {
  		alert("포인트가 부족합니다.");
+ 		console.log(t_price);
  		return false;
  	}
- 	*/
  	
+ 	console.log(point + " : " + t_price);
+ 	
+ 	
+ 	
+ 	//ordersItem 정보
+ 	
+ 	let payForm = $("#payForm").serialize();
+ 	
+ 	payForm += "&usePoint=" + t_price + "&o_comment=" + request
+				+ "&deliverCost=" + d_price + "&addressee=" + receiverName
+				+ "&address=" + address + "&o_phone=" + receiverNumber
+				+ "&id=" + id + "&orders_id=" + orders_id
+				+ "&product_id=" + product_id;
+	console.log(payForm);
+
  	$.ajax({
  		type: "POST",
  		url: "/orders/orderComplete",
- 		data: {address:address, addressee:receiverName, o_comment:request, id:id, o_phone:receiverNumber},
+		dataType: "text",
+ 		data: payForm,
  		success: function(data) {
  			if(data == "Y") {
  				alert("주문이 완료되었습니다.");
@@ -158,11 +202,6 @@ function payment() {
  		error: function(data) {
  			alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
  		}
- 		
  	});
  	
- 
- 	
-	
-	
 }	// End - function payment();

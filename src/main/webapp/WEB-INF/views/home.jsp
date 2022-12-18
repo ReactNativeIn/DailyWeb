@@ -49,26 +49,28 @@
 					<tr>
 						<c:forEach items="${newList}" var="item">
 							<td class="text-center">
-								<div>
-									<c:choose>
-										<c:when test="${item.fileList == null || item.fileList == '[]' }">
-											<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
-										</c:when>
-										<c:otherwise>
-											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
-										</c:otherwise>
-									</c:choose>
-									<div class="text-center">
-										<div class="card-body">
-											<h5 class="card-title">
-												${item.p_name }
-											</h5>
-											<p class="card-text">
-												${item.p_price}원
-											</p>
+								<a id="detail" href="/product/productDetail?product_id=${item.product_id}">
+									<div>
+										<c:choose>
+											<c:when test="${item.fileList == null || item.fileList == '[]' }">
+												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+											</c:when>
+											<c:otherwise>
+												<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
+											</c:otherwise>
+										</c:choose>
+										<div class="text-center">
+											<div class="card-body">
+												<h5 class="card-title">
+													${item.p_name }
+												</h5>
+												<p class="card-text">
+													${item.p_price}원
+												</p>
+											</div>
 										</div>
 									</div>
-								</div>
+								</a>
 							</td>						
 						</c:forEach>
 					</tr>
@@ -86,51 +88,55 @@
 						<c:choose>
 							<c:when test="${(i.index + 1)%5 == 0 }">
 								<td class="text-center">
-									<div>									
-										<c:choose>
-											<c:when test="${item.fileList == null || item.fileList == '[]'}">
-												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
-											</c:when>
-											<c:otherwise>
-												<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
-											</c:otherwise>
-										</c:choose>
-										<div class="text-center">
-											<div class="card-body">
-												<h5 class="card-title">
-													${item.p_name }
-												</h5>
-												<p class="card-text">
-													${item.p_price}원
-												</p>		
+									<a id="detail" href="/product/productDetail?product_id=${item.product_id}">
+										<div>									
+											<c:choose>
+												<c:when test="${item.fileList == null || item.fileList == '[]'}">
+													<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+												</c:when>
+												<c:otherwise>
+													<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }${item.fileList[0].file_s_name}"/>
+												</c:otherwise>
+											</c:choose>
+											<div class="text-center">
+												<div class="card-body">
+													<h5 class="card-title">
+														${item.p_name }
+													</h5>
+													<p class="card-text">
+														${item.p_price}원
+													</p>		
+												</div>
 											</div>
 										</div>
-									</div>
-								</td>					
-								</tr>			
+									</a>				
+								</td>
+							</tr>			
 							</c:when>
 							<c:otherwise>
 								<td class="text-center">
-									<div>
-										<c:choose>
-											<c:when test="${item.fileList == null || item.fileList == '[]'}">
-												<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
-											</c:when>
-											<c:otherwise>
-												<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }/${item.fileList[0].file_s_name}"/>
-											</c:otherwise>
-										</c:choose>
-										<div class="text-center">
-											<div class="card-body">
-												<h5 class="card-title">
-													${item.p_name }
-												</h5>
-												<p class="card-text">
-													${item.p_price}원
-												</p>		
+									<a id="detail" href="/product/productDetail?product_id=${item.product_id}">
+										<div>
+											<c:choose>
+												<c:when test="${item.fileList == null || item.fileList == '[]'}">
+													<img class="img-thumbnail border-2 w-75" src="/resources/images/noImage.png"/>
+												</c:when>
+												<c:otherwise>
+													<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${item.fileList[0].file_path }/${item.fileList[0].file_s_name}"/>
+												</c:otherwise>
+											</c:choose>
+											<div class="text-center">
+												<div class="card-body">
+													<h5 class="card-title">
+														${item.p_name }
+													</h5>
+													<p class="card-text">
+														${item.p_price}원
+													</p>		
+												</div>
 											</div>
 										</div>
-									</div>
+									</a>
 								</td>	
 							</c:otherwise>
 						</c:choose>

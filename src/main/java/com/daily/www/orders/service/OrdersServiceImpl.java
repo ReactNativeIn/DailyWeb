@@ -11,26 +11,68 @@ import com.daily.www.common.util.Criteria;
 import com.daily.www.file.dao.FileDAO;
 import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
-import com.daily.www.orders.vo.OrdersVO;
+import com.daily.www.ordersitem.dao.OrdersItemDAO;
+import com.daily.www.ordersitem.vo.OrdersItemVO;
+import com.daily.www.payment.dao.PaymentDAO;
+import com.daily.www.payment.vo.PaymentVO;
 
 @Service("OrdersService")
 public class OrdersServiceImpl implements OrdersService {
 
 	@Autowired
-	OrdersDAO ordersDAO;
+	private OrdersItemDAO ordersItemDAO;
+
+	@Autowired
+	private OrdersDAO ordersDAO;
+	
+	@Autowired
+	private PaymentDAO paymentDAO;
 
 	@Autowired
 	private FileDAO fileDAO;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrdersServiceImpl.class);
 
+	
+	// Orders 아이디 생성
+	@Override
+	public int createOrdersId() {
+		return ordersDAO.createOrdersId();
+	}
+	
 	// 결제 등록
 	@Override
 	public int payment(OrdersDTO ordersDTO) {
 
+		int result = 0;
+		int ordersItem_id = -1;
 		logger.info("OrdersService 실행중...");
-
-		return ordersDAO.payment(ordersDTO);
+		List<OrdersItemVO> ordersItemVO = ordersDTO.getOrdersItemVO();
+		
+		// 주문(orders 테이블에 컬럼 입력)
+		result = ordersDAO.payment(ordersDTO);
+		
+		for(OrdersItemVO orderVO : ordersItemVO) {
+			ordersItem_id = ordersItemDAO.createOrdersItemId();
+			System.out.println("확인 : " + ordersItem_id);
+			
+			orderVO.setOrders_id(ordersDTO.getOrders_id());
+			orderVO.setProduct_id(ordersDTO.getProduct_id());
+			orderVO.setOrdersItem_id(ordersItem_id);
+			
+			// 주문상품(ordersItem 테이블에 컬럼 입력)
+			ordersItemDAO.insertOrdersItem(orderVO);
+			System.out.println("ordersItemDAO 실행 결과" + orderVO);
+			
+			// 결제(payment) 테이블 컬럼 입력)
+			PaymentVO payment = new PaymentVO();
+			payment.setOrders_id(ordersDTO.getOrders_id());
+			payment.setOrdersItem_id(ordersItem_id);
+			
+			result = paymentDAO.insertPayment(payment);
+		}
+		
+		return result;
 	}
 	
 	// 주문내역 총 개수 - 회원에 대한

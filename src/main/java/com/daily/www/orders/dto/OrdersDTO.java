@@ -27,11 +27,11 @@ public class OrdersDTO {
 	
 	
 	private int product_id;
-	private String p_name;
+	private int oi_number;
 	private String oi_color;
 	private String oi_size;
+	private String p_name;
 	private int p_price;
-	private int oi_number;
 	private List<FileVO> fileList;
 	private List<PaymentVO> paymentVO;
 	private List<OrdersItemVO> ordersItemVO;

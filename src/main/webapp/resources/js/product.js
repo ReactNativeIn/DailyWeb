@@ -126,6 +126,7 @@ function insertBtn(){
 	alert("클릭");
 	console.log($("#productForm"));
 	let productForm = $("#productForm").serialize();
+	console.log(productForm);
 	$.ajax({
 			type:			"post",
 			url:			"/product/productInsert",

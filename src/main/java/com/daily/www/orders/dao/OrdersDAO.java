@@ -7,6 +7,9 @@ import com.daily.www.orders.dto.OrdersDTO;
 
 public interface OrdersDAO {
 
+	// Orders 아이디 생성
+	int createOrdersId();
+	
 	// 결제 등록
 	int payment(OrdersDTO ordersDTO);
 

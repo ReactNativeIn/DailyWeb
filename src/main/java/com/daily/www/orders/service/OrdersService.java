@@ -8,6 +8,9 @@ import com.daily.www.orders.vo.OrdersVO;
 
 public interface OrdersService {
 
+	// Orders 아이디 생성
+	int createOrdersId();
+	
 	// 결제 등록
 	int payment(OrdersDTO ordersDTO);
 	

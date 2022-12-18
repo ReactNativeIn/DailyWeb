@@ -22,6 +22,12 @@ public class OrdersDAOImpl implements OrdersDAO {
 	private static final Logger logger = LoggerFactory.getLogger(OrdersDAOImpl.class);
 	
 	
+	// Orders 아이디 생성
+	@Override
+	public int createOrdersId() {
+		return sqlSession.selectOne(NAMESPACE + ".creatId");
+	}
+	
 	// 결제 등록
 	@Override
 	public int payment(OrdersDTO ordersDTO) {

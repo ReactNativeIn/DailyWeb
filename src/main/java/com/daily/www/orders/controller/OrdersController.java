@@ -31,8 +31,13 @@ public class OrdersController {
 	@Autowired
 	OrdersService ordersService;
 	
-	@Autowired
-	private ProductService productService;
+	
+	// Orders 아이디 생성 - Ajax
+	@ResponseBody
+	@RequestMapping(value = "/createOrdersId", method = RequestMethod.POST)
+	public int createOrdersId() {
+		return ordersService.createOrdersId();
+	}
 	
 	// 주문/결제 화면 이동
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
@@ -42,16 +47,14 @@ public class OrdersController {
 		// productDTO.add(productService.productDetail(product));
 		// System.out.println("프로덕트 디티오 => " + productDTO);
 		//System.out.println(productDTO);
-		//model.addAttribute("product", productDTO);
+		model.addAttribute("product", product);
 		System.out.println("확인 : " + product);
 		return "/member/payment";
 	}
 	
 	@RequestMapping(value = "/directPayment", method = RequestMethod.GET)
-	public String directPayment(ProductDTO product, Model model) {
-		List<ProductDTO> productDTO = new ArrayList<>();
-		ProductDTO pDTO = productService.productOrderDetail(product);
-		productDTO.add(pDTO);
+	public String directPayment(ProductDTO productDTO, Model model) {
+
 		System.out.println(productDTO);
 		model.addAttribute("product", productDTO);
 		
@@ -88,7 +91,7 @@ public class OrdersController {
 	public String orderComplete(OrdersDTO ordersDTO) throws Exception {
 		
 		logger.info("OrdersControllerImpl 결제 시작...");
-		
+		System.out.println("123 : " + ordersDTO);
 		if (ordersService.payment(ordersDTO) == 1) { // 결제성공
 			return "Y";
 		} else { // 결제실패
@@ -96,6 +99,5 @@ public class OrdersController {
 		}
 
 	} // End - public String payment(Model model, HttpServletRequest request) throws
-		// Exception
 
 } // End - public class OrdersControllerImpl implements OrdersController
