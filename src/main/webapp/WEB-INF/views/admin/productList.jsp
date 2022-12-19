@@ -182,12 +182,12 @@
 					    		</c:when>
 					    		<c:when test="${param.page eq pageNum}">
 								    <li>
-								        <a class="btn btn-secondary disabled" href='<c:url value="/product/${Name}?page=${pageNum}"/>'><i>${pageNum}</i></a>
+								        <a class="btn btn-secondary disabled" href='<c:url value="/product/${Name}?page=${pageNum}&keyword=${param.keyword}"/>'><i>${pageNum}</i></a>
 								    </li>
 								</c:when>
 								<c:otherwise>
 									<li>
-								        <a class="btn btn-outline-secondary" href='<c:url value="/product/${Name}?page=${pageNum}"/>'><i>${pageNum}</i></a>
+								        <a class="btn btn-outline-secondary" href='<c:url value="/product/${Name}?page=${pageNum}&keyword=${param.keyword}"/>'><i>${pageNum}</i></a>
 								    </li>
 								</c:otherwise>
 							</c:choose>
@@ -252,10 +252,6 @@
 	<form id="formList" action="/product/productList" method="get">
 		<input type='hidden' name='page'		value="${result.currentPageNum}">
 		<input type='hidden' name='keyword'		value="">
-		<!-- 		
-		<input type='hidden' name='size'		value="${result.currentPage.pageSize}">
-		<input type='hidden' name='searchType' 	value="${pageVO.type}">
-		 -->
 	</form>
 		
 	</main>

@@ -131,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductDTO> AdminListPaging(SearchCriteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return productDAO.AdminListPaging(cri);
 	}
 	
 	// 메인

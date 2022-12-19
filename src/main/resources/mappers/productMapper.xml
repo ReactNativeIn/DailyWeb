@@ -77,7 +77,7 @@
 	</select>
 	
 	<!-- 전체 상품수 -->
-	<select id="AdminlistTotalCount" parameterType="searchCriteria" resultType="integer">
+	<select id="AdminListTotalCount" parameterType="searchCriteria" resultType="integer">
 		<![CDATA[
 			SELECT COUNT(*) 
 			FROM product

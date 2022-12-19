@@ -67,19 +67,19 @@ public class ProductController {
 		mav.addObject("keyword",	scri.getKeyword());
 		
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(productService.listTotalCount(cri));
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(productService.AdminListTotalCount(scri));
 		
-		cri.setList(list);
-		cri.setName("productList");
+		scri.setList(list);
+		scri.setName("productList");
 		
 		
 		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다. (검색기능)
-		List<ProductDTO> menList = productService.AdminListPaging(cri);
+		List<ProductDTO> menList = productService.AdminListPaging(scri);
 		
 		mav.addObject("List", menList);
 		mav.addObject("pageMaker", pageMaker);
-		mav.addObject("Name", cri.getName());
+		mav.addObject("Name", scri.getName());
 
 		
 		return mav;
