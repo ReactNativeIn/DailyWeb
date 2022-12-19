@@ -1,10 +1,7 @@
 <%@	page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-<!-- 더미데이터 -->
 <c:set var="sale" value="" />
-<!-- 컨트롤러에서 받아온 Name객체 소문자를 대문자로 -->
-<!--<c:set var = "title" value = "${fn:toUpperCase(Name)}" /> -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,7 +160,7 @@
 
 		
 		<!-- 페이징 버튼 -->
-		<div style="display: flex; justify-content: center; align-items: center;">
+		<div style="display: flex; justify-content: center; align-items: center; margin-top:50px;">
 			<ul class="btn-group pagination">
 				<c:choose>
 				
@@ -234,20 +231,12 @@
 			</ul>
 		</div>
 		
-		<div class="col-sm-offset-3 align-items-center">
-		
-				<!-- 
-		<select id='searchType'>
-			<option>검색종류</option>
-				<option value="t" <c:if test="${searchType == 't'}">selected</c:if>>제목</option>
-				<option value="c" <c:if test="${searchType == 'c'}">selected</c:if>>내용</option>				
-		</select>
-				 -->
-		
-		<!--<input type='text' id='searchKeyword' value="${pageVO.keyword}"> --> 
-		<input type='text' id='searchKeyword' value="${keyword}">
-		<button id='searchBtn'>검색</button> 
-	</div>
+		<div class="col-sm-offset-3" style="margin-top:50px;">
+			<div class="d-grid gap-2 d-md-block" style="text-align: center;">
+				<input class="form-control" type='text' id='searchKeyword' style="width: 326px;display: inline; margin-right: 3px; align-items: center;" value="${keyword}" onkeyup="enterkey();" >
+				<button id='searchBtn' class="btn btn-success btn-sm" style="width: 78px;">검색</button> 
+			</div>
+		</div>
 		
 	<form id="formList" action="/product/productList" method="get">
 		<input type='hidden' name='page'		value="${result.currentPageNum}">
@@ -261,35 +250,42 @@
 		$(document).ready(function() {
 			
 			var formObj = $("#formList");
-			
-			// 검색 버튼을 눌렀을 경우
-			$("#searchBtn").click(function(e){
+
+			$("#searchBtn").click(function(e){			// 검색 버튼을 직접 눌렀을 경우 실행되는 함수.
 				
-				// var typeStr = $("#searchType").find(":selected").val();
 				var keywordStr = $("#searchKeyword").val(); // 처음 검색val은 공란
-				// var pageStr = $()
 								
-				//if (typeStr == "검색종류" || typeStr == null) {
-					//alert("검색종류를 선택해주세요.")
-					//return false;
-				//} else if (keywordStr == "" || keywordStr == null) {
-					//alert("검색어를 입력해주세요.")
-					//return false;
-				//}
-				
 				if (keywordStr == "" || keywordStr == null) {
 					alert("검색어를 입력해주세요.")
 					return false;
 				} 
 					// alert("검색 키워드 : " + keywordStr);
-					// formObj.find("[name='type']").val(typeStr);
-					//formObj.find("[name='searchType']").val(typeStr);
 					formObj.find("[name='keyword']").val(keywordStr);
 					formObj.find("[name='page']").val("1");
 					formObj.submit();
 						
 		})
 	});
+		
+		
+		function enterkey() {			// 입력칸에서 엔터를 눌렀을 경우 실행되는 함수.
+	        if (window.event.keyCode == 13) {
+	        	var formObj = $("#formList");
+	        	
+	        	var keywordStr = $("#searchKeyword").val(); // 처음 검색val은 공란
+				
+				if (keywordStr == "" || keywordStr == null) {
+					alert("검색어를 입력해주세요.")
+					return false;
+				} 
+					// alert("검색 키워드 : " + keywordStr);
+					formObj.find("[name='keyword']").val(keywordStr);
+					formObj.find("[name='page']").val("1");
+					formObj.submit();
+	        	
+	        }
+	}
+		
 
 </script>
 	
