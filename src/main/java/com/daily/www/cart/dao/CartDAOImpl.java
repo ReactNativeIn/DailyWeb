@@ -2,8 +2,6 @@ package com.daily.www.cart.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.daily.www.cart.dto.CartDTO;
+import com.daily.www.cartitem.vo.CartItemVO;
+import com.daily.www.member.vo.MemberVO;
 
 //------------------------------------------------------------------------
 // [ public class CartDAOImpl implements CartDAO ]
@@ -25,41 +25,66 @@ public class CartDAOImpl implements CartDAO {
 
 	private static final Logger logger = LoggerFactory.getLogger(CartDAOImpl.class);
 
-	//------------------------------------------------------------------------------------
-	// [ 마이바티스 ]
-	//
-	// Connection	:	단순히 물리적(네트워크)인 연결
-	// SqlSession	:	RDB에 인증을 거친 논리적인 상태
-	//
-	//------------------------------------------------------------------------------------
 	@Autowired
 	private SqlSession sqlSession;
 	
 	private final static String NAMESPACE = "CartDAO";
 
+	// 카트 추가(회원가입)
+	@Override
+	public int insertCart(MemberVO member) {
+		return sqlSession.insert(NAMESPACE + ".insertCart", member);
+	}
+	
 	
 	//------------------------------------------------------------------------
 	// [ 장바구니에 추가(addCart) ]
 	//------------------------------------------------------------------------
 	@Override
-	public int addCart(CartDTO cartDTO) throws Exception {
-		logger.info("CartDAOImpl 장바구니에 추가 처리 ==> " + cartDTO);
+	public int addCart(CartItemVO cartItemVO) {
+		logger.info("CartDAOImpl 장바구니에 추가 처리 ==> " + cartItemVO);
 
-		return sqlSession.insert(NAMESPACE + ".addCart", cartDTO);
+		return sqlSession.insert(NAMESPACE + ".addCart", cartItemVO);
 	}
 	
 	//------------------------------------------------------------------------
-	// [ 장바구니 리스트 불러오기(cartAll) ]
+	// [ 장바구니 리스트 불러오기(getCartList) ]
 	//------------------------------------------------------------------------
 	@Override
-	public List<CartDTO> getCart(String cart_id) {
+	public List<CartDTO> getCart(String id) {
 		
 		logger.info("CartDAOImpl cartList() 장바구니 목록 가져오기.....");
-		List<CartDTO> cartList = sqlSession.selectList(NAMESPACE + ".cartAll", cart_id);
+
+		return sqlSession.selectList(NAMESPACE + ".getCartList", id);
 		
-		logger.info("CartDAOImpl cartList() Data ==> " + cartList);
-		return cartList;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// [ id로 cart_id 구하기(insertCartId) ]
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int insertCartId(CartDTO cartDTO) {
 		
+		return sqlSession.selectOne(NAMESPACE + ".insertCartId", cartDTO);
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// [ product_id로 color_id 구하기(selectColorId) ]
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int selectColorId(CartDTO cartDTO) {
+		
+		return sqlSession.selectOne(NAMESPACE + ".selectColorId", cartDTO);
+	}
+
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// [ color_id로 size_id 구하기(selectSizeId) ]
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int selectSizeId(CartDTO cartDTO) {
+
+		return sqlSession.selectOne(NAMESPACE + ".selectSizeId", cartDTO);
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
@@ -92,5 +117,8 @@ public class CartDAOImpl implements CartDAO {
 
 		return null;
 	}
+
+
+
 
 }

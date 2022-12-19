@@ -121,7 +121,7 @@
 	<!-- 하단 메뉴 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>
 	
-	<form id="detail_form" method="post" action="/orders/payment">
+	<form id="detail_form" method="post" action="/orders/directPayment">
 		<input type="hidden" name="product_id" value="${productDetail.product_id }"/>
 		<input type="hidden" name="p_name" value="${productDetail.p_name }"/>
 		<input type="hidden" name="p_explanation" value="${productDetail.p_explanation }"/>

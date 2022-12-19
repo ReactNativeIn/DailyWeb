@@ -8,8 +8,8 @@
 	<!-- 회원가입 처리 -->
 	<insert id="addMember" parameterType="member">
 		<![CDATA[
-			INSERT INTO MEMBER (id, password, name, birthday, phone, email, nickname, joinDate)
-			VALUES (#{id}, #{password}, #{name}, #{birthday}, #{phone}, #{email}, #{nickname}, SYSDATE())
+			INSERT INTO MEMBER (id, password, name, birthday, phone, email, nickname, point, joinDate)
+			VALUES (#{id}, #{password}, #{name}, #{birthday}, #{phone}, #{email}, #{nickname}, 100000,SYSDATE())
 		]]>
 	</insert>
 	

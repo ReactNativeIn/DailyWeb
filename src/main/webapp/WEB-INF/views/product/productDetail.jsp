@@ -145,30 +145,6 @@ const form = {
 		cart_id		: 1
 }
 
-
-
-// 장바구니 추가 버튼 -----------------------------------------------------
-$(".btn_cart").on("click", function(e){
-	form.ci_number = $(".quantity_input").val();
-
-	$.ajax({
-		url: '/cart/add',
-		type: 'POST',
-		data: form,
-		success: function(result){
-			if(result == '0'){
-				alert("장바구니에 추가를 하지 못하였습니다.");
-			} else if(result == '1'){
-				alert("장바구니에 추가되었습니다.");
-			} else if(result == '2'){
-				alert("장바구니에 이미 추가되어져 있습니다.");
-			} 
-			//cartAlert(result);
-		}
-	})
-});
-
-
 // 구매 버튼 -----------------------------------------------------
 $(".btn_buy").on("click", function(e){
 	$('#product_id').val(${param.product_id});

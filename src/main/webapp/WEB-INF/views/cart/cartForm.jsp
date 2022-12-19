@@ -32,45 +32,47 @@
 
 			<!-- cartInfo -->
 			<div class="content_totalCount_section">
-				<!-- 체크박스 전체 여부 -->
-				<div class="all_check_input_div">
-					<input type="checkbox" class="all_check_input input_size_20" checked="checked"><span class="all_chcek_span">전체선택</span>
-				</div>
 				<table class="subject_table">
 					<caption>표 제목 부분</caption>
-					<tbody>
-
+					<thead>
 						<tr>
-							<th class="td_width_1"></th>
-							<th class="td_width_2"></th>
-							<th class="td_width_3">상품명</th>
-							<th class="td_width_4">금액</th>
-							<th class="td_width_4">수량</th>
-							<th class="td_width_4">합계</th>
-							<th class="td_width_4">삭제</th>
+							<th colspan="3" class="td_width_2">상품명</th>
+							<th class="td_width_2">Color</th>
+							<th class="td_width_3">Size</th>
+							<th class="td_width_3">금액</th>
+							<th class="td_width_3">수량</th>
+							<th class="td_width_3">합계</th>
+							<th class="td_width_3">삭제</th>
 						</tr>
-					</tbody>
-				</table>
-				<table class="cart_table">
+					</thead>
 					<caption>표 내용 부분</caption>
 					<tbody>
 						<c:forEach items="${cartInfo}" var="cartInfo">
 							<tr>
 								<td class="td_width_1 cart_info_td">
-									<input type="checkbox" class="individual_cart_checkbox input_size_20" checked="checked" role="cartItemCheckbox">
+									<input type="checkbox" class="individual_cart_checkbox input_size_20" role="cart_checkbox" value="${cartInfo.cartItem_id}" checked="checked">
 									<input type="hidden" class="individual_p_price_input" value="${cartInfo.p_price}">
 									<input type="hidden" class="individual_ci_number_input" value="${cartInfo.ci_number}">
 									<input type="hidden" class="individual_totalPrice_input" value="${cartInfo.p_price * cartInfo.ci_number}">
-									<input type="hidden" class="individual_point_input" value="${cartInfo.point}">
-									<input type="hidden" class="individual_totalPoint_input" value="${cartInfo.totalPoint}">
+									<input type="hidden" id="resultQuantity_${cartInfo.cartItem_id}" value="${cartInfo.ci_number}"/>
 								</td>
-								<td class="td_width_2"></td>
-								<td class="td_width_3">${cartInfo.p_name}</td>
-								<td class="td_width_4 price_td">
+								<td class="td_width_3">
+									<c:choose>
+										<c:when test="${cartInfo.fileList == null || cartInfo.fileList == '[]'}">
+											<img class="img-thumbnail border-2 w-75" src="/resources/images/no_image_found.png"/>
+										</c:when>
+										<c:otherwise>
+											<img class="img-thumbnail border-2 w-75" src="/util/upload/displayFile?fileName=${cartInfo.fileList[0].file_path }${cartInfo.fileList[0].file_s_name}"/>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td class="td_width_2">${cartInfo.p_name}</td>
+								<td class="td_width_2">${cartInfo.ci_color}</td>
+								<td class="td_width_3">${cartInfo.ci_size}</td>
+								<td class="td_width_3 price_td">
 									금액 : <fmt:formatNumber value="${cartInfo.p_price}" pattern="#,### 원" /><br>
-									마일리지 : <span class="green_color"><fmt:formatNumber value="${cartInfo.point}" pattern="#,###" /></span>
 								</td>
-								<td class="td_width_4 table_text_align_center">
+								<td class="td_width_3 table_text_align_center">
 									<div class="table_text_align_center quantity_div">
 										<input type="text" value="${cartInfo.ci_number}" class="quantity_input">	
 										<button class="quantity_btn plus_btn">+</button>
@@ -78,17 +80,15 @@
 									</div>
 									<a class="quantity_modify_btn" data-name="${cartInfo.cartItem_id}">변경</a>
 								</td>
-								<td class="td_width_4 table_text_align_center">
+								<td class="td_width_3 table_text_align_center">
 									<fmt:formatNumber value="${cartInfo.p_price * cartInfo.ci_number}" pattern="#,### 원" />
 								</td>
-								<td class="td_width_4 table_text_align_center">
+								<td class="td_width_3 table_text_align_center">
 									<button class="delete_btn" data-name1="${cartInfo.cartItem_id}">삭제</button>
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
-				</table>
-				<table class="list_table">
 				</table>
 			</div>
 			<!-- 가격 종합 -->
@@ -143,29 +143,14 @@
 									</tbody>
 								</table>
 							</td>
-							<td>
-								<table>
-									<tbody>
-										<tr>
-											<td>
-												<strong>총 적립 예상 마일리지</strong>
-											
-											</td>
-											<td>
-												<span class="totalPoint_span"></span> 원
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<!-- 구매 버튼 영역 -->
 			<div class="content_btn_section">
-				<a href="#">주문하기</a>
-				<a href="#">쇼핑계속하기</a>
+				<a id="jumun">주문하기</a>
+				<a href="/">쇼핑계속하기</a>
 			</div>
 			<div class="boundary_div">구분선</div>
 			<form>
@@ -176,7 +161,7 @@
 				<p>⊙ <b>[쇼핑계속하기]</b> 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다.</p>
 				<p>⊙ <b>[주문하기]</b> 버튼을 누르시면 장바구니에 추가한 상품을 구매하실 수 있습니다.</p>
 				<p>⊙ 장바구니에 상품이 맞게 추가되었는지 한 번 더 확인하셔 주시기 바랍니다.</p>
-				<p>⊙ 구매하시고자 하는 상품의 총 금액이 <b>30,000원</b> 이상이면 배송비는 <b>무료</b>입니다.</p>
+				<p>⊙ 구매하시고자 하는 상품의 총 금액이 <b>30,000원</b> 이상이면 배송비는 <b>무료</b>입니다.</b></p>
 			</form>
 			<div class="boundary_div">구분선</div>
 		</div>
@@ -187,11 +172,18 @@
 <form action="/cart/update" method="post" class="quantity_update_form" id="quantity_update_form">
 	<input type="hidden" name="cartItem_id" class="update_cartItem_id" id="update_cartItem_id">
 	<input type="hidden" name="ci_number" class="update_ci_number" id="update_ci_number">
+	<input type="hidden" name="id" value="${member.id}">
 </form>  
 
 <!-- 삭제 form -->
 <form action="/cart/delete" method="post" class="quantity_delete_form">
 	<input type="hidden" name="cartItem_id" class="delete_cartItem_id">
+	<input type="hidden" name="id" value="${member.id}">
+</form>
+
+<!-- 주문 form -->
+<form action="/orders/payment" method="post" class="order_form">
+
 </form>
  
 <!-- 푸터영역 -->
@@ -235,7 +227,6 @@ function setTotalInfo(){
 	
 	let totalPrice 		= 0;	// 총 가격	
 	let totalCount		= 0;	// 총 개수
-	let totalPoint 		= 0;	// 총 포인트 점수
 	let deliveryPrice 	= 0;	// 배송비
 	let finalTotalPrice = 0;	// 최종 가격(총 가격 + 배송비)
 	
@@ -249,8 +240,6 @@ function setTotalInfo(){
 			totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
 			// 총 개수
 			totalCount += parseInt($(element).find(".individual_ci_number_input").val());
-			// 총 마일리지
-			totalPoint += parseInt($(element).find(".individual_totalPoint_input").val());
 			
 		}
 
@@ -273,8 +262,6 @@ function setTotalInfo(){
 	$(".totalPrice_span").text(totalPrice.toLocaleString());
 	// 총 갯수
 	$(".totalCount_span").text(totalCount);
-	// 총 마일리지
-	$(".totalPoint_span").text(totalPoint.toLocaleString());
 	// 배송비
 	$(".delivery_price").text(deliveryPrice);	
 	// 최종 가격(총 가격 + 배송비)
@@ -296,14 +283,32 @@ $(".minus_btn").on("click", function(){
 
 /* 수량 수정 버튼 */
 $(".quantity_modify_btn").on("click", function(){
-	
+
 	let cartItem_id = $(this).data("name");
 	let ci_number 	= $(this).parent("td").find("input").val();
 	
-
+	console.log("하이");
+	
 	$(".update_cartItem_id").val(cartItem_id);
 	$(".update_ci_number").val(ci_number);
-	$(".quantity_update_form").submit();
+	var formD = $(".quantity_update_form").serialize();
+
+	$.ajax({
+		type: "post",
+		url: "/cart/update",
+		dataType: "text",
+		data : formD,
+		success: function(data){
+			console.log(data);
+			if(data == 1){
+				alert("상품 수량이 변경되었습니다.");
+			}else {
+				alert("변경 되지 않았습니다.");
+			}
+		}
+	});
+	
+	//$(".quantity_update_form").submit();
 	
 });
 
@@ -317,54 +322,63 @@ $(".delete_btn").on("click", function(e){
 	alert("확인");
 });
 
+/* 이미지 삽입 
+	i 	: 몇 번째 객체인지의 순서 값
+	obj	: i번째 접근하는 객체
+*/
+$(".image_wrap").each(function(i, obj){
 
-// 선택된 상품을 리스트로 만들어서 orderController의 postOrder에서 처리하게 됨
-// 아직 수정해야됨 적용 ㄴㄴ
-function fn_buySelectedItem() {
-  //post요청을 보낼 form 생성
-  let newForm = document.createElement("form");
-  newForm.setAttribute("method", "Post");
-  newForm.setAttribute("action", "${contextPath}/orders/payment");
-  newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
+	const bobj = $(obj);
+	
+	if(bobj.data("product")){
+		const uploadPath 	= bobj.data("path");
+		/* const uuid 			= bobj.data("uuid"); */
+		const fileName 		= bobj.data("filename");
+		
+		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + fileName); // + uuid + "_"
+		
+		$(this).find("img").attr('src', 'util/upload/display?fileName=' + fileCallPath);
+	} else {
+		$(this).find("img").attr('src', '/resources/images/no_image_found.png');
+	}
+	
+});
 
-  $("input[role='cartItemCheckbox']:checked").each(function (index) {
-    let hiddenInputId = document.createElement("input");
-    let hiddenInputSize = document.createElement("input");
-    let hiddenInputCount = document.createElement("input");
-    //카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
-    let cartItemId = $(this).val();
-    //가져온 카트 아이템 아이디로 개수와 사이즈를 가져옴
-    let itemSize = $("#size_" + cartItemId).text();
-    let itemCount = $("#resultQuantity_" + cartItemId).text();
-    let itemCountNum = Number(itemCount);
-    //cartId를 cartItemVOList의 변수로 넘겨줌
-    hiddenInputId.setAttribute("type", "hidden");
-    hiddenInputId.setAttribute("name", "cartItemVOList[" + index + "].id");
-    hiddenInputId.setAttribute("value", cartItemId);
+/* 주문하기 클릭 */
+$("#jumun").on("click", function() {
+	//post요청을 보낼 form 생성
+    let newForm = document.createElement("form");
+    newForm.setAttribute("method", "Post");
+    newForm.setAttribute("action", "/orders/payment");
+    newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
+    $("input[role='cart_checkbox']:checked").each(function (index) {
+      let hiddenInputCartId = document.createElement("input");	// cartItem_id
+      let hiddenInputCount = document.createElement("input");	// ci_number
+      //카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
+      let cartItemId = $(this).val();	// cartItem_id
+      //가져온 카트 아이템 아이디로 개수와 사이즈를 가져옴
+      let itemCount = $("#resultQuantity_" + cartItemId).val();	// 개수
 
-    newForm.append(hiddenInputId);
+      //cartId를 cartItemVOList의 변수로 넘겨줌
+      hiddenInputCartId.setAttribute("type", "hidden");
+      hiddenInputCartId.setAttribute("name", "cartDTOList[" + index + "].cartItem_id");
+      hiddenInputCartId.setAttribute("value", cartItemId);
+      
+      newForm.append(hiddenInputCartId);
+      hiddenInputCount.setAttribute("type", "hidden");
+      hiddenInputCount.setAttribute(
+        "name",
+        "cartDTOList[" + index + "].ci_number"
+      );
+      hiddenInputCount.setAttribute("value", itemCount);
+      newForm.append(hiddenInputCount);
+    });
+    document.body.append(newForm);
+    
+    
+    newForm.submit();
+});
 
-    hiddenInputSize.setAttribute("type", "hidden");
-    hiddenInputSize.setAttribute(
-      "name",
-      "cartItemVOList[" + index + "].productSize"
-    );
-    hiddenInputSize.setAttribute("value", itemSize);
-
-    newForm.append(hiddenInputSize);
-
-    hiddenInputCount.setAttribute("type", "hidden");
-    hiddenInputCount.setAttribute(
-      "name",
-      "cartItemVOList[" + index + "].productCount"
-    );
-    hiddenInputCount.setAttribute("value", itemCount);
-
-    newForm.append(hiddenInputCount);
-  });
-  document.body.append(newForm);
-  newForm.submit();
-}
 </script>
 
 

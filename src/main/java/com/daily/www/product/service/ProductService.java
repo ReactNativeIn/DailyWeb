@@ -1,10 +1,9 @@
 package com.daily.www.product.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.daily.www.category.vo.CategoryVO;
 import com.daily.www.common.util.Criteria;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.product.vo.ProductVO;
 
@@ -35,4 +34,10 @@ public interface ProductService {
 	ProductDTO productDetail(int product_id);
 	
 	ProductDTO productOrderDetail(ProductDTO productDTO);
+	
+	// 전체 상품 리스트 총 개수
+	int adminListTotalCount(SearchCriteria cri) throws Exception;
+	
+	// 전체 상품 목록 보기 (페이징 처리)
+	List<ProductDTO> adminListPaging(SearchCriteria cri) throws Exception;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.daily.www.cart.dao.CartDAO;
 import com.daily.www.member.dao.MemberDAO;
 import com.daily.www.member.vo.MemberVO;
 
@@ -14,6 +15,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	private CartDAO cartDAO;
+	
 	
 	// 전체 member 목록
 	@Override
@@ -24,8 +29,9 @@ public class MemberServiceImpl implements MemberService {
 	// 회원가입 처리
 	@Override
 	public int addMember(MemberVO memberVO) throws DataAccessException {
-
-		return memberDAO.addMember(memberVO);
+		int check = memberDAO.addMember(memberVO);
+		check = cartDAO.insertCart(memberVO);
+		return check;
 		
 	}
 	

@@ -2,13 +2,17 @@ package com.daily.www.cart.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daily.www.cart.dao.CartDAO;
 import com.daily.www.cart.dto.CartDTO;
+import com.daily.www.cartitem.vo.CartItemVO;
+import com.daily.www.color.vo.ColorVO;
+import com.daily.www.file.dao.FileDAO;
+import com.daily.www.file.vo.FileVO;
+import com.daily.www.product.dao.ProductDAO;
+import com.daily.www.product.dto.ProductDTO;
 
 //------------------------------------------------------------------------------------
 //[ public class CartServiceImpl implements CartService ]
@@ -17,42 +21,53 @@ import com.daily.www.cart.dto.CartDTO;
 public class CartServiceImpl implements CartService {
 
 	@Autowired
+	private ProductDAO productDAO;
+	
+	@Autowired
 	private CartDAO cartDAO;
+	
+	@Autowired
+	private FileDAO fileDAO;
 	
 	// -----------------------------------------------------------------
 	// [ 장바구니 추가(addCart) ]
 	// -----------------------------------------------------------------
 	@Override
-	public int addCart(CartDTO cartDTO) {
-
-		// 등록하고자 하는 데이터가 이미 DB에 존재하는지 확인
-		CartDTO checkCart = cartDAO.checkCart(cartDTO);
+	public int addCart(ProductDTO productDTO) {
+		int check = 0;
+		CartItemVO cartItemVO = new CartItemVO();
+		cartItemVO.setId(productDTO.getId());
+		cartItemVO.setProduct_id(productDTO.getProduct_id());
 		
-		// 장바구니에 같은 상품이 있을 때 2를 반환
-		if(checkCart != null) {
-			return 2;
+		for(int i = 0; i < productDTO.getColorList().size(); i++) {
+			System.out.println("체크");
+			cartItemVO.setCi_color(productDTO.getColorList().get(i).getColor());
+			cartItemVO.setCi_size(productDTO.getSizeList().get(i).getSize());
+			cartItemVO.setCi_number(productDTO.getSizeList().get(i).getS_stock());
+			check = cartDAO.addCart(cartItemVO);
 		}
-		// 장바구니에 같은 상품이 없고, 다른 error 사항이 없을 때 상품을 장바구니에 추가
-        try {
-        	return cartDAO.addCart(cartDTO);
-        } catch(Exception e) {
-        	return 0;
-        }
-       		
+		
+		return check;
 	} 
 
 	// -----------------------------------------------------------------
-	// [ 장바구니 리스트(cartAll) ]
+	// [ 장바구니 리스트(getCartList) ]
 	// -----------------------------------------------------------------
 	@Override
-	public List<CartDTO> getCartList(String cart_id) {
+	public List<CartDTO> getCartList(String id) {
 
-		// 현재는 cart_id로 연결돼 있지만, 추후 테이블 member의 id와 연결할 예정
-		List<CartDTO> cartDTO = cartDAO.getCart(cart_id);
+		// 회원 id와 장바구니 연걸
+		List<CartDTO> cartDTO = cartDAO.getCart(id);
+
 		
-		// 포인트 점수 적립을 for문을 통해 추가되는 상품에 따라 계속해서 더해주기
-		for(CartDTO dto : cartDTO) {
-			dto.priceTotal();
+		
+		// 상품 정보를 for문을 통해 추가되는 상품에 따라 계속해서 더해주기
+		for(CartDTO dto : cartDTO) {	
+			// 상품 product_id에 대한 이미지 파일 정보 가져오기
+			int product_id = dto.getProduct_id();
+			List<FileVO> fileList = fileDAO.getFileList(product_id);
+			
+			dto.setFileList(fileList);		
 		}
 		
 		return cartDTO;
@@ -76,7 +91,9 @@ public class CartServiceImpl implements CartService {
 		return cartDAO.deleteCart(cartItem_id);
 	}
 
-	
+
+
+
 	
 	
 }

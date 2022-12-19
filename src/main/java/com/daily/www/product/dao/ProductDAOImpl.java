@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.daily.www.common.util.Criteria;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.product.vo.ProductVO;
 
@@ -75,5 +76,18 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectOne(NAMESPACE + ".productOrderDetail", productDTO);
 	}
 	
+	// (카테고리별) 모든 상품 리스트 총 개수 (어드민리스트 페이징 처리)
+	@Override
+	public int adminListTotalCount(SearchCriteria cri) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE + ".AdminListTotalCount", cri);
+	}
+	
+	// (카테고리별) 상품 목록 보기 (어드민리스트 페이징 처리 + 검색)
+	@Override
+	public List<ProductDTO> adminListPaging(SearchCriteria cri) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE + ".AdminListPaging", cri);
+	}
 	
 }

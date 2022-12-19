@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.daily.www.color.dao.ColorDAO;
 import com.daily.www.color.vo.ColorVO;
 import com.daily.www.common.util.Criteria;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.file.dao.FileDAO;
 import com.daily.www.file.vo.FileVO;
 import com.daily.www.product.dao.ProductDAO;
@@ -138,4 +139,19 @@ public class ProductServiceImpl implements ProductService {
 		
 		return pDTO;
 	}
+	
+	// 전체 상품 리스트 총 개수 (페이징 처리)
+	@Override
+	public int adminListTotalCount(SearchCriteria cri) throws Exception {	
+		//	logger.info("BoardServiceImpl 전체 게시글 수 구하기 (페이징 처리) ==> " + cri);
+		return productDAO.adminListTotalCount(cri);
+	}
+	
+	// 전체 상품 목록 보기 (페이징 처리)
+	@Override
+	public List<ProductDTO> adminListPaging(SearchCriteria cri) throws Exception {
+		//	logger.info("BoardServiceImpl 게시글 목록 보기 (페이징 처리) ==> " + cri);
+		return productDAO.adminListPaging(cri);
+	}
+	
 }

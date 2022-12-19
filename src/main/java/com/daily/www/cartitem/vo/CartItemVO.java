@@ -1,7 +1,5 @@
 package com.daily.www.cartitem.vo;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
@@ -10,8 +8,9 @@ import lombok.Data;
 @Data
 public class CartItemVO {
 	private int cartItem_id;
+	private String ci_color;
+	private String ci_size;
 	private int ci_number;
-	private int cart_id;
+	private String id;
 	private int product_id;
-
 }

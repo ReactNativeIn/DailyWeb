@@ -203,7 +203,7 @@
 	<jsp:include page="../common/footer.jsp" flush="false"/>
 	
 	<form id="payForm">
-		<c:forEach items="${product.colorList }" var="color" varStatus="i">
+		<c:forEach items="${product.colorList}" var="color" varStatus="i">
 			<input class="color" type="hidden" name="ordersItemVO[${i.index }].oi_color" value="${color.color}" />
 			<input class="size" type="hidden" name="ordersItemVO[${i.index }].oi_size" value="${product.sizeList[i.index].size}" />
 			<input class="s_stock" role="t_price" type="hidden" name="ordersItemVO[${i.index }].oi_number" value="${product.sizeList[i.index].s_stock}" />

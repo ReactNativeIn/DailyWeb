@@ -23,6 +23,7 @@ public class ProductDTO {
 	private Date p_enroll;
 	private int p_sell;
 	private int category_id;
+	private String id;
 	
 	private List<ColorVO> colorList;
 	private List<SizeVO> sizeList;

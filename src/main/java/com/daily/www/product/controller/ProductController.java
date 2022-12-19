@@ -2,7 +2,6 @@ package com.daily.www.product.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.daily.www.common.util.Criteria;
 import com.daily.www.common.util.PageMaker;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.product.service.ProductService;
-import com.daily.www.product.vo.ProductVO;
 
 @Controller
 @RequestMapping(value = "/product/*")
@@ -51,11 +50,31 @@ public class ProductController {
 		}
 	}
 	
-	// 상품 리스트 화면 이동 - 관리자
+	 //상품 리스트 화면 이동 - 관리자
 	@RequestMapping(value ="/productList", method = RequestMethod.GET)
-	public String productListForm(Model model) {
-		System.out.println("들림");
-		return "admin/productList_A";
+	public ModelAndView productListForm(Criteria cri, SearchCriteria scri, String list, HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView("admin/productList");
+		
+		mav.addObject("keyword",	scri.getKeyword());
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(productService.adminListTotalCount(scri));
+		
+		scri.setList(list);
+		scri.setName("productList");
+		
+		
+		// cri에 해당하는만큼 상품을 가져와서 view에게 넘겨준다. (검색기능)
+		List<ProductDTO> menList = productService.adminListPaging(scri);
+		
+		mav.addObject("List", menList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("Name", scri.getName());
+
+		
+		return mav;
 	}
 	
 	// 상품 상세 조회(상세화면)

@@ -54,7 +54,6 @@ public class OrdersServiceImpl implements OrdersService {
 		
 		for(OrdersItemVO orderVO : ordersItemVO) {
 			ordersItem_id = ordersItemDAO.createOrdersItemId();
-			System.out.println("확인 : " + ordersItem_id);
 			
 			orderVO.setOrders_id(ordersDTO.getOrders_id());
 			orderVO.setProduct_id(ordersDTO.getProduct_id());

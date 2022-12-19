@@ -12,7 +12,7 @@ a{
 }
 /* content 랩 */
 .wrap{
-	width : 1080px;
+	width : 1500px;
 	margin: auto;
 }
 table{
@@ -20,8 +20,19 @@ table{
 	width: 100%;
 }
 .table_text_align_center{
-		text-align: center;
+	text-align: center;
 }	
+/* 이미지 */
+.image_wrap{
+	width: 100%;
+	height: 100%;
+}
+.image_wrap img{
+    max-width: 85%;
+    height: auto;
+    display: block;		
+}
+
 caption{
    visibility: hidden;
    width: 0;
@@ -34,7 +45,7 @@ caption{
 .content_subject{
    height: 110px;
    line-height: 110px;
-   background-color: #d6feef;
+   background-color: #e8ddd9;
    margin-bottom: 60px; 
 
 }
@@ -59,19 +70,20 @@ caption{
 	 
 .content_totalCount_section{
  	margin-bottom: 12px;
+ 	margin-top: 50px;
 }
 .content_btn_section{
  	margin-top: 20px;
  	text-align: right;
 }
 .content_btn_section a{
-   color: #fefeff;
-   background-color: #d6feef;
-   min-width: 125px;
+   color: #f9eedb;
+   background-color: #f9eedb;
+   min-width: 130px;
    padding: 20px 25px;
    display: inline-block;
    height: 39px;
-   font-size: 18px;
+   font-size: 20px;
    font-weight: bold;
    text-align: center;
    margin-right: 14px;
@@ -81,7 +93,7 @@ caption{
 
 .subject_table{
    font-size: 14px;
-   line-height: 20px;
+   line-height: 30px;
    width: 100%;
    text-align: center; 	
 }
@@ -95,20 +107,23 @@ th{
    padding: 2px 0;	 
  }
 .td_width_1{
-	width: 5%;
+	width: 3%;
 }	 	 	 
 .td_width_2{
 	width: 10%;
 }	 	 
 .td_width_3{
-	width: 25%;
+	width: 10%;
+	text-align: center; 	
+	font-size: 15px;
 }	 
 .td_width_4{
-	width: 15%;
+	width: 10%;
+	font-size: 15px;
 }	
 .cart_table{
 	font-size: 14px;
-	line-height: 20px;
+	line-height: 30px;
 }  
 .cart_table tr{
 	height: 110px;
@@ -116,12 +131,12 @@ th{
 .price_td{
 	padding-left: 5px;
 }
-	.red_color{
-		color : red;
-	}
-	.green_color{
-		color : green;
-	}
+.red_color{
+	color : red;
+}
+.green_color{
+	color : green;
+}
 .cart_table td{
 	border-bottom: 1px solid #e7e7e7;
 }
@@ -134,13 +149,13 @@ th{
 }
 .quantity_input{
 	position: absolute;
-	width: 27px;
-    height: 23px;
+	width: 30px;
+    height: 25px;
     text-align: center;
     border: 1px solid #c6c6c6;
     border-right: 0px;
-    line-height: 19px;
-    font-size: 12px;
+    line-height: 25px;
+    font-size: 15px;
     color: #4c4848;	
     left: 0;
 }
@@ -167,20 +182,22 @@ th{
 }		
 .quantity_modify_btn{
 	border: 1px solid #d0d0d0;
-    height: 13px;
+    height: 25px;
     line-height: 13px;
-    background-color: #fff;
+    background-color: #faffdd;
     text-align: center;
-    width: 28px;
+    width: 50px;
     display: inline-block;
-    padding: 3px 6px 2px;
+    padding: 6px 0px 6px;
     margin-top: 3px;		
 }
 .table_text_align_center{
 	text-align: center;
 }
 .delete_btn{
-	width: 40px;		
+	height: 25px;
+	width: 50px;	
+	background-color: #fee0ef;	
 }
 		
 .content_total_section{
@@ -195,8 +212,8 @@ th{
 		width : 50%;
 }
 .finalTotalPrice_span{
-	color: #854A72;
-	font-size: 17px;
+	color: #c70746;
+	font-size: 25px;
 	font-weight: bold;
 }
 .totalPoint_span{

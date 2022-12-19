@@ -185,6 +185,7 @@ function payment() {
 				+ "&address=" + address + "&o_phone=" + receiverNumber
 				+ "&id=" + id + "&orders_id=" + orders_id
 				+ "&product_id=" + product_id;
+				
 	console.log(payForm);
 
  	$.ajax({

@@ -341,3 +341,29 @@ function onSubmit(){
 	
 	detailFormObj.submit();
 }
+
+
+// 장바구니 추가 버튼
+$(".btn_cart").on("click", function(e){
+
+	$(".stock").each(function(index, value){
+		$("input[name='sizeList[" + index + "].s_stock']").val(
+			$("input[class='stock_input" + index + "']").val()
+		);
+	});
+	
+	var detailFormObj = $("#detail_form").serialize();
+	
+	$.ajax({
+		url: '/cart/add',
+		type: 'POST',
+		data: detailFormObj,
+		success: function(result){
+			if(result == '0'){
+				alert("장바구니에 추가를 하지 못하였습니다.");
+			} else if(result == '1'){
+				alert("장바구니에 추가되었습니다.");
+			}
+		}
+	})
+});

@@ -7,6 +7,5 @@ import lombok.Data;
 @Component("cartVO")
 @Data
 public class CartVO {
-	private int cart_id;
 	private String id;
 }

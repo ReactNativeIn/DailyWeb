@@ -3,6 +3,7 @@ package com.daily.www.product.dao;
 import java.util.List;
 
 import com.daily.www.common.util.Criteria;
+import com.daily.www.common.util.SearchCriteria;
 import com.daily.www.product.dto.ProductDTO;
 import com.daily.www.product.vo.ProductVO;
 
@@ -33,5 +34,12 @@ public interface ProductDAO {
 	ProductDTO productDetail(int product_id);
 	
 	ProductDTO productOrderDetail(ProductDTO productDTO);
+	
+	// 전체 상품 리스트 총 개수 (+검색)
+	
+	int adminListTotalCount(SearchCriteria cri) throws Exception;
+	
+	// new 상품 목록 보기 (페이징 처리) (+검색)
+	List<ProductDTO> adminListPaging(SearchCriteria cri) throws Exception;
 	
 }

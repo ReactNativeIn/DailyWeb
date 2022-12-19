@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.daily.www.cart.dto.CartDTO;
 import com.daily.www.common.util.Criteria;
 import com.daily.www.common.util.PageMaker;
 import com.daily.www.member.vo.MemberVO;
 import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.orders.service.OrdersService;
 import com.daily.www.product.dto.ProductDTO;
-import com.daily.www.product.service.ProductService;
 
 @Controller
 @RequestMapping(value = "/orders/*")
@@ -39,22 +39,21 @@ public class OrdersController {
 		return ordersService.createOrdersId();
 	}
 	
-	// 주문/결제 화면 이동
+	// 장바구니에서 주문/결제 화면 이동
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
-	public String payment(HttpSession session, ProductDTO product, Model model) {
+	public String payment(HttpSession session, List<CartDTO> cartDTOList, Model model) {
 		
-		//List<ProductDTO> productDTO = productService.productDetail(product);
-		// productDTO.add(productService.productDetail(product));
-		// System.out.println("프로덕트 디티오 => " + productDTO);
-		//System.out.println(productDTO);
-		model.addAttribute("product", product);
-		System.out.println("확인 : " + product);
+		System.out.println("장바구니에서 결제페이지 배열 가져오기 결과 => " + cartDTOList);
+		// model.addAttribute("product", cartList);
+		
 		return "/member/payment";
 	}
 	
-	@RequestMapping(value = "/directPayment", method = RequestMethod.GET)
+	// 물품 상세정보에서 바로구매 눌렀을때
+	@RequestMapping(value = "/directPayment", method = RequestMethod.POST)
 	public String directPayment(ProductDTO productDTO, Model model) {
 
+		
 		System.out.println(productDTO);
 		model.addAttribute("product", productDTO);
 		

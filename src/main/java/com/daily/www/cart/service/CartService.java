@@ -3,6 +3,7 @@ package com.daily.www.cart.service;
 import java.util.List;
 
 import com.daily.www.cart.dto.CartDTO;
+import com.daily.www.product.dto.ProductDTO;
 
 //------------------------------------------------------------------------------------
 //[ public interface CartService ]
@@ -12,13 +13,12 @@ public interface CartService {
 	// -----------------------------------------------------------------
 	// [ 장바구니 추가(addCart) ]
 	// -----------------------------------------------------------------
-	public int addCart(CartDTO cartDTO);
-	
+	public int addCart(ProductDTO productDTO);
 	
 	// -----------------------------------------------------------------
-	// [ 장바구니 정보 리스트(cartAll) ]
+	// [ 장바구니 정보 리스트(getCartList) ]
 	// -----------------------------------------------------------------
-	public List<CartDTO> getCartList(String cart_id);
+	public List<CartDTO> getCartList(String id);
 	
 	// -----------------------------------------------------------------
 	// [ 장바구니 수량 수정(modifyCount) ]
@@ -29,5 +29,8 @@ public interface CartService {
 	// [ 장바구니 삭제(deleteCart) ]
 	// -----------------------------------------------------------------
 	public int deleteCart(int cartItem_id);
+
+
+	
 	
 }

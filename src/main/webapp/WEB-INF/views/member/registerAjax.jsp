@@ -214,7 +214,7 @@ $(document).ready(function () {
 	      $("#passwordRe").focus();
 	      return false;
 	    } else if (p1 != p2) {
-		  alert("비밀번호가 다릅니다. 다시 입력해주세요");
+		  alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요");
 		  $("#passwordRe").focus();
 	      return false;
 	    }    
@@ -256,7 +256,6 @@ $(document).ready(function () {
 </script>
 
 </html>
-
 
 
 
