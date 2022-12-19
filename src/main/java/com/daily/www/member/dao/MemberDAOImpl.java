@@ -45,5 +45,12 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 		
 	}
+
+	//회원 정보 수정 
+	@Override
+	public int modify(MemberVO memberVO) {
+		return sqlSession.update(NAMESPACE + ".modify", memberVO);
+	}
+
 	
 }

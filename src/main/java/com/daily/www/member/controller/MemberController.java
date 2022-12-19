@@ -1,5 +1,9 @@
 package com.daily.www.member.controller;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -7,13 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.daily.www.board.vo.BoardVO;
+import com.daily.www.member.dao.MemberDAO;
 import com.daily.www.member.service.MemberService;
 import com.daily.www.member.vo.MemberVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -122,18 +133,51 @@ public class MemberController {
 	
 	// MyPage 화면 이동
 	@RequestMapping(value = "/mypage")
-	public String mypageForm() {
+	public String mypageForm(HttpSession session, Model model) {
+		
+		model.addAttribute("member", memberService.getMemberById((MemberVO)session.getAttribute("member")));
 		return "member/myPage";
 	}
 	
-	@RequestMapping(value = "/reView")
-	public String reViewInfoFrom() {
-		return "member/reView";
-	}
 	
-	@RequestMapping(value = "/reViewWriter")
-	public String reViewWriterFrom() {
-		return "member/reViewWriter";
-	}
+	
 
+	//-----------------------------------------------------------------------------------------------------------
+	// 회원정보변경 
+	//-----------------------------------------------------------------------------------------------------------
+	@ResponseBody //뷰 이동 없다. 결과값만 넣어서 보내주는것. 
+	@RequestMapping(value ="/modify", method = RequestMethod.POST)
+	public String modify(MemberVO memberVO, HttpSession httpSession ) throws Exception{
+		
+		log.info("memberVO" + memberVO);
+			
+		////////
+		MemberVO member = (MemberVO)httpSession.getAttribute("member");
+		
+		if(memberVO.getName()!=null) {
+			member.setName(memberVO.getName());
+		}
+			
+		if(memberVO.getPassword()!=null) {
+			member.setPassword(memberVO.getPassword());
+		}
+		
+		if(memberVO.getNickname()!=null) {
+			member.setNickname(memberVO.getNickname());
+		}
+		if(memberVO.getEmail()!=null) {
+			member.setEmail(memberVO.getEmail());
+		}
+		if(memberVO.getBirthday()!=null) {
+			member.setBirthday(memberVO.getBirthday());
+		}
+		
+		if(memberService.modify(member)==1){
+		
+		return "Y";
+		}
+		else {
+			return "N";
+		}	
+	}
 }

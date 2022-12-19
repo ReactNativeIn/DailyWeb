@@ -19,5 +19,7 @@ public interface MemberDAO {
 
 	// 회원가입 처리
 	int addMember(MemberVO memberVO) throws DataAccessException;
+	// 회원 정보 수정
+	public int modify(MemberVO memberVO);
 
 }

@@ -2,9 +2,13 @@ package com.daily.www.member.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.daily.www.member.dao.MemberDAO;
 import com.daily.www.member.vo.MemberVO;
@@ -48,4 +52,22 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return null;
 	}
+	
+	//회원 한명의 정보
+	@Override
+	public MemberVO getMemberById(MemberVO member) {
+		
+		return 	memberDAO.getLoginById(member);
+	}
+
+	//회원 정보 수정
+	@Override
+	public int modify(MemberVO memberVO) throws Exception {
+		// TODO Auto-generated method stub
+		return memberDAO.modify(memberVO);
+	}
+	
+	
+	
+	
 }

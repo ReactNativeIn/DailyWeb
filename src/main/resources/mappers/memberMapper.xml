@@ -5,8 +5,17 @@
 
 <mapper namespace="MemberDAO">
 
+	<resultMap id = "memberResult" type="com.daily.www.member.vo.MemberVO">
+		<result property="id"			column="id"/>
+		<result property="pwd"			column="pwd"/>
+		<result property="name"			column="name"/>
+		<result property="email"		column="email"/>
+		<result property="joinDate"		column="joinDate"/>
+	
+	</resultMap>
+
 	<!-- 회원가입 처리 -->
-	<insert id="addMember" parameterType="member">
+	<insert id="addMember" parameterType="com.daily.www.member.vo.MemberVO" >
 		<![CDATA[
 			INSERT INTO MEMBER (id, password, name, birthday, phone, email, nickname, joinDate)
 			VALUES (#{id}, #{password}, #{name}, #{birthday}, #{phone}, #{email}, #{nickname}, SYSDATE())
@@ -14,7 +23,7 @@
 	</insert>
 	
 	<!-- 아이디 중복 검사 : 입력한 아이디가 존재하는지 알아낸다. -->
-	<select id="idCheck" parameterType="member" resultType="int">
+	<select id="idCheck" parameterType="com.daily.www.member.vo.MemberVO" resultType="int">
 		<![CDATA[
 		SELECT	COUNT(*)
 		FROM	MEMBER
@@ -38,5 +47,15 @@
 			where id = #{id}
 		]]>
 	</select>
+	
+	<!-- 회원 이름 수정하기 -->
+	<update id="modify" parameterType="member">
+		<![CDATA[
+		UPDATE	member    
+		SET		name =#{name}, password = #{password}, nickname = #{nickname}, email= #{email}, birthday = #{birthday}
+		WHERE	id = #{id}  
+		]]>
+	</update>
+
 
 </mapper>

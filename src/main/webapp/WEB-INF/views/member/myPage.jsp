@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,13 @@
 			padding: 20px 0px;
 		}
 	</style>
+<Script>
+	console.log("${member}")
+	
+	
+	
 
+</Script>
 <body>
 
 	<!-- 상단 메뉴바 -->
@@ -59,77 +66,171 @@
 								<span style="font-weight: bold;">이름</span>
 							</td>
 							<td>
-								<input class="w-50" type="text" placeholder="이름"/>															
+								<input class="w-50" type="text" placeholder="이름" value="${member.name }" disabled="disabled">															
 							</td>
 							<td>
-								<a class="btn btn-success" href="#">이름 수정</a>
+							<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#ModalName">이름 변경</button>
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 10%">
-								<span style="font-weight: bold;">이름</span>
+								<span style="font-weight: bold;">비밀번호</span>
 							</td>
 							<td>
-								<input class="w-50" type="password" placeholder="비밀번호"/>														
+								<input class="w-50" type="password" placeholder="********" value="${member.password }" disabled="disabled"/>														
 							</td>
 							<td>
-								<a class="btn btn-success" href="#">이름 수정</a>
+							<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#ModalPassword">비밀번호 변경</button>
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 10%">
-								<span style="font-weight: bold;">이름</span>
+								<span style="font-weight: bold;">생년월일</span>
 							</td>
 							<td>
-								<input class="w-50" type="text" placeholder="생년월일"/> <!-- 대철이나 한길이형이 데이터픽커(?) 가져다 쓰시면 됩니다. -->														
+								<input class="w-50" type="text" placeholder="생년월일" value="${member.birthday }" disabled="disabled"/>														
 							</td>
 							<td>
-								<a class="btn btn-success" href="#">이름 수정</a>
+							<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#ModalBirthday">생년월일 변경</button>
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 10%">
-								<span style="font-weight: bold;">이름</span>
+								<span style="font-weight: bold;">닉네임</span>
 							</td>
 							<td>
-								<input class="w-50" type="text" placeholder="닉네임"/>															
+								<input class="w-50" type="text" placeholder="닉네임" value="${member.nickname }" disabled="disabled"/>															
 							</td>
 							<td>
-								<a class="btn btn-success" href="#">이름 수정</a>
+							<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#ModalNickname">닉네임 변경</button>
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 10%">
-								<span style="font-weight: bold;">이름</span>
+								<span style="font-weight: bold;">이메일</span>
 							</td>
 							<td>
-								<input class="w-50" type="email" placeholder="이메일"/>															
+								<input class="w-50" type="email" placeholder="이메일" value="${member.email }" disabled="disabled"/>															
 							</td>
 							<td>
-								<a class="btn btn-success" href="#">이름 수정</a>
+							<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#ModalEmail">이메일 변경</button>
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 10%">
-								<span style="font-weight: bold;">이름</span>
+								<span style="font-weight: bold;">포인트 조회</span>
 							</td>
 							<td>
-								<input class="w-50" type="number" placeholder="포인트조회"/>															
+								<input class="w-50" type="number" placeholder="포인트조회" value="${member.point }" disabled="disabled"/>															
 							</td>
-							<td>
-								<a class="btn btn-success" href="#">이름 수정</a>
-							</td>
+							
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<button type="button" onclick="location.href='${contextPath}/member/reView'" class="btn btn-outline-secondary">
+			<button type="button" onclick="location.href='${contextPath}/reView/reView'" class="btn btn-outline-secondary">
 			구매 리스트로 이동
 			</button>
-		
 		</section>	
 	</main>
-	
+
+
+<!-- Modal -->
+<!-- 이름바꾸기 -->
+<div class="modal" id="ModalName" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">회원 정보 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- 바디 안에다가 인클루드도 가능하고. 꾸밀것들 -->
+        <jsp:include page="./modal/modalName.jsp" flush="false"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 비밀번호 바꾸기 -->	
+<div class="modal" id="ModalPassword" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">회원 정보 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- 바디 안에다가 인클루드도 가능하고. 꾸밀것들 -->
+        <jsp:include page="./modal/modalPassword.jsp" flush="false"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- nickname 바꾸기 -->	
+<div class="modal" id="ModalNickname" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">회원 정보 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- 바디 안에다가 인클루드도 가능하고. 꾸밀것들 -->
+        <jsp:include page="./modal/modalNickname.jsp" flush="false"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- email 바꾸기 -->	
+<div class="modal" id="ModalEmail" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">회원 정보 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- 바디 안에다가 인클루드도 가능하고. 꾸밀것들 -->
+        <jsp:include page="./modal/modalEmail.jsp" flush="false"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 생년월일 바꾸기 -->	
+<div class="modal" id="ModalBirthday" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">회원 정보 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- 바디 안에다가 인클루드도 가능하고. 꾸밀것들 -->
+        <jsp:include page="./modal/modalBirthday.jsp" flush="false"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 	<!-- 하단 바 -->
 	<jsp:include page="../common/footer.jsp" flush="false"/>
 	

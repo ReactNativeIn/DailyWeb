@@ -57,9 +57,7 @@
 								<th>
 									스타일 후기
 								</th>
-								<th>
-									상품 사진 후기
-								</th>
+								
 								<th>
 									좋아요 별 갯수
 								</th>
@@ -78,16 +76,14 @@
 										2022-11-15 / 2022-12-01
 									</td>
 									<td>
-										사이즈추천
-									</td>
-									<td>
 										스타일후기
 									</td>
+								
 									<td>
 										좋아요 별 갯수
 									</td>				
 									<td class="text-break">	
-									<button type="button" onclick="location.href='${contextPath}/member/reViewWriter'"
+									<button type="button" onclick="location.href='${contextPath}/reView/reViewWriter'"
 									class="btn btn-outline-secondary">
 									후기작성하러가기
 									</button>
