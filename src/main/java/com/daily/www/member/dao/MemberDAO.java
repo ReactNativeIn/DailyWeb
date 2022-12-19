@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.daily.www.member.vo.MemberVO;
+import com.daily.www.orders.dto.OrdersDTO;
 
 public interface MemberDAO {
 
@@ -19,5 +20,8 @@ public interface MemberDAO {
 
 	// 회원가입 처리
 	int addMember(MemberVO memberVO) throws DataAccessException;
+	
+	// 포인트 변환
+	int updatePoint(OrdersDTO ordersDTO) throws Exception;
 
 }

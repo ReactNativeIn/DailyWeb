@@ -8,7 +8,7 @@ import com.daily.www.orders.vo.OrdersVO;
 public interface OrdersService {
 
 	// 결제 등록
-	int payment(OrdersDTO ordersDTO);
+	int payment(OrdersDTO ordersDTO) throws Exception;
 	
 	// 특정 회원에 해당하는 주문내역 조회
 	public List<OrdersDTO> listOrders(String id);

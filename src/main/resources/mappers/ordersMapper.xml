@@ -9,7 +9,7 @@
 	<insert id="payment" parameterType="orders" useGeneratedKeys="true" keyProperty="orders_id">
 		<![CDATA[
 			INSERT INTO orders (usePoint, o_comment, o_enroll, o_state, deliverCost, addressee, address, o_phone, id) 
-			VALUES (#{usePoint}, #{o_comment}, NOW(), "배송준비", 0, #{addressee}, #{address}, #{o_phone}, #{id})
+			VALUES (#{usePoint}, #{o_comment}, NOW(), "배송준비", #{deliverCost}, #{addressee}, #{address}, #{o_phone}, #{id})
 		]]>
 	</insert>
 	<!-- orders usePoint = p_price들의 합 deliverCost = 0으로 설정 -->

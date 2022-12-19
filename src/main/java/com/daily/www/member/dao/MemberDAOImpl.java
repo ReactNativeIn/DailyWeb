@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.daily.www.member.vo.MemberVO;
+import com.daily.www.orders.dto.OrdersDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -44,6 +45,15 @@ public class MemberDAOImpl implements MemberDAO {
 		int result = sqlSession.insert(NAMESPACE + ".addMember", memberVO);
 		return result;
 		
+	}
+	
+	// 포인트 변환
+	@Override
+	public int updatePoint(OrdersDTO ordersDTO) throws Exception {
+		
+		
+		
+		return sqlSession.update(NAMESPACE + ".updatePoint", ordersDTO);
 	}
 	
 }

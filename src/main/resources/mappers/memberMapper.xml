@@ -38,5 +38,13 @@
 			where id = #{id}
 		]]>
 	</select>
+	
+	<update id="updatePoint">
+		<![CDATA[
+			UPDATE 	member
+			SET		point = point - #{usePoint}
+			WHERE	id = #{id}
+		]]>
+	</update>
 
 </mapper>

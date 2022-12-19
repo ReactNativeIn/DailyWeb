@@ -88,7 +88,11 @@ function payment() {
   let request 				= $("#request").val();
   let id 					= $("#id").val();
   let usePoint 				= parseInt($("#t_price").val());
+  let deliverCost			= $('#d_price').val();
   
+  if(isNaN(deliverCost)) {
+  	deliverCost = 0;
+  }
 
   // 주문하시는 분에 값이 없으면 반환
   if ($("#ordererName").val() == "") {
@@ -142,7 +146,7 @@ function payment() {
   let mPoint = $("#point").val();
   
   if( mPoint < usePoint) {
-  	alert("가지고 계신 포인트가 부족합니다.");
+  	alert("가지고 계신 포인트가 부족합니다.\n\n현재 보유금액: " + mPoint + "원");
   	return false;
   }
   
@@ -160,6 +164,7 @@ function payment() {
 			let hiddenInputRequest			= document.createElement("input");
 			let hiddenInputId				= document.createElement("input");
 			let hiddenInputUsePoint			= document.createElement("input");
+			let hiddenInputDeliverCost		= document.createElement("input");
 			
 			hiddenInputReceiverName.setAttribute("type", "hidden");
 			hiddenInputReceiverName.setAttribute("name", "addressee");
@@ -186,14 +191,18 @@ function payment() {
 			hiddenInputUsePoint.setAttribute("name", "usePoint");
 			hiddenInputUsePoint.setAttribute("value", usePoint);
 			
+			hiddenInputDeliverCost.setAttribute("type", "hidden");
+			hiddenInputDeliverCost.setAttribute("name", "deliverCost");
+			hiddenInputDeliverCost.setAttribute("value", deliverCost);
+			
 			newForm.append(hiddenInputReceiverName);
 			newForm.append(hiddenInputAddress);
 			newForm.append(hiddenInputReceiverNumber);
 			newForm.append(hiddenInputRequest);
 			newForm.append(hiddenInputId);
 			newForm.append(hiddenInputUsePoint);
-			
-			
+			newForm.append(hiddenInputDeliverCost);
+
 			
 			
 			
@@ -220,7 +229,6 @@ function payment() {
 	      hiddenInputCount.setAttribute("type", "hidden");
 	      hiddenInputCount.setAttribute("name", "ordersItemVO[" + index + "].oi_number");
 	      hiddenInputCount.setAttribute("value", itemCount);
-	      
 	      
 
 
