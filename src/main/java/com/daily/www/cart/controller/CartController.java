@@ -55,10 +55,9 @@ public class CartController {
 	//									POST	:	UPDATE, DELETE, INSERT 기능, URL 길이 한계 해결, 캐시 無
 	//						배열 지정을 통해 다중 요청 가능
 	//-----------------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/cartForm/{id}", method = RequestMethod.GET)
-	public String cartForm(@PathVariable("id") String id, Model model) {
-		
-		logger.info("CartController 장바구니 화면 불러오기.....");
+	@RequestMapping(value = "/cartForm", method = RequestMethod.GET)
+	public String cartForm(Model model, HttpSession session) {
+		MemberVO obj = (MemberVO) session.getAttribute("member");
 		
 		//-----------------------------------------------------------------------------------------------------------
 		// [ 장바구니 목록 불러오기(cartAll) ]
@@ -74,8 +73,8 @@ public class CartController {
 		// model 객체를 통해 데이터 저장
 		// "cart_info"를 키로 지정
 		// cartService의 getCartList에 cart_id를 파라미터로 설정해 데이터 전달
-		model.addAttribute("cartInfo", cartService.getCartList(id));
-		System.out.println(cartService.getCartList(id));
+		model.addAttribute("cartInfo", cartService.getCartList(obj.getId()));
+		System.out.println(cartService.getCartList(obj.getId()));
 		
 		return "/cart/cartForm";
 		

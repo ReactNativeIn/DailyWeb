@@ -54,6 +54,23 @@
 		 Spring AOP 사용 시 The mapped controller method class 'class' in not an instance of the actual 에러 발생시 -->
 	<aop:config proxy-target-class="true"></aop:config>
 	
+	<!-- 인터셉터 객체 생성 -->
+	<!-- LoginInterceptor LoginInterceptor = new LoginInterceptor(); -->
+	<bean id="LoginInterceptor" class="com.daily.www.common.interceptor.LoginInterceptor"></bean>
+	
+	<!-- 인터셉터 설정 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- <mapping path="/**"/> 모든 url에 적용하고 싶을 때 /**를 사용 -->
+			<mvc:mapping path="/cart/**"/>
+			<mvc:mapping path="/orders/**"/>
+			<mvc:mapping path="/board/boardRegisterForm"/>
+			<mvc:mapping path="/member/mypage"/>
+			<mvc:mapping path="/member/ordersHistory"/>
+			<ref bean="LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	
 </beans>
 

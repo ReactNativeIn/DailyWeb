@@ -287,42 +287,6 @@
 	});
 	
 	
-
-		//post요청을 보낼 form 생성
-	    let newForm = document.createElement("form");
-	    newForm.setAttribute("method", "Post");
-	    newForm.setAttribute("action", "${contextPath}/orders/orderComplete");
-	    newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
-
-	    $("input[role='cartItem_id']").each(function (index) {
-			let hiddenInputProductId = document.createElement("input");	// product_id
-			let hiddenInputCount = document.createElement("input");		// oi_number
-																		// 상품 가격
-	      																// 배달비?
-	      																
-	      // 카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
-	      let cartItemId	= $(this).val();	// cartItem_id
-	      
-	      // 상품 아이디에 대한 정보를 가져옴
-	      let productId		= $(this).parent("div").find("input[role='product_id']").val();
-	      
-	      let itemCount = $("#ci_number_" + cartItemId).val();	// 개수
-	      
-	      //cartId를 cartItemDTList의 변수로 넘겨줌
-	      hiddenInputProductId.setAttribute("type", "hidden");
-	      hiddenInputProductId.setAttribute("name", "ordersItemVO[" + index + "].product_id");
-	      hiddenInputProductId.setAttribute("value", productId);
-	      
-	      hiddenInputCount.setAttribute("type", "hidden");
-	      hiddenInputCount.setAttribute("name", "ordersItemVO[" + index + "].oi_number");
-	      hiddenInputCount.setAttribute("value", itemCount);
-	      
-
-		  newForm.append(hiddenInputProductId);
-	      newForm.append(hiddenInputCount);
-	    });
-	    document.body.append(newForm);
-	
 </script>
 
 <!-- 함수 정의 -->

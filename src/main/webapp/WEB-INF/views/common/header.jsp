@@ -113,7 +113,7 @@
 			<a class="tool_a" href="/member/payment">
 				<i id="searchIcon" class="bi bi-search fs-5"></i>
 			</a>
-			<a class="tool_a" href="/cart/cartForm/${member.id}">
+			<a class="tool_a" href="/cart/cartForm">
 				<i id="cartIcon" class="bi bi-cart fs-5"></i>
 			</a>
 			<c:choose>

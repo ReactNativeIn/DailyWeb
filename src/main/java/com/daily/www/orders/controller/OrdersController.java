@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -83,12 +84,15 @@ public class OrdersController {
 		
 		logger.info("OrdersControllerImpl 결제 시작..." + ordersDTO);
 		
+		
+		
 		if (ordersService.payment(ordersDTO) == 1) { // 결제성공
 			return "Y";
 		} else { // 결제실패
 			return "N";
 		}
-
+		
+		
 	} // End - public String payment(Model model, HttpServletRequest request) throws
 	
 		// Exception

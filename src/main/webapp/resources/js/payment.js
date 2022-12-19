@@ -16,6 +16,10 @@ $(function () {
   });
 });
 
+
+
+
+
 // 주소 API
 function daumZipCode() {
   new daum.Postcode({
@@ -66,6 +70,10 @@ function daumZipCode() {
   });
 } // End - function daumZipCode()
 
+
+
+
+
 // 결제하기 버튼 눌렀을때
 function payment() {
   // 입력한 값을 가져온다.
@@ -80,6 +88,7 @@ function payment() {
   let request 				= $("#request").val();
   let id 					= $("#id").val();
   let usePoint 				= parseInt($("#t_price").val());
+  
 
   // 주문하시는 분에 값이 없으면 반환
   if ($("#ordererName").val() == "") {
@@ -128,24 +137,129 @@ function payment() {
     $("#address02").focus();
     return false;
   }
+  
+  // 포인트가 부족할 때
+  let mPoint = $("#point").val();
+  
+  if( mPoint < usePoint) {
+  	alert("가지고 계신 포인트가 부족합니다.");
+  	return false;
+  }
+  
+  if(confirm("구매하시겠습니까?\n\n현재 보유금액: " + mPoint + "원") == true) {
+  		// 배열을 담을 form 생성
+	    let newForm = document.createElement("form");
+	    newForm.setAttribute("method", "Post");
+	    newForm.setAttribute("action", "${contextPath}/orders/orderComplete");
+	    newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
+	    newForm.setAttribute("id", "ordersItemForm");
 
-  $.ajax({
-    type: "POST",
-    url: "/orders/orderComplete",
-    data: { address: address, addressee: receiverName, o_comment: request, id: id, usePoint: usePoint, o_phone: receiverNumber
-    },
-    success: function (data) {
-      if (data == "Y") {
-        alert("주문이 완료되었습니다.");
-        // 결제 완료되면 메인화면으로 이동한다.
-        location.replace("/");
-      } else {
-        alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
-        location.replace("/");
-      }
-    },
-    error: function (data) {
-      alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
-    },
-  });
+			let hiddenInputReceiverName		= document.createElement("input");
+			let hiddenInputAddress			= document.createElement("input");
+			let hiddenInputReceiverNumber	= document.createElement("input");
+			let hiddenInputRequest			= document.createElement("input");
+			let hiddenInputId				= document.createElement("input");
+			let hiddenInputUsePoint			= document.createElement("input");
+			
+			hiddenInputReceiverName.setAttribute("type", "hidden");
+			hiddenInputReceiverName.setAttribute("name", "addressee");
+			hiddenInputReceiverName.setAttribute("value", receiverName);
+			
+			hiddenInputAddress.setAttribute("type", "hidden");
+			hiddenInputAddress.setAttribute("name", "address");
+			hiddenInputAddress.setAttribute("value", address);
+			
+			hiddenInputReceiverNumber.setAttribute("type", "hidden");
+			hiddenInputReceiverNumber.setAttribute("name", "o_phone");
+			hiddenInputReceiverNumber.setAttribute("value", receiverNumber);
+			
+			
+			hiddenInputRequest.setAttribute("type", "hidden");
+			hiddenInputRequest.setAttribute("name", "o_comment");
+			hiddenInputRequest.setAttribute("value", request);
+			
+			hiddenInputId.setAttribute("type", "hidden");
+			hiddenInputId.setAttribute("name", "id");
+			hiddenInputId.setAttribute("value", id);
+			
+			hiddenInputUsePoint.setAttribute("type", "hidden");
+			hiddenInputUsePoint.setAttribute("name", "usePoint");
+			hiddenInputUsePoint.setAttribute("value", usePoint);
+			
+			newForm.append(hiddenInputReceiverName);
+			newForm.append(hiddenInputAddress);
+			newForm.append(hiddenInputReceiverNumber);
+			newForm.append(hiddenInputRequest);
+			newForm.append(hiddenInputId);
+			newForm.append(hiddenInputUsePoint);
+			
+			
+			
+			
+			
+	    $("input[role='cartItem_id']").each(function (index) {
+			let hiddenInputProductId = document.createElement("input");	// product_id
+			let hiddenInputCount = document.createElement("input");		// oi_number
+			
+			
+	      																
+	      // 카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
+	      let cartItemId	= $(this).val();	// cartItem_id
+	      
+	      // 상품 아이디에 대한 정보를 가져옴
+	      let productId		= $(this).parent("div").find("input[role='product_id']").val();
+	      
+	      let itemCount = $("#ci_number_" + cartItemId).val();	// 개수
+	      
+	      
+	      //cartId를 cartItemDTList의 변수로 넘겨줌
+	      hiddenInputProductId.setAttribute("type", "hidden");
+	      hiddenInputProductId.setAttribute("name", "ordersItemVO[" + index + "].product_id");
+	      hiddenInputProductId.setAttribute("value", productId);
+	      
+	      hiddenInputCount.setAttribute("type", "hidden");
+	      hiddenInputCount.setAttribute("name", "ordersItemVO[" + index + "].oi_number");
+	      hiddenInputCount.setAttribute("value", itemCount);
+	      
+	      
+
+
+		  newForm.append(hiddenInputProductId);
+	      newForm.append(hiddenInputCount);
+	    });
+	    document.body.append(newForm);
+	    
+	
+		let ordersItemVO		= $("#ordersItemForm").serialize();
+		let ordersItemVO_json	= JSON.stringify(ordersItemVO);
+		alert(ordersItemVO_json);
+	
+	
+	
+	  $.ajax({
+	    type: "POST",
+	    url: "/orders/orderComplete",
+	    data: $("#ordersItemForm").serialize(),
+	    success: function (data) {
+	      if (data == "Y") {
+	        alert("주문이 완료되었습니다.");
+	        // 결제 완료되면 메인화면으로 이동한다.
+	        location.replace("/");
+	      } else {
+	        alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
+	        location.replace("/");
+	      }
+	    },
+	    error: function (data) {
+	      alert("결제하는데 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
+	    },
+	  });
+  
+  
+  } else {
+  	return false;
+  }
+  
+
+	
 } // End - function payment();
