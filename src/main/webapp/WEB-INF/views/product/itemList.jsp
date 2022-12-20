@@ -92,13 +92,13 @@
 			<div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;"class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat01.jpg" alt="cat01"/>
+			      <img style="object-fit: contain;"class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/men_outer_1.jpg" alt="cat01"/>
 			    </div>
 			    <div class="carousel-item mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat02.jpg" alt="cat02"/>
+			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/men_outer_2.jpg" alt="cat02"/>
 			    </div>
 			    <div class="carousel-item mainImg" data-bs-interval="6000">
-			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/cat03.jpg" alt="cat03"/>
+			      <img style="object-fit: contain;" class="img-fluid mx-auto d-block w-100 h-100" src="/resources/images/men_outer_3.jpg" alt="cat03"/>
 			    </div>
 			  </div>
 			</div>

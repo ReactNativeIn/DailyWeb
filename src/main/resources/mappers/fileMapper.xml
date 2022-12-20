@@ -42,6 +42,7 @@
 			select *
 			from file
 			where product_id = #{product_id}
+			order by uuid desc
 		]]>
 	</select>
 	

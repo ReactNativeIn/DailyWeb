@@ -33,8 +33,6 @@
 		]]>
 	</select> 
 	
-	
-	
 	<!-- 카트 확인 -->
 	<select id="checkCart" resultType="com.daily.www.cart.dto.CartDTO">
 		<![CDATA[
@@ -63,5 +61,15 @@
 		]]>
 	</delete> 
 	
+	<!-- 주문/결제 페이지 이동시 구매할 상품 정보(카트아이템) 정보 -->
+	<select id="getSelectedCartItem" resultType="com.daily.www.cart.dto.CartDTO">
+        	select *
+	        from cartItem i, product p
+	        where i.product_id = p.product_id and i.cartitem_id in
+	        <foreach collection="list" item="item" open="(" close=")" separator=",">
+ 				#{item.cartItem_id}
+			</foreach>
+	        group by i.cartitem_id;
+	</select>
 	
 </mapper>

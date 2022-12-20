@@ -136,6 +136,7 @@
 	</form>
 	
 </body>
+	
 	<script src="/resources/js/product.js"></script>
 	<script>
 		$(function(){

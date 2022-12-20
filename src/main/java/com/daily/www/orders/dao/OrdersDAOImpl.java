@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.daily.www.cart.dto.CartDTO;
 import com.daily.www.common.util.Criteria;
 import com.daily.www.orders.dto.OrdersDTO;
 
@@ -54,9 +55,6 @@ public class OrdersDAOImpl implements OrdersDAO {
 	@Override
 	public List<OrdersDTO> listOrders(String id){
 		return sqlSession.selectList(NAMESPACE + ".listOrders", id);
-	}
-	
-	
-	
+	}	
 
 }

@@ -5,7 +5,7 @@
   <c:set var="phone" value="${member.phone }" />
 <html>
 <head>
-	<title>Home</title>
+	<title>주문/결제</title>
 </head>
 
 <style>

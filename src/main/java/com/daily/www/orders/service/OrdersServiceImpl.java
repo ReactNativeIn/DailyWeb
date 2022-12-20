@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.daily.www.cart.dao.CartDAO;
+import com.daily.www.cart.dto.CartDTO;
 import com.daily.www.common.util.Criteria;
 import com.daily.www.file.dao.FileDAO;
+import com.daily.www.member.dao.MemberDAO;
 import com.daily.www.orders.dao.OrdersDAO;
 import com.daily.www.orders.dto.OrdersDTO;
 import com.daily.www.ordersitem.dao.OrdersItemDAO;
@@ -20,6 +23,9 @@ import com.daily.www.payment.vo.PaymentVO;
 public class OrdersServiceImpl implements OrdersService {
 
 	@Autowired
+	private MemberDAO memberDAO;
+	
+	@Autowired
 	private OrdersItemDAO ordersItemDAO;
 
 	@Autowired
@@ -30,6 +36,9 @@ public class OrdersServiceImpl implements OrdersService {
 
 	@Autowired
 	private FileDAO fileDAO;
+	
+	@Autowired
+	private CartDAO cartDAO;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrdersServiceImpl.class);
 
@@ -51,6 +60,7 @@ public class OrdersServiceImpl implements OrdersService {
 		
 		// 주문(orders 테이블에 컬럼 입력)
 		result = ordersDAO.payment(ordersDTO);
+		//memberDAO.updatePoint(ordersDTO);
 		
 		for(OrdersItemVO orderVO : ordersItemVO) {
 			ordersItem_id = ordersItemDAO.createOrdersItemId();
@@ -106,4 +116,16 @@ public class OrdersServiceImpl implements OrdersService {
 		return oDTO;
 	}
 
+	// 카트 아이템 정보 가져오기 구매할
+	@Override
+	public List<CartDTO> getSelectedCartItem(CartDTO cartDTO){
+		List<CartDTO> list = cartDAO.getSelectedCartItem(cartDTO);
+		
+		for(CartDTO cartItem : list) {
+			cartItem.setFileList(fileDAO.getFileList(cartItem.getProduct_id()));
+		}
+		
+		return list;
+	}
+	
 } // End - OrdersService

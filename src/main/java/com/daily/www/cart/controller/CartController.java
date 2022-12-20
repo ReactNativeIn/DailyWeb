@@ -60,14 +60,16 @@ public class CartController {
 	
 	@ResponseBody
 	@PostMapping("/update")
-	public int updateCartPOST(CartDTO cartDTO) {
+	public int updateCartPOST(CartDTO cartDTO, Model model) {
 	
 		
 		System.out.println("들림");
 		
-		// 변경된 수량 데이터 저장 후, 다시 장바구니 페이지로 돌아옴
-		return cartService.modifyCount(cartDTO);
+
 		
+		// 변경된 수량 데이터 저장 후, 다시 장바구니 페이지로 돌아옴
+		
+		return cartService.modifyCount(cartDTO);
 	}
 	
 	@PostMapping("/delete")

@@ -344,9 +344,9 @@ function onSubmit(){
 
 
 // 장바구니 추가 버튼
-$(".btn_cart").on("click", function(e){
+$(".btn_cart").on("click", function(){
 
-	$(".stock").each(function(index, value){
+	$(".stock").each(function(index){
 		$("input[name='sizeList[" + index + "].s_stock']").val(
 			$("input[class='stock_input" + index + "']").val()
 		);

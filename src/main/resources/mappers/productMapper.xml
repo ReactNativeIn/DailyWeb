@@ -42,14 +42,14 @@
 			from (
 				select *
 				from product
-				order by p_enroll, product_id desc limit 5
+				order by p_enroll desc limit 5
             ) se1
             union all
 			select *
 			from (
 				select *
 				from product
-				order by p_sell, p_enroll, product_id desc limit 20
+				order by p_sell, p_enroll desc limit 20
             ) se2;
 		]]>
 	</select>
@@ -88,9 +88,11 @@
 	<!-- 상품목록 불러오기 (페이징) -->
 	<select id="listPaging" resultType="com.daily.www.product.dto.ProductDTO">
 		<![CDATA[
-			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, brd.category_id
+			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, 
+				   brd.category_id
 			FROM (
-				SELECT	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id, 
+				SELECT	product_id, p_name, p_explanation, 
+						p_price, p_enroll, p_sell, category_id, 
 		]]>
 		<include refid = "listMySQL"/>
 		<![CDATA[
@@ -102,7 +104,9 @@
 		<include refid = "pathDetail"/>
 		<![CDATA[
 				) brd
-			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 AND #{perPageNum}*(#{page}-1)+${perPageNum} 
+			WHERE brd.rNUM BETWEEN #{perPageNum}*(#{page}-1) + 1 
+				  AND 
+				  #{perPageNum}*(#{page}-1)+${perPageNum} 
 			ORDER BY rNUM
 		]]>
 	</select>
@@ -122,7 +126,8 @@
 		<![CDATA[
 			SELECT product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id
 			FROM ( 
-					select	product_id, p_name, p_explanation, p_price, p_enroll, p_sell, category_id,
+					select	product_id, p_name, p_explanation, p_price, 
+							p_enroll, p_sell, category_id,
 							row_number() over(order by product_id desc) as rNum
 					from	product
 					where	1 = 1
@@ -130,7 +135,10 @@
 			<include refid = "searchMySQL"/>
 		<![CDATA[
 				) prd
-		WHERE	rNum BETWEEN 1+(#{perPageNum}*(#{page}-1)) AND #{perPageNum} + (#{perPageNum}*(#{page}-1))
+		WHERE	rNum BETWEEN 1+(#{perPageNum}*(#{page}-1)) 
+				AND 
+				#{perPageNum} + (#{perPageNum}*(#{page}-1))
+				
 		ORDER BY product_id DESC
 		]]>
 	</select>

@@ -118,7 +118,11 @@ public class CartDAOImpl implements CartDAO {
 		return null;
 	}
 
-
+	// 카트 아이템 정보 가져오기 구매할
+	@Override
+	public List<CartDTO> getSelectedCartItem(CartDTO cartDTO){
+		return sqlSession.selectList(NAMESPACE + ".getSelectedCartItem", cartDTO.getCartItemList());
+	}
 
 
 }

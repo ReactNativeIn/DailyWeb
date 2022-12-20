@@ -73,9 +73,9 @@
 								</td>
 								<td>${product.p_name}</td>
 								
-								<td align="right"><fmt:formatNumber value="${product.p_price}" pattern="#,### 원" /></td>
-								<td align="right"><input role="productNum" class="col-md-6" data-name="${product.cartItem_id}" type="number" value="${product.ci_number}" id="ci_number_${product.cartItem_id}" name="ci_number" min="1"/></td>
-								<td align="right"><input id="p_price_${product.cartItem_id}" style="text-align:right; border: none; background: transparent;" value="${product.p_price * product.ci_number}" class="dontTouch"/> 원</td>
+								<td align="center"><fmt:formatNumber value="${product.p_price}" pattern="#,### 원" /></td>
+								<td align="center"><input role="productNum" class="col-md-6" style="text-align:right; border: none; background: transparent;" data-name="${product.cartItem_id}" type="number" value="${product.ci_number}" id="ci_number_${product.cartItem_id}" name="ci_number" min="1"/> 개</td>
+								<td align="center"><input id="p_price_${product.cartItem_id}" style="text-align:right; border: none; background: transparent;" value="${product.p_price * product.ci_number}" class="dontTouch"/> 원</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -228,7 +228,7 @@
 		
 		// 배달비
 		if(total < 30000) {
-			$('#d_price').val(4000);
+			$('#d_price').val(0);
 		} else {
 			$('#d_price').val("배송비 (무료)");
 		}
@@ -267,7 +267,7 @@
 			
 			// 배달비
 			if(total < 30000) {
-				$('#d_price').val(4000);
+				$('#d_price').val(0);
 			} else {
 				$('#d_price').val("배송비 (무료)");
 			}
@@ -290,6 +290,6 @@
 </script>
 
 <!-- 함수 정의 -->
-<script src="/resources/js/payment.js"></script>
+<script src="/resources/js/paymentList.js"></script>
 
 </html>

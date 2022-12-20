@@ -55,5 +55,7 @@ public interface CartDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	int selectColorId(CartDTO cartDTO);
 	
+	// 카트 아이템 정보 가져오기 구매할
+	List<CartDTO> getSelectedCartItem(CartDTO cartDTO);
 	
 }

@@ -46,14 +46,16 @@
 					</thead>
 					<caption>표 내용 부분</caption>
 					<tbody>
-						<c:forEach items="${cartInfo}" var="cartInfo">
+						<c:forEach items="${cartInfo}" var="cartInfo" varStatus="i">
 							<tr>
 								<td class="td_width_1 cart_info_td">
 									<input type="checkbox" class="individual_cart_checkbox input_size_20" role="cart_checkbox" value="${cartInfo.cartItem_id}" checked="checked">
 									<input type="hidden" class="individual_p_price_input" value="${cartInfo.p_price}">
-									<input type="hidden" class="individual_ci_number_input" value="${cartInfo.ci_number}">
-									<input type="hidden" class="individual_totalPrice_input" value="${cartInfo.p_price * cartInfo.ci_number}">
+									<input type="hidden" class="individual_ci_number_input${i.index }" value="${cartInfo.ci_number}">
 									<input type="hidden" id="resultQuantity_${cartInfo.cartItem_id}" value="${cartInfo.ci_number}"/>
+									<input type="hidden" id="file_path${cartInfo.cartItem_id}" value="${cartInfo.fileList[0].file_path }"/>
+									<input type="hidden" id="uuid${cartInfo.cartItem_id}" value="${cartInfo.fileList[0].uuid}"/>
+								
 								</td>
 								<td class="td_width_3">
 									<c:choose>
@@ -79,7 +81,7 @@
 									</div>
 									<a class="quantity_modify_btn" data-name="${cartInfo.cartItem_id}">변경</a>
 								</td>
-								<td class="td_width_3 table_text_align_center">
+								<td class="td_width_3 table_text_align_center su_m${i.index }">
 									<fmt:formatNumber value="${cartInfo.p_price * cartInfo.ci_number}" pattern="#,### 원" />
 								</td>
 								<td class="td_width_3 table_text_align_center">
@@ -182,7 +184,6 @@
 
 <!-- 주문 form -->
 <form action="/orders/payment" method="post" class="order_form">
-
 </form>
  
 <!-- 푸터영역 -->
@@ -207,6 +208,7 @@ $(".individual_cart_checkbox").on("change", function(){
 	/* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
 	setTotalInfo($(".cart_info_td"));
 });
+
 
 /* 체크박스 전체 선택 */
 $(".all_check_input").on("click", function(){
@@ -236,10 +238,12 @@ function setTotalInfo(){
 		if($(element).find(".individual_cart_checkbox").is(":checked") === true) {
 			
 			// 총 가격
-			totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
+			totalPrice += parseInt($(element).find(".individual_p_price_input").val() * $(element).find(".individual_ci_number_input" + index).val());
 			// 총 개수
-			totalCount += parseInt($(element).find(".individual_ci_number_input").val());
+			totalCount += parseInt($(element).find(".individual_ci_number_input" + index).val());
 			
+			// 합계
+			$(".su_m" + index).text(($(element).find(".individual_p_price_input").val() * $(element).find(".individual_ci_number_input" + index).val()).toLocaleString());
 		}
 
 	});
@@ -250,7 +254,8 @@ function setTotalInfo(){
 	} else if(totalPrice == 0){
 		deliveryPrice = 0;
 	} else {
-		deliveryPrice = 3000;	
+		//deliveryPrice = 3000;	
+		deliveryPrice = 0;
 	}
 	
 	/* 최종 가격 */
@@ -265,6 +270,12 @@ function setTotalInfo(){
 	$(".delivery_price").text(deliveryPrice);	
 	// 최종 가격(총 가격 + 배송비)
 	$(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+	
+	console.log(totalPrice);
+	console.log(totalCount);
+	console.log(deliveryPrice);
+	console.log(finalTotalPrice);
+	
 	
 };
 
@@ -282,11 +293,10 @@ $(".minus_btn").on("click", function(){
 
 /* 수량 수정 버튼 */
 $(".quantity_modify_btn").on("click", function(){
-
+	let cho = $(this).parent().parent();
+	
 	let cartItem_id = $(this).data("name");
 	let ci_number 	= $(this).parent("td").find("input").val();
-	
-	console.log("하이");
 	
 	$(".update_cartItem_id").val(cartItem_id);
 	$(".update_ci_number").val(ci_number);
@@ -298,8 +308,10 @@ $(".quantity_modify_btn").on("click", function(){
 		dataType: "text",
 		data : formD,
 		success: function(data){
-			console.log(data);
 			if(data == 1){
+				console.log("확인" + $(cho).index());
+				$(".individual_ci_number_input" + $(cho).index()).val(ci_number);
+				setTotalInfo();
 				alert("상품 수량이 변경되었습니다.");
 			}else {
 				alert("변경 되지 않았습니다.");
@@ -345,36 +357,42 @@ $(".image_wrap").each(function(i, obj){
 
 /* 주문하기 클릭 */
 $("#jumun").on("click", function() {
+	let checkItem = $("input[role='cart_checkbox']:checked");
+	console.log(Number(checkItem.length));
+	
+	if(checkItem.length <= 0){
+		alert("상품을 선택해주세요");
+		return false;
+	}
+	
 	//post요청을 보낼 form 생성
     let newForm = document.createElement("form");
     newForm.setAttribute("method", "Post");
     newForm.setAttribute("action", "/orders/payment");
     newForm.setAttribute("enctype", "application/x-www-form-urlencoded");
-    $("input[role='cart_checkbox']:checked").each(function (index) {
-      let hiddenInputCartId = document.createElement("input");	// cartItem_id
-      let hiddenInputCount = document.createElement("input");	// ci_number
-      //카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
-      let cartItemId = $(this).val();	// cartItem_id
-      //가져온 카트 아이템 아이디로 개수와 사이즈를 가져옴
-      let itemCount = $("#resultQuantity_" + cartItemId).val();	// 개수
+    
+    $(checkItem).each(function (index) {
+    	let hiddenInputCartId = document.createElement("input");	// cartItem_id
+      	let hiddenInputFile_path = document.createElement("input");	// file_path
+      	let hiddenInputUUID = document.createElement("input");	// uuid
+      	
+      	//카트아이템을 인풋에 저장된 밸류를 통해서 가져옴
+      	let cartItemId = $(this).val();	// cartItem_id
+      	
+      	//가져온 카트 아이템 아이디로 파일 경로 가져옴
+      	let itemFile_path = $("#file_path" + cartItemId).val();	// file_path
+      	let itemUUID = $("#uuid" + cartItemId).val();	// file_path
+      	
 
-      //cartId를 cartItemVOList의 변수로 넘겨줌
-      hiddenInputCartId.setAttribute("type", "hidden");
-      hiddenInputCartId.setAttribute("name", "cartDTOList[" + index + "].cartItem_id");
-      hiddenInputCartId.setAttribute("value", cartItemId);
-      
-      newForm.append(hiddenInputCartId);
-      hiddenInputCount.setAttribute("type", "hidden");
-      hiddenInputCount.setAttribute(
-        "name",
-        "cartDTOList[" + index + "].ci_number"
-      );
-      hiddenInputCount.setAttribute("value", itemCount);
-      newForm.append(hiddenInputCount);
+      	//cartId를 cartItemVOList의 변수로 넘겨줌
+      	hiddenInputCartId.setAttribute("type", "hidden");
+      	hiddenInputCartId.setAttribute("name", "cartItemList[" + index + "].cartItem_id");
+      	hiddenInputCartId.setAttribute("value", cartItemId);
+      	newForm.append(hiddenInputCartId);
     });
+    
     document.body.append(newForm);
-    
-    
+ 
     newForm.submit();
 });
 

@@ -2,6 +2,7 @@ package com.daily.www.orders.dao;
 
 import java.util.List;
 
+import com.daily.www.cart.dto.CartDTO;
 import com.daily.www.common.util.Criteria;
 import com.daily.www.orders.dto.OrdersDTO;
 
@@ -21,4 +22,5 @@ public interface OrdersDAO {
 	
 	// 특정 회원에 해당하는 주문내역 조회 - paging
 	List<OrdersDTO> listTotalOrders(Criteria cri);
+
 }

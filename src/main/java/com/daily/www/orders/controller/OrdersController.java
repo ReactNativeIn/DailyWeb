@@ -1,6 +1,5 @@
 package com.daily.www.orders.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -41,12 +40,13 @@ public class OrdersController {
 	
 	// 장바구니에서 주문/결제 화면 이동
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
-	public String payment(HttpSession session, List<CartDTO> cartDTOList, Model model) {
+	public String payment(HttpSession session, CartDTO cartDTO, Model model) {
 		
-		System.out.println("장바구니에서 결제페이지 배열 가져오기 결과 => " + cartDTOList);
-		// model.addAttribute("product", cartList);
+		System.out.println("장바구니에서 결제페이지 배열 가져오기 결과 => " + ordersService.getSelectedCartItem(cartDTO));
 		
-		return "/member/payment";
+		model.addAttribute("product", ordersService.getSelectedCartItem(cartDTO));
+		
+		return "/member/paymentList";
 	}
 	
 	// 물품 상세정보에서 바로구매 눌렀을때
